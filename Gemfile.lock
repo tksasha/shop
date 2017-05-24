@@ -54,6 +54,8 @@ GEM
       activemodel-serializers-xml (~> 1.0)
       activesupport (~> 5.0)
       request_store (~> 1.0)
+    email_validator (1.6.0)
+      activemodel
     erubi (1.6.0)
     ffi (1.9.18)
     globalid (0.4.0)
@@ -171,6 +173,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   draper
+  email_validator
   listen
   puma
   rails

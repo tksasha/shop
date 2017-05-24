@@ -6,6 +6,7 @@ gem 'puma'
 gem 'sass-rails'
 gem 'bcrypt'
 gem 'draper'
+gem 'email_validator'
 
 group :development, :test do
   gem 'rspec-rails'
