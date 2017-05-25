@@ -8,13 +8,14 @@ RSpec.shared_examples :new do
   end
 end
 
-RSpec.shared_examples :new do
+RSpec.shared_examples :show do
   describe '#show' do
-    before { get :show }
+    before { get :show, params: { id: 1 } }
 
     it { should render_template :show }
   end
 end
+
 
 RSpec.shared_examples :create do
   describe '#create' do
@@ -22,16 +23,18 @@ RSpec.shared_examples :create do
 
     before { allow(subject).to receive(:resource).and_return(resource) }
 
-    before { post :create }
-
     context do
       before { expect(resource).to receive(:save).and_return(true) }
+
+      before { post :create, params: {} }
 
       it { success.call }
     end
 
     context do
       before { expect(resource).to receive(:save).and_return(false) }
+
+      before { post :create, params: {} }
 
       it { failure.call }
     end

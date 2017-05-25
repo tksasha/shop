@@ -4,7 +4,7 @@ RSpec.describe UsersController, type: :controller do
   it_behaves_like :new
 
   it_behaves_like :show do
-    before { expect(subject).to receive(:autorize_resource) }
+    before { expect(subject).to receive(:authorize_user) }
   end
 
   it_behaves_like :create do
@@ -12,6 +12,6 @@ RSpec.describe UsersController, type: :controller do
 
     let(:success) { -> { should redirect_to resource } }
 
-    let(:faliture) { -> { should render_template :new } }
+    let(:failure) { -> { should render_template :new } }
   end
 end
