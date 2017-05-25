@@ -1,7 +1,7 @@
 class Session
   include ActiveModel::Model
 
-  attr_reader :id
+  attr_reader :id, :email, :password
 
   VALIDATIONS_ERROR_MESSAGE = 'invalid email or password'
 
