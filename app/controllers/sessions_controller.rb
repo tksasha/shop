@@ -6,6 +6,10 @@ class SessionsController < ApplicationController
   end
 
   private
+  def resource
+    @resource ||= Session.new
+  end
+
   def resource_params
     params.require(:session).permit(:email, :password)
   end
