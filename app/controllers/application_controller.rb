@@ -1,11 +1,17 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   protect_from_forgery with: :exception
+
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   helper_method :collection, :resource, :current_user
 
   before_action :build_resource, only: :create
 
   before_action :initialize_resource, only: :new
+
+  before_action :authorize_resource, only: [:index, :show, :new, :create, :edit, :update, :destroy]
 
   def create
     if resource.save
@@ -78,5 +84,9 @@ class ApplicationController < ActionController::Base
 
   def build_resource
     @resource = resource_model.new resource_params
+  end
+
+  def authorize_resource
+    authorize resource
   end
 end
