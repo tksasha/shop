@@ -7,6 +7,10 @@ gem 'sass-rails'
 gem 'bcrypt'
 gem 'draper'
 gem 'email_validator'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'jquery-rails'
+gem 'simple_form'
+gem 'pundit'
 
 group :development, :test do
   gem 'rspec-rails'
