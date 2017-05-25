@@ -8,6 +8,14 @@ RSpec.shared_examples :new do
   end
 end
 
+RSpec.shared_examples :new do
+  describe '#show' do
+    before { get :show }
+
+    it { should render_template :show }
+  end
+end
+
 RSpec.shared_examples :create do
   describe '#create' do
     before { expect(subject).to receive(:build_resource) }
