@@ -4,7 +4,13 @@ describe ProfilePolicy do
   subject { described_class }
 
   permissions :new?, :create? do
-    it { expect(subject).to permit(nil, Profile.new(email: 'one@digits.com', password: 'password', password_confirmation: 'password')) }
+    context do
+      it { expect(subject).to permit(nil, Profile.new(email: 'one@digits.com', password: 'password', password_confirmation: 'password')) }
+    end
+
+    context do
+      it { expect(subject).not_to permit(Profile.new(id: 1), Profile.new(email: 'one@digits.com', password: 'password', password_confirmation: 'password')) }
+    end
   end
 
   permissions :show? do
