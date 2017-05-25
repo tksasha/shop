@@ -5,7 +5,7 @@ class ProfilesController < ApplicationController
 
   private
   def resource_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:profile).permit(:email, :password, :password_confirmation)
   end
 
   def login_user

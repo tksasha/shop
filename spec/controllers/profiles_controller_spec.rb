@@ -3,12 +3,12 @@ require 'rails_helper'
 RSpec.describe ProfilesController, type: :controller do
   describe '#resource_params' do
     let(:params) do
-      { user: { email: 'one@digits.com', password: 'password', password_confirmation: 'password' } }
+      { profile: { email: 'one@digits.com', password: 'password', password_confirmation: 'password' } }
     end
 
     before { expect(subject).to receive(:params).and_return(acp params) }
 
-    its(:resource_params) { should eq permit! params[:user] }
+    its(:resource_params) { should eq permit! params[:profile] }
   end
 
   it_behaves_like :new
