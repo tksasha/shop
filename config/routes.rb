@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  resource :profile, only: [:new, :create, :show]
+  resources :profiles, only: [:new, :create, :show]
 end
