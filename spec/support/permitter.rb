@@ -3,9 +3,7 @@ module Permitter
     ActionController::Parameters.new params
   end
 
-  def permit params
+  def permit! params
     acp(params).permit!
   end
-
-  alias :permit! :permit
 end
