@@ -1,16 +1,19 @@
 class Session
   include ActiveModel::Model
 
+  attr_reader :id
+
   VALIDATIONS_ERROR_MESSAGE = 'invalid email or password'
 
   validate :user_must_exist, :password_must_pass_authentication
 
   delegate :id, to: :user, prefix: true
 
-  def initialize params
-    @email = params[:email]
-
-    @password = params[:password]
+  def initialize params = nil
+    if params.present?
+      @email = params[:email]
+      @password = params[:password]
+    end
   end
 
   def save
@@ -25,7 +28,7 @@ class Session
 
   private
   def user
-    @user ||= Profile.find_by email: @email
+    @user ||= Profile.find_by email: @email if @email.present?
   end
 
   def user_must_exist
