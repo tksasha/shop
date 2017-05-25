@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class ProfilesController < ApplicationController
   before_action :authorize_user, only: :show
 
   after_action :login_user, only: :create

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe UsersController, type: :controller do
+RSpec.describe ProfilesController, type: :controller do
   describe '#resource_params' do
     let(:params) do
       { user: { email: 'one@digits.com', password: 'password', password_confirmation: 'password' } }
@@ -18,7 +18,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   it_behaves_like :create do
-    let(:resource) { stub_model User }
+    let(:resource) { stub_model Profile }
 
     before { expect(subject).to receive(:login_user) }
 
