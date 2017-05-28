@@ -1,5 +1,5 @@
 class ProfilesController < ApplicationController
-  before_action :authorize_user, only: :show
+  skip_before_action :authenticate_user, only: [:new, :create]
 
   after_action :login_user, only: :create
 

@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
 
   before_action :initialize_resource, only: :new
 
-  before_action :authorize_resource, only: [:index, :show, :new, :create, :edit, :update, :destroy]
+  before_action :authorize_resource
+
+  before_action :authenticate_user
 
   def create
     if resource.save
@@ -40,7 +42,7 @@ class ApplicationController < ActionController::Base
     @current_user ||= Profile.find(session[:user_id]) if session[:user_id]
   end
 
-  def authorize_user
+  def authenticate_user
     user_not_authorized unless current_user
   end
 
