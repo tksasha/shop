@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def create
     if resource.save
-      redirect_to resource
+      create_redirect
     else
       render :new
     end
@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def update
     if resource.update resource_params
-      redirect_to resource
+      update_redirect
     else
       render :edit
     end
@@ -88,5 +88,13 @@ class ApplicationController < ActionController::Base
 
   def authorize_resource
     authorize resource
+  end
+
+  def create_redirect
+    redirect_to resource
+  end
+
+  def update_redirect
+    redirect_to resource
   end
 end
