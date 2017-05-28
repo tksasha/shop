@@ -4,6 +4,6 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-    user.id == resource.id
+    user.present? && user.id == resource.id
   end
 end
