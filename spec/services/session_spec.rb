@@ -19,7 +19,7 @@ RSpec.describe Session, type: :model do
 
       it { should_not be_valid }
 
-      it { expect(subject.errors[:email]).to eq ['invalid email or password'] }
+      it { expect(subject.errors[:email]).to eq [I18n.t('session.error.validation')] }
     end
 
     context do
@@ -31,7 +31,7 @@ RSpec.describe Session, type: :model do
 
       before { subject.valid? }
 
-      it { expect(subject.errors[:password]).to eq ['invalid email or password'] }
+      it { expect(subject.errors[:password]).to eq [I18n.t('session.error.validation')] }
     end
 
     context do
