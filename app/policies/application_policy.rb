@@ -3,19 +3,20 @@ class ApplicationPolicy
 
   def initialize(user, resource)
     @user = user
+
     @resource = resource
   end
 
   def index?
-    true
+    false
   end
 
   def show?
-    true
+    false
   end
 
   def new?
-    true
+    false
   end
 
   def create?
@@ -23,7 +24,7 @@ class ApplicationPolicy
   end
 
   def edit?
-    true
+    false
   end
 
   def update?
@@ -31,6 +32,6 @@ class ApplicationPolicy
   end
 
   def destroy?
-    true
+    false
   end
 end
