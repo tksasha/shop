@@ -25,7 +25,7 @@ class Session
 
   private
   def user
-    @user ||= Profile.find_by email: @email
+    @user ||= User.find_by email: @email
   end
 
   def user_must_exist

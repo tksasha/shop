@@ -1,4 +1,4 @@
-class ProfilePolicy < ApplicationPolicy
+class UserPolicy < ApplicationPolicy
   def new?
     !user.present?
   end

@@ -6,14 +6,14 @@ RSpec.describe Session, type: :model do
   it { should delegate_method(:user_id).to(:user).as(:id) }
 
   describe '#user' do
-    before { expect(Profile).to receive(:find_by).with(email: 'one@digits.com').and_return(:user) }
+    before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(:user) }
 
     its(:user) { should eq :user }
   end
 
   describe '#valid?' do
     context do
-      before { allow(Profile).to receive(:find_by).with(email: 'one@digits.com').and_return(nil) }
+      before { allow(User).to receive(:find_by).with(email: 'one@digits.com').and_return(nil) }
 
       before { subject.valid? }
 
@@ -25,7 +25,7 @@ RSpec.describe Session, type: :model do
     context do
       let(:user) { double }
 
-      before { expect(Profile).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
       before { expect(user).to receive(:authenticate).with('password').and_return(false) }
 
@@ -37,7 +37,7 @@ RSpec.describe Session, type: :model do
     context do
       let(:user) { double }
 
-      before { expect(Profile).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
       before { expect(user).to receive(:authenticate).with('password').and_return(true) }
 
