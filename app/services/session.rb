@@ -1,8 +1,6 @@
 class Session
   include ActiveModel::Model
 
-  VALIDATIONS_ERROR_MESSAGE = 'invalid email or password'
-
   validate :user_must_exist, :password_must_pass_authentication
 
   delegate :id, to: :user, prefix: true
@@ -29,10 +27,10 @@ class Session
   end
 
   def user_must_exist
-    errors.add :email, VALIDATIONS_ERROR_MESSAGE unless user.present?
+    errors.add :email, I18n.t('session.error.validation') unless user.present?
   end
 
   def password_must_pass_authentication
-    errors.add :password, VALIDATIONS_ERROR_MESSAGE unless user.present? && user.authenticate(@password)
+    errors.add :password, I18n.t('session.error.validation') unless user.present? && user.authenticate(@password)
   end
 end
