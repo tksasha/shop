@@ -89,7 +89,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_resource
-    authorize resource
+    authorize (resource || resource_model)
   end
 
   def create_redirect

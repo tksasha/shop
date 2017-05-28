@@ -7,7 +7,7 @@ describe UserPolicy do
     context do
       let(:user) { nil }
 
-      let(:resource) { User.new }
+      let(:resource) { nil }
 
       it { should permit user, resource }
     end
