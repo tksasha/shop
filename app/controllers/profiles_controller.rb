@@ -8,11 +8,19 @@ class ProfilesController < ApplicationController
     session[:user_id] = resource.id unless resource.new_record?
   end
 
+  def resource
+    @resource ||= current_user
+  end
+
   def resource_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
 
   def resource_model
     User
+  end
+
+  def create_redirect
+    redirect_to :profile
   end
 end

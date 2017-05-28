@@ -18,11 +18,11 @@ RSpec.describe ProfilesController, type: :controller do
   end
 
   it_behaves_like :create do
-    let(:resource) { stub_model User }
+    let(:resource) { double }
 
     before { expect(subject).to receive(:login_user) }
 
-    let(:success) { -> { should redirect_to resource } }
+    let(:success) { -> { should redirect_to :profile } }
 
     let(:failure) { -> { should render_template :new } }
   end
