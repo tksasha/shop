@@ -7,13 +7,13 @@ class ApplicationController < ActionController::Base
 
   helper_method :collection, :resource, :current_user
 
-  before_action :build_resource, only: :create
-
-  before_action :initialize_resource, only: :new
+  before_action :authenticate_user
 
   before_action :authorize_resource
 
-  before_action :authenticate_user
+  before_action :build_resource, only: :create
+
+  before_action :initialize_resource, only: :new
 
   def create
     if resource.save
