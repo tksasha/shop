@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
     User
   end
 
-  def create_redirect
+  def create_success_callback
     redirect_to :profile
   end
 end

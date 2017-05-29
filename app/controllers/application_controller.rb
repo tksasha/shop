@@ -17,24 +17,24 @@ class ApplicationController < ActionController::Base
 
   def create
     if resource.save
-      create_redirect
+      create_success_callback
     else
-      render :new
+      create_failure_callback
     end
   end
 
   def update
     if resource.update resource_params
-      update_redirect
+      update_success_callback
     else
-      render :edit
+      update_failure_callback
     end
   end
 
   def destroy
     resource.destroy
 
-    redirect_to :root
+    destroy_callback
   end
 
   private
@@ -89,14 +89,26 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_resource
-    authorize (resource || resource_model)
+    authorize(resource || resource_model)
   end
 
-  def create_redirect
+  def create_success_callback
     redirect_to resource
   end
 
-  def update_redirect
+  def create_failure_callback
+    render :new
+  end
+
+  def update_success_callback
+    redirect_to resource
+  end
+
+  def update_failure_callback
+    render :edit
+  end
+
+  def destroy_callback
     redirect_to resource
   end
 end
