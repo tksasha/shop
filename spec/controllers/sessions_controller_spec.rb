@@ -11,7 +11,29 @@ RSpec.describe SessionsController, type: :controller do
     its(:resource_params) { should eq permit! params[:session] }
   end
 
-  it_behaves_like :login_user
+  describe '#login_user' do
+    let (:resource) { double }
+
+    before { allow(subject).to receive(:resource).and_return(resource) }
+
+    context do
+      before { expect(resource).to receive(:persisted?).and_return(true) }
+
+      before { expect(resource).to receive(:user_id).and_return(1) }
+
+      after { expect(subject.session[:user_id]).to eq 1 }
+
+      its(:login_user) { should eq 1 }
+    end
+
+    context do
+      before { expect(resource).to receive(:persisted?).and_return(false) }
+
+      after { expect(subject.session[:user_id]).to eq nil }
+
+      its(:login_user) { should eq nil }
+    end
+  end
 
   it_behaves_like :new
 
