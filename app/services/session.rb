@@ -5,7 +5,9 @@ class Session
 
   delegate :id, to: :user, prefix: true
 
-  def initialize params
+  attr_reader :id, :email, :password
+
+  def initialize params = {}
     @email = params[:email]
 
     @password = params[:password]
