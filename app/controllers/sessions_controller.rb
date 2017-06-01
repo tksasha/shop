@@ -3,6 +3,8 @@ class SessionsController < ApplicationController
 
   after_action :login_user, only: :create
 
+  after_action :logout_user, only: :destroy
+
   private
   def resource
     @resource ||= Session.new
@@ -14,6 +16,10 @@ class SessionsController < ApplicationController
 
   def login_user
     session[:user_id] = resource.user_id if resource.persisted?
+  end
+
+  def logout_user
+    session[:user_id] = nil if resource.destroyed?
   end
 
   def create_success_callback
