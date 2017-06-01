@@ -22,7 +22,6 @@ end
 
 RSpec.shared_examples :create do
   describe '#create' do
-
     before { expect(subject).to receive(:build_resource) }
 
     before { allow(subject).to receive(:resource).and_return(resource) }
@@ -44,5 +43,23 @@ RSpec.shared_examples :create do
 
       it { failure.call }
     end
+  end
+end
+
+RSpec.shared_examples :destroy do
+  describe '#destroy' do
+    let(:resource) { double }
+
+    before { expect(subject).to receive(:authenticate_user) }
+
+    before { expect(subject).to receive(:authorize_resource) }
+
+    before { expect(subject).to receive(:resource).and_return(resource) }
+
+    before { expect(resource).to receive(:destroy) }
+
+    before { delete :destroy, params: { id: 1 }, format: @format }
+
+    it { success.call }
   end
 end
