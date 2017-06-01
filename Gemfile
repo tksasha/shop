@@ -11,6 +11,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'simple_form'
 gem 'pundit'
+gem 'bitmask_attributes'
 
 group :development, :test do
   gem 'rspec-rails'

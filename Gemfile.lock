@@ -47,6 +47,8 @@ GEM
     autoprefixer-rails (7.1.1)
       execjs
     bcrypt (3.1.11)
+    bitmask_attributes (1.0.0)
+      activerecord (>= 3.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
@@ -187,6 +189,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt
+  bitmask_attributes
   bootstrap-sass (~> 3.3.6)
   draper
   email_validator
