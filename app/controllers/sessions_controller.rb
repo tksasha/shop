@@ -27,6 +27,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy_callback
-    redirect_to [:new, :profile]
+    redirect_to [:new, :session]
   end
 end

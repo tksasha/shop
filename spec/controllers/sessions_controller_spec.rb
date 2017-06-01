@@ -76,6 +76,6 @@ RSpec.describe SessionsController, type: :controller do
   it_behaves_like :destroy do
     before { expect(subject).to receive(:logout_user) }
 
-    let(:success) { -> { should redirect_to [:new, :profile] } }
+    let(:success) { -> { should redirect_to [:new, :session] } }
   end
 end
