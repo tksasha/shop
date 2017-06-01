@@ -46,4 +46,8 @@ RSpec.describe SessionsController, type: :controller do
 
     let(:failure) { -> { should render_template :new } }
   end
+
+  it_behaves_like :destroy do
+    let(:success) { -> { should redirect_to [:new, :profile] } }
+  end
 end

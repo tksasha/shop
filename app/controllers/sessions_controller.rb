@@ -19,4 +19,8 @@ class SessionsController < ApplicationController
   def create_success_callback
     redirect_to :profile
   end
+
+  def destroy_callback
+    redirect_to [:new, :profile]
+  end
 end
