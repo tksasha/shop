@@ -1,0 +1,22 @@
+<div class="container">
+  <table class="table table-bordered">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Categories</th>
+    </tr>
+
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= product.id %></td>
+        <td><%= product.name %></td>
+        <td>
+	 <% product.categories.each do |category| %>
+	  <%= category.name %>
+	  <br>
+	 <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

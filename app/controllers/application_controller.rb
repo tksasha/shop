@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 
   helper_method :collection, :resource, :current_user
 
-  before_action :authenticate_user
+  #before_action :authenticate_user
 
-  before_action :authorize_resource
+  #before_action :authorize_resource
 
   before_action :build_resource, only: :create
 
