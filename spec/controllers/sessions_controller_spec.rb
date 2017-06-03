@@ -35,9 +35,13 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  it_behaves_like :new
+  it_behaves_like :new do
+    before { @skip_authenticate_user = true }
+  end
 
   it_behaves_like :create do
+    before { @skip_authenticate_user = true }
+
     let(:resource) { double }
 
     before { expect(subject).to receive(:login_user) }
