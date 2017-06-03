@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
   end
 
   def resource
-    @resource ||= resource_model.find params[:id]
+    @resource ||= resource_model.find params[:id] if params[:id]
   end
 
   def initialize_resource
