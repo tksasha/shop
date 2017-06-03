@@ -1,13 +1,26 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Shop</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Shop</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+</head>
+<body>
+  <% if current_user.present? %>
+    <div class="container">
+      <%= render 'widgets/header' %>
 
-  <body>
+      <div class="jumbotron">
+        <%= yield %>
+      </div>
+    </div>
+  <% else %>
+  <div class="container">
     <%= yield %>
-  </body>
+  </div>
+  <% end %>
+
+  <%= javascript_include_tag :application %>
+</body>
 </html>

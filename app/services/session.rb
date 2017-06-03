@@ -21,7 +21,13 @@ class Session
     !!@persisted
   end
 
-  def destroy; end
+  def destroy
+    @destroyed = true
+  end
+
+  def destroyed?
+    !!@destroyed
+  end
 
   private
   def user

@@ -35,6 +35,32 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
+  describe '#logout_user' do
+    let (:resource) { double }
+
+    before { expect(subject).to receive(:resource).and_return(resource) }
+
+    context do
+      before { subject.session[:user_id] = 1 }
+
+      before { expect(resource).to receive(:destroyed?).and_return(true) }
+
+      before { subject.send(:logout_user) }
+
+      it { expect(subject.session[:user_id]).to eq nil }
+    end
+
+    context do
+      before { subject.session[:user_id] = 1 }
+
+      before { expect(resource).to receive(:destroyed?).and_return(false) }
+
+      before { subject.send(:logout_user) }
+
+      it { expect(subject.session[:user_id]).to eq 1 }
+    end
+  end
+
   it_behaves_like :new do
     before { @skip_authenticate_user = true }
   end
@@ -49,5 +75,11 @@ RSpec.describe SessionsController, type: :controller do
     let(:success) { -> { should redirect_to :profile } }
 
     let(:failure) { -> { should render_template :new } }
+  end
+
+  it_behaves_like :destroy do
+    before { expect(subject).to receive(:logout_user) }
+
+    let(:success) { -> { should redirect_to [:new, :session] } }
   end
 end

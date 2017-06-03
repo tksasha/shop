@@ -71,3 +71,21 @@ RSpec.shared_examples :index do
     it { should render_template :index }
   end
 end
+
+RSpec.shared_examples :destroy do
+  describe '#destroy' do
+    let(:resource) { double }
+
+    before { expect(subject).to receive(:authenticate_user) }
+
+    before { expect(subject).to receive(:authorize_resource) }
+
+    before { expect(subject).to receive(:resource).and_return(resource) }
+
+    before { expect(resource).to receive(:destroy) }
+
+    before { delete :destroy, params: { id: 1 }, format: @format }
+
+    it { success.call }
+  end
+end
