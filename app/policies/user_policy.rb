@@ -7,6 +7,10 @@ class UserPolicy < ApplicationPolicy
     !user.present?
   end
 
+  def edit?
+    user.present? && user.roles?(:admin)
+  end
+
   def show?
     user.present? && user.id == resource.id
   end
