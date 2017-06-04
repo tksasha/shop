@@ -58,6 +58,50 @@ RSpec.shared_examples :create do
   end
 end
 
+RSpec.shared_examples :edit do
+  describe '#edit' do
+    before { @skip_authenticate_user ||= false }
+
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+
+    before { expect(subject).to receive(:authorize_resource) }
+    
+    before { get :edit, params: { id: 1 } }
+
+    it { should render_template :edit }
+  end
+end
+
+RSpec.shared_examples :update do
+  describe '#update' do
+    before { @skip_authenticate_user ||= false }
+
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+
+    before { expect(subject).to receive(:authorize_resource) }
+
+    before { expect(subject).to receive(:resource_params).and_return(:resource_params) }
+
+    before { allow(subject).to receive(:resource).and_return(resource) }
+
+    context do
+      before { expect(resource).to receive(:update).with(:resource_params).and_return(true) }
+
+      before { patch :update, params: { id: 1 } }
+
+      it { success.call }
+    end
+
+    context do
+      before { expect(resource).to receive(:update).with(:resource_params).and_return(false) }
+
+      before { patch :update, params: { id: 1 } }
+
+      it { failure.call }
+    end
+  end
+end
+
 RSpec.shared_examples :index do
   describe '#index' do
     before { @skip_authenticate_user ||= false }
