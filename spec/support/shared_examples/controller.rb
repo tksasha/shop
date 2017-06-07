@@ -65,7 +65,7 @@ RSpec.shared_examples :edit do
     before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { expect(subject).to receive(:authorize_resource) }
-    
+
     before { get :edit, params: { id: 1 } }
 
     it { should render_template :edit }
