@@ -1,22 +1,12 @@
-<div class="container">
-  <table class="table table-bordered">
+<table class="table">
+  <thead>
     <tr>
-      <th>ID</th>
       <th>Name</th>
       <th>Categories</th>
+      <th></th>
     </tr>
-
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.id %></td>
-        <td><%= product.name %></td>
-        <td>
-	 <% product.categories.each do |category| %>
-	  <%= category.name %>
-	  <br>
-	 <% end %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+  </thead>
+  <tbody>
+    <%= render collection %>
+  </tbody>
+</table>

@@ -46,3 +46,17 @@ RSpec.shared_examples :create do
     end
   end
 end
+
+RSpec.shared_examples :index do
+  describe '#index' do
+    before { @skip_authenticate_user ||= false }
+
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+
+    before { expect(subject).to receive(:authorize_resource) }
+
+    before { get :index }
+
+    it { should render_template :index }
+  end
+end
