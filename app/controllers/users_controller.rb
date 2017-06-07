@@ -7,4 +7,8 @@ class UsersController < ApplicationController
   def update_success_callback
     redirect_to :users
   end
+
+  def build_resource
+    @resource = UserFactory.build resource_params
+  end
 end
