@@ -25,7 +25,7 @@ describe UserSessionPolicy do
     context do
       let(:user) { nil }
 
-      before { expect(resource).to receive(:user_blocked).and_return(false) }
+      before { expect(resource).to receive(:user_blocked?).and_return(false) }
 
       it { should permit user, resource }
     end
@@ -33,7 +33,7 @@ describe UserSessionPolicy do
     context do
       let(:user) { nil }
 
-      before { expect(resource).to receive(:user_blocked).and_return(true) }
+      before { expect(resource).to receive(:user_blocked?).and_return(true) }
 
       it { should_not permit user, resource }
     end
