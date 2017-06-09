@@ -41,7 +41,7 @@ RSpec.shared_examples :create do |params|
     context do
       before { expect(resource).to receive(:save).and_return(true) }
 
-      before { post :create, params: {} }
+      before { post :create, params: (params && params[:params]) || {} } # to instance variable
 
       it { success.call }
     end
@@ -49,7 +49,7 @@ RSpec.shared_examples :create do |params|
     context do
       before { expect(resource).to receive(:save).and_return(false) }
 
-      before { post :create, params: {} }
+      before { post :create, params: (params && params[:params]) || {} }
 
       it { failure.call }
     end

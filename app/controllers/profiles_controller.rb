@@ -12,6 +12,10 @@ class ProfilesController < ApplicationController
     @resource ||= current_user
   end
 
+  def build_resource
+    @resource = UserFactory.build resource_params
+  end
+
   def resource_params
     params.require(:user).permit(:email, :password, :password_confirmation)
   end
