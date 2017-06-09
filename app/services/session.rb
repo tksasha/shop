@@ -1,11 +1,9 @@
 class Session
   include ActiveModel::Model
 
-  validate :user_must_exist, :password_must_pass_authentication
+  validate :user_must_exist, :password_must_pass_authentication, :auth_token_must_be_present
 
-  delegate :id, to: :user, prefix: true
-
-  attr_reader :id, :email, :password
+  attr_reader :id, :email, :password, :auth_token
 
   def initialize params = {}
     @email = params[:email]
@@ -44,5 +42,17 @@ class Session
 
   def password_must_pass_authentication
     errors.add :password, I18n.t('session.error.validation') unless user.present? && user.authenticate(@password)
+  end
+
+  def auth_token_must_be_present
+    if user.present? && !errors.has_key?(:password)
+      token = user.auth_tokens.build(value: SecureRandom.uuid)
+
+      if token.save
+        @auth_token = token.value
+      else
+        errors.add :auth_token, I18n.t('errors.messages.blank')
+      end
+    end
   end
 end

@@ -19,9 +19,9 @@ RSpec.describe SessionsController, type: :controller do
     context do
       before { expect(resource).to receive(:persisted?).and_return(true) }
 
-      before { expect(resource).to receive(:user_id).and_return(1) }
+      before { expect(resource).to receive(:auth_token).and_return(1) }
 
-      after { expect(subject.session[:user_id]).to eq 1 }
+      after { expect(subject.session[:auth_token]).to eq 1 }
 
       its(:login_user) { should eq 1 }
     end
@@ -29,7 +29,7 @@ RSpec.describe SessionsController, type: :controller do
     context do
       before { expect(resource).to receive(:persisted?).and_return(false) }
 
-      after { expect(subject.session[:user_id]).to eq nil }
+      after { expect(subject.session[:auth_token]).to eq nil }
 
       its(:login_user) { should eq nil }
     end
@@ -41,23 +41,23 @@ RSpec.describe SessionsController, type: :controller do
     before { expect(subject).to receive(:resource).and_return(resource) }
 
     context do
-      before { subject.session[:user_id] = 1 }
+      before { subject.session[:auth_token] = 1 }
 
       before { expect(resource).to receive(:destroyed?).and_return(true) }
 
       before { subject.send(:logout_user) }
 
-      it { expect(subject.session[:user_id]).to eq nil }
+      it { expect(subject.session[:auth_token]).to eq nil }
     end
 
     context do
-      before { subject.session[:user_id] = 1 }
+      before { subject.session[:auth_token] = 1 }
 
       before { expect(resource).to receive(:destroyed?).and_return(false) }
 
       before { subject.send(:logout_user) }
 
-      it { expect(subject.session[:user_id]).to eq 1 }
+      it { expect(subject.session[:auth_token]).to eq 1 }
     end
   end
 

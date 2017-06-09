@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
 
   private
   def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+    @current_user ||= User.joins(:auth_tokens).where(auth_tokens: { value: session[:auth_token] }).first
   end
 
   def authenticate_user

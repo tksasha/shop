@@ -8,4 +8,6 @@ class User < ApplicationRecord
   validates :blocked, inclusion: { in: [true, false] }
 
   has_secure_password
+
+  has_many :auth_tokens
 end

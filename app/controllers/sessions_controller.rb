@@ -15,11 +15,11 @@ class SessionsController < ApplicationController
   end
 
   def login_user
-    session[:user_id] = resource.user_id if resource.persisted?
+    session[:auth_token] = resource.auth_token if resource.persisted?
   end
 
   def logout_user
-    session[:user_id] = nil if resource.destroyed?
+    session[:auth_token] = nil if resource.destroyed?
   end
 
   def create_success_callback
