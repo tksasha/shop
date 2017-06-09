@@ -66,4 +66,32 @@ RSpec.describe UserSession, type: :model do
   describe '#destroy' do
     it { expect { subject.destroy }.to_not raise_error }
   end
+
+  describe '#user_blocked?' do
+    context do
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(nil) }
+
+      its(:user_blocked?) { should eq false }
+    end
+
+    context do
+      let(:user) { double }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+
+      before { expect(user).to receive(:blocked).and_return(false) }
+
+      its(:user_blocked?) { should eq false }
+    end
+
+    context do
+      let(:user) { double }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+
+      before { expect(user).to receive(:blocked).and_return(true) }
+
+      its(:user_blocked?) { should eq true }
+    end
+  end
 end
