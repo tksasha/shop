@@ -1,4 +1,4 @@
-class UserSessionsController < ApplicationController
+class SessionsController < ApplicationController
   skip_before_action :authenticate_user, only: [:new, :create]
 
   after_action :login_user, only: :create
@@ -7,11 +7,11 @@ class UserSessionsController < ApplicationController
 
   private
   def resource
-    @resource ||= UserSession.new
+    @resource ||= Session.new
   end
 
   def resource_params
-    params.require(:user_session).permit(:email, :password)
+    params.require(:session).permit(:email, :password)
   end
 
   def login_user
@@ -27,6 +27,6 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy_callback
-    redirect_to [:new, :user_session]
+    redirect_to [:new, :session]
   end
 end

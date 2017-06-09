@@ -1,4 +1,4 @@
-class UserSession
+class Session
   include ActiveModel::Model
 
   validate :user_must_exist, :password_must_pass_authentication
@@ -29,20 +29,16 @@ class UserSession
     !!@destroyed
   end
 
-  def user_blocked?
-    user&.blocked
-  end
-
   private
   def user
     @user ||= User.find_by email: @email
   end
 
   def user_must_exist
-    errors.add :email, I18n.t('user_session.error.validation') unless user.present?
+    errors.add :email, I18n.t('session.error.validation') unless user.present?
   end
 
   def password_must_pass_authentication
-    errors.add :password, I18n.t('user_session.error.validation') unless user.present? && user.authenticate(@password)
+    errors.add :password, I18n.t('session.error.validation') unless user.present? && user.authenticate(@password)
   end
 end

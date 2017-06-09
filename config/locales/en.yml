@@ -1,5 +1,5 @@
 en:
-  user_session:
+  session:
     error:
       validation: 'invalid email or password'
   :true: 'True'

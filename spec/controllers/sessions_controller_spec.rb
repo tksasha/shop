@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe UserSessionsController, type: :controller do
+RSpec.describe SessionsController, type: :controller do
   describe '#resource_params' do
     let(:params) do
-      { user_session: { email: 'one@digits.com', password: 'password' } }
+      { session: { email: 'one@digits.com', password: 'password' } }
     end
 
     before { expect(subject).to receive(:params).and_return(acp params) }
 
-    its(:resource_params) { should eq permit! params[:user_session] }
+    its(:resource_params) { should eq permit! params[:session] }
   end
 
   describe '#login_user' do
@@ -77,6 +77,6 @@ RSpec.describe UserSessionsController, type: :controller do
   it_behaves_like :destroy do
     before { expect(subject).to receive(:logout_user) }
 
-    let(:success) { -> { should redirect_to [:new, :user_session] } }
+    let(:success) { -> { should redirect_to [:new, :session] } }
   end
 end
