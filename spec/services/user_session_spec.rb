@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Session, type: :model do
+RSpec.describe UserSession, type: :model do
   subject { described_class.new email: 'one@digits.com', password: 'password' }
 
   it { should delegate_method(:user_id).to(:user).as(:id) }
@@ -19,7 +19,7 @@ RSpec.describe Session, type: :model do
 
       it { should_not be_valid }
 
-      it { expect(subject.errors[:email]).to eq [I18n.t('session.error.validation')] }
+      it { expect(subject.errors[:email]).to eq [I18n.t('user_session.error.validation')] }
     end
 
     context do
@@ -31,7 +31,7 @@ RSpec.describe Session, type: :model do
 
       before { subject.valid? }
 
-      it { expect(subject.errors[:password]).to eq [I18n.t('session.error.validation')] }
+      it { expect(subject.errors[:password]).to eq [I18n.t('user_session.error.validation')] }
     end
 
     context do

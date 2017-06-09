@@ -1,4 +1,4 @@
 en:
-  session:
+  user_session:
     error:
       validation: 'invalid email or password'
