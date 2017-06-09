@@ -1,7 +1,5 @@
 RSpec.shared_examples :new do |params|
   describe '#new' do
-    before { @skip_authenticate_user ||= false }
-
     before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
 
     before { expect(subject).to receive(:initialize_resource) }
@@ -18,8 +16,6 @@ end
 
 RSpec.shared_examples :show do |params|
   describe '#show' do
-    before { @skip_authenticate_user ||= false }
-
     before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
 
     before { expect(subject).to receive(:resource).and_return(:resource) }
@@ -34,8 +30,6 @@ end
 
 RSpec.shared_examples :create do |params|
   describe '#create' do
-    before { @skip_authenticate_user ||= false }
-
     before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
 
     before { expect(subject).to receive(:build_resource) }
@@ -64,8 +58,6 @@ end
 
 RSpec.shared_examples :edit do |params|
   describe '#edit' do
-    before { @skip_authenticate_user ||= false }
-
     before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
 
     before { expect(subject).to receive(:resource).and_return(:resource) }
@@ -80,8 +72,6 @@ end
 
 RSpec.shared_examples :update do |params|
   describe '#update' do
-    before { @skip_authenticate_user ||= false }
-
     before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
 
     before { allow(subject).to receive(:resource).and_return(resource) }
@@ -110,8 +100,6 @@ end
 
 RSpec.shared_examples :index do |params|
   describe '#index' do
-    before { @skip_authenticate_user ||= false }
-
     before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
 
     before { expect(subject).to receive(:collection).and_return(:collection) }
@@ -125,8 +113,6 @@ RSpec.shared_examples :index do |params|
 end
 
 RSpec.shared_examples :destroy do |params|
- 
-
   describe '#destroy' do
     let(:resource) { double }
 
