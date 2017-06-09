@@ -4,7 +4,7 @@ class UserFactory
   end
 
   def build
-    User.new @params.merge(role: :user)
+    User.new @params.merge(role: :user, blocked: false)
   end
 
   class << self

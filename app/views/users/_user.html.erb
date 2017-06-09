@@ -2,4 +2,5 @@
   <td><%= user.email %></td>
   <td><%= user.roles %></td>
   <td><%= link_to 'edit', [:edit, user], class: 'btn btn-link btn-xs' %></td>
+  <td><%= link_to 'block', [user, :block], class: 'btn btn-link btn-xs', method: :post %></td>
 </tr>

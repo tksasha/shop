@@ -1,6 +1,6 @@
 class SessionPolicy < ApplicationPolicy
   def new?
-    !user.present?
+    !user.present? && !resource.blocked
   end
 
   def destroy?

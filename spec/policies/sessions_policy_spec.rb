@@ -7,9 +7,17 @@ describe SessionPolicy do
     context do
       let(:user) { nil }
 
-      let(:resource) { double }
+      let(:resource) { User.new blocked: false }
 
       it { should permit user, resource }
+    end
+
+    context do
+      let(:user) { nil }
+
+      let(:resource) { User.new blocked: true }
+
+      it { should_not permit user, resource }
     end
 
     context do

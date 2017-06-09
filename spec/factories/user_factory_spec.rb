@@ -4,7 +4,7 @@ RSpec.describe UserFactory do
   subject { described_class.new email: 'one@digits.com', password: 'password' }
 
   describe '#build' do
-    before { expect(User).to receive(:new).with(email: 'one@digits.com', password: 'password', role: :user).and_return(:resource) }
+    before { expect(User).to receive(:new).with(email: 'one@digits.com', password: 'password', role: :user, blocked: false).and_return(:resource) }
 
     its(:build) { should eq :resource }
   end
