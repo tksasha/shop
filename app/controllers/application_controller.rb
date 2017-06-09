@@ -3,7 +3,10 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
-  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+  rescue_from Pundit::NotAuthorizedError do
+    render 'errors/forbidden', status: :forbidden
+    return
+  end
 
   helper_method :collection, :resource, :current_user
 
@@ -45,12 +48,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    user_not_authorized unless current_user
-  end
-
-  def user_not_authorized
-    render 'errors/forbidden', status: :forbidden
-    return
+    redirect_to [:new, :session] unless current_user
   end
 
   #
