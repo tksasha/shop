@@ -12,7 +12,6 @@ gem 'jquery-rails'
 gem 'simple_form'
 gem 'pundit'
 gem 'bitmask_attributes'
-gem 'activerecord-session_store'
 
 group :development, :test do
   gem 'rspec-rails'
