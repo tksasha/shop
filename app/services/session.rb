@@ -29,6 +29,10 @@ class Session
     !!@destroyed
   end
 
+  def user_blocked?
+    !!user&.blocked
+  end
+
   private
   def user
     @user ||= User.find_by email: @email
