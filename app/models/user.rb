@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   validates :roles, presence: true
 
-  validates :blocked, presence: true
+  validates :blocked, inclusion: { in: [true, false] }
 
   has_secure_password
 end

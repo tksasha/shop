@@ -15,5 +15,5 @@ RSpec.describe User, type: :model do
 
   it { should validate_presence_of :roles }
 
-  it { should validate_presence_of :blocked }
+  it { should validate_inclusion_of(:blocked).in_array([true, false]) }
 end
