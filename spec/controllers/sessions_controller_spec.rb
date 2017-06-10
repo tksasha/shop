@@ -90,4 +90,10 @@ RSpec.describe SessionsController, type: :controller do
 
     let(:success) { -> { should redirect_to [:new, :session] } }
   end
+
+  it_behaves_like :destroy, format: :json do
+    before { expect(subject).to receive(:logout_user) }
+
+    let(:success) { -> { expect(response).to have_http_status(:no_content) } }
+  end
 end
