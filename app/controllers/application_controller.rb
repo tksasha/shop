@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: -> { request.format.json? } 
 
   rescue_from Pundit::NotAuthorizedError do
-    render 'errors/forbidden', status: :forbidden
+    respond_to do |format|
+      format.html { render 'errors/forbidden', status: :forbidden }
+
+      format.json { head :forbidden }
+    end
   end
 
   helper_method :collection, :resource, :current_user
