@@ -9,6 +9,8 @@ class Session
     @email = params[:email]
 
     @password = params[:password]
+
+    @auth_token = params[:auth_token]
   end
 
   def save
@@ -20,7 +22,9 @@ class Session
   end
 
   def destroy
-    @destroyed = true
+    token = AuthToken.find_by value: @auth_token
+
+    @destroyed = token ? token.destroy : true
   end
 
   def destroyed?

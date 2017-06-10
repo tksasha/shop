@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 
   private
   def resource
-    @resource ||= Session.new
+    @resource ||= Session.new auth_token: auth_token
   end
 
   def resource_params
@@ -31,6 +31,10 @@ class SessionsController < ApplicationController
   end
 
   def destroy_callback
-    redirect_to [:new, :session]
+    respond_to do |format|
+      format.html { redirect_to [:new, :session] }
+
+      format.json { head :no_content }
+    end
   end
 end
