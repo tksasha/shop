@@ -48,11 +48,27 @@ class ApplicationController < ActionController::Base
 
   private
   def current_user
-    @current_user ||= User.joins(:auth_tokens).where(auth_tokens: { value: session[:auth_token] }).first
+    @current_user ||= User.joins(:auth_tokens).where(auth_tokens: { value: auth_token }).first
+  end
+
+  def auth_token
+    respond_to do |format|
+      format.html { @token = session[:auth_token] }
+
+      format.json do
+        authenticate_with_http_token { |token, options| @token = token }
+      end
+    end if !@token
+
+    @token
   end
 
   def authenticate_user
-    redirect_to [:new, :session] unless current_user
+    respond_to do |format|
+      format.html { redirect_to [:new, :session] unless current_user }
+
+      format.json { head :unauthorized unless current_user }
+    end
   end
 
   #
@@ -128,7 +144,7 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { redirect_to resource_sym }
 
-      format.json { render }
+      format.json { head :no_content }
     end
   end
 end
