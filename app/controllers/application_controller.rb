@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :exception, unless: -> { request.format.json? } 
+  protect_from_forgery with: :null_session, if: -> { request.format.json? } 
 
   rescue_from Pundit::NotAuthorizedError do
     render 'errors/forbidden', status: :forbidden
