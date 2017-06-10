@@ -23,7 +23,11 @@ class SessionsController < ApplicationController
   end
 
   def create_success_callback
-    redirect_to :profile
+    respond_to do |format|
+      format.html { redirect_to :profile }
+
+      format.json { render }
+    end
   end
 
   def destroy_callback

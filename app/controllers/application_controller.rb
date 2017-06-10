@@ -88,22 +88,42 @@ class ApplicationController < ActionController::Base
   end
 
   def create_success_callback
-    redirect_to resource
+    respond_to do |format|
+      format.html { redirect_to resource }
+
+      format.json { render }
+    end
   end
 
   def create_failure_callback
-    render :new
+    respond_to do |format|
+      format.html { render :new }
+
+      format.json { render :errors }
+    end
   end
 
   def update_success_callback
-    redirect_to resource
+    respond_to do |format|
+      format.html { redirect_to resource }
+
+      format.json { render }
+    end
   end
 
   def update_failure_callback
-    render :edit
+    respond_to do |format|
+      format.html { render :edit }
+
+      format.json { render :errors }
+    end
   end
 
   def destroy_callback
-    redirect_to resource
+    respond_to do |format|
+      format.html { redirect_to resource_sym }
+
+      format.json { render }
+    end
   end
 end
