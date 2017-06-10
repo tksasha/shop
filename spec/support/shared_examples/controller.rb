@@ -129,6 +129,8 @@ RSpec.shared_examples :index do |params|
 end
 
 RSpec.shared_examples :destroy do |params|
+  before { @format = (params && params[:format]) || :html }
+
   before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
 
   describe '#destroy' do
