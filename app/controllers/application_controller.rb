@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   rescue_from Pundit::NotAuthorizedError do
     render 'errors/forbidden', status: :forbidden
-    return
   end
 
   helper_method :collection, :resource, :current_user
