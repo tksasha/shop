@@ -1,6 +1,8 @@
 RSpec.shared_examples :new do |params|
+  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+
   describe '#new' do
-    before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { expect(subject).to receive(:initialize_resource) }
 
@@ -15,8 +17,10 @@ RSpec.shared_examples :new do |params|
 end
 
 RSpec.shared_examples :show do |params|
+  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+
   describe '#show' do
-    before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { expect(subject).to receive(:resource).and_return(:resource) }
 
@@ -29,8 +33,14 @@ RSpec.shared_examples :show do |params|
 end
 
 RSpec.shared_examples :create do |params|
+  before { @params = (params && params[:params]) || {} }
+
+  before { @format = (params && params[:format]) || :html }
+
+  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+
   describe '#create' do
-    before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { expect(subject).to receive(:build_resource) }
 
@@ -41,7 +51,7 @@ RSpec.shared_examples :create do |params|
     context do
       before { expect(resource).to receive(:save).and_return(true) }
 
-      before { post :create, params: (params && params[:params]) || {} } # to instance variable
+      before { post :create, params: @params, format: @format }
 
       it { success.call }
     end
@@ -49,7 +59,7 @@ RSpec.shared_examples :create do |params|
     context do
       before { expect(resource).to receive(:save).and_return(false) }
 
-      before { post :create, params: (params && params[:params]) || {} }
+      before { post :create, params: @params, format: @format }
 
       it { failure.call }
     end
@@ -57,8 +67,10 @@ RSpec.shared_examples :create do |params|
 end
 
 RSpec.shared_examples :edit do |params|
+  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+
   describe '#edit' do
-    before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { expect(subject).to receive(:resource).and_return(:resource) }
 
@@ -71,8 +83,10 @@ RSpec.shared_examples :edit do |params|
 end
 
 RSpec.shared_examples :update do |params|
+  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+
   describe '#update' do
-    before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { allow(subject).to receive(:resource).and_return(resource) }
 
@@ -99,8 +113,10 @@ RSpec.shared_examples :update do |params|
 end
 
 RSpec.shared_examples :index do |params|
+  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+
   describe '#index' do
-    before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { expect(subject).to receive(:collection).and_return(:collection) }
 
@@ -113,10 +129,12 @@ RSpec.shared_examples :index do |params|
 end
 
 RSpec.shared_examples :destroy do |params|
+  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+
   describe '#destroy' do
     let(:resource) { double }
 
-    before { expect(subject).to receive(:authenticate_user) unless (params && params[:skip_authenticate_user]) }
+    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
     before { expect(subject).to receive(:resource).and_return(resource).twice() }
 
