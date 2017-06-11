@@ -1,0 +1,5 @@
+(function () {
+  $('#flash_messages').html(`<%= render 'widgets/flash_messages' %>`);
+
+  $('#users').html(`<%= render User.all %>`)
+})();

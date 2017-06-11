@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe BlocksController, type: :controller do
-  it_behaves_like :create, params: { user_id: 1 } do
+  it_behaves_like :create, params: { user_id: 1 }, format: :js do
     let(:resource) { stub_model User }
 
-    let(:success) { -> { expect(response).to have_http_status(:no_content) } }
+    let(:success) { -> { should render_template :create } }
 
-    let(:failure) { -> { expect(response).to have_http_status(:no_content) } }
+    let(:failure) { -> { should render_template :errors } }
   end
 end

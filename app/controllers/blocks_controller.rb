@@ -5,10 +5,12 @@ class BlocksController < ApplicationController
   end
 
   def create_success_callback
-    head :no_content
+    flash.now[:success] = 'User was blocked'
   end
 
   def create_failure_callback
-    head :no_content
+    flash.now[:danger] = 'User was not blocked'
+    
+    render :errors
   end
 end
