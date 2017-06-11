@@ -32,7 +32,7 @@ class Session
   end
 
   def user_blocked?
-    !!user&.blocked
+    !!user&.blocked?
   end
 
   private

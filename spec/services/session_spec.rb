@@ -99,7 +99,7 @@ RSpec.describe Session, type: :model do
 
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
-      before { expect(user).to receive(:blocked).and_return(false) }
+      before { expect(user).to receive(:blocked?).and_return(false) }
 
       its(:user_blocked?) { should eq false }
     end
@@ -109,7 +109,7 @@ RSpec.describe Session, type: :model do
 
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
-      before { expect(user).to receive(:blocked).and_return(true) }
+      before { expect(user).to receive(:blocked?).and_return(true) }
 
       its(:user_blocked?) { should eq true }
     end
