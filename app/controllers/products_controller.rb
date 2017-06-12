@@ -1,8 +1,12 @@
 class ProductsController < ApplicationController
-  helper_method :eager_loaded_collection
-  
+  helper_method :collection, :products_for_paginating
+
   private
-  def eager_loaded_collection
-    @eager_loaded_collection ||= Product.includes(:categories) 
+  def collection
+    @collection ||= Product.includes(:categories)
+  end
+
+  def products_for_paginating
+    @products_for_paginating ||= Product.order(:name).page params[:page]
   end
 end
