@@ -9,12 +9,12 @@ class ApplicationController < ActionController::Base
 
   before_action :authenticate_user
 
-  before_action :authorize_resource
-
   before_action :build_resource, only: :create
 
   before_action :initialize_resource, only: :new
-
+    
+  before_action -> { authorize collection }, only: :index
+  
   def create
     if resource.save
       create_success_callback
@@ -86,10 +86,6 @@ class ApplicationController < ActionController::Base
 
   def build_resource
     @resource = resource_model.new resource_params
-  end
-
-  def authorize_resource
-    authorize(resource || resource_model)
   end
 
   def create_success_callback
