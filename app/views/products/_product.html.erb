@@ -1,8 +1,6 @@
 <tr>
   <td><%= product.name %></td>
   <td>
-    <% product.categories.each do |category| %>
-      <%= category.name %> 
-    <% end %>
+    <%= product.categories.pluck(:name).to_sentence %> 
   </td>
 </tr>
