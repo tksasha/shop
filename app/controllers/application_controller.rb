@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
     
   before_action -> { authorize collection }, only: :index
   
+  before_action -> { authorize resource }, except: :index
+  
   def create
     if resource.save
       create_success_callback

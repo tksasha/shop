@@ -2,7 +2,9 @@ RSpec.shared_examples :new do
   describe '#new' do
     before { expect(subject).to receive(:initialize_resource) }
 
-    before { expect(subject).to receive(:authorize_resource) }
+    before { expect(subject).to receive(:resource).and_return(:resource) }
+
+    before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
 
     before { get :new }
 
@@ -12,7 +14,9 @@ end
 
 RSpec.shared_examples :show do
   describe '#show' do
-    before { expect(subject).to receive(:authorize_resource) }
+    before { expect(subject).to receive(:resource).and_return(:resource) }
+
+    before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
     
     before { get :show, params: { id: 1 } }
 
@@ -22,12 +26,13 @@ end
 
 RSpec.shared_examples :create do
   describe '#create' do
-
     before { expect(subject).to receive(:build_resource) }
 
     before { allow(subject).to receive(:resource).and_return(resource) }
 
-    before { expect(subject).to receive(:authorize_resource) }
+    before { expect(subject).to receive(:resource).and_return(:resource) }
+
+    before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
 
     context do
       before { expect(resource).to receive(:save).and_return(true) }
@@ -53,7 +58,9 @@ RSpec.shared_examples :index do
 
     before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
-    before { expect(subject).to receive(:authorize_resource) }
+    before { expect(subject).to receive(:collection).and_return(:collection) }
+
+    before { expect(subject).to receive(:authorize).with(:collection).and_return(true) }
 
     before { get :index }
 
