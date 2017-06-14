@@ -1,0 +1,6 @@
+<tr>
+  <td><%= product.name %></td>
+  <td>
+    <%= product.categories.pluck(:name).to_sentence %> 
+  </td>
+</tr>
