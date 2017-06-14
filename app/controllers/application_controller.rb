@@ -57,6 +57,8 @@ class ApplicationController < ActionController::Base
     respond_to do |format|
       format.html { @token = session[:auth_token] }
 
+      format.js { @token = session[:auth_token] }
+
       format.json do
         authenticate_with_http_token { |token, options| @token = token }
       end
