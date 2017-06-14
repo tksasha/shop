@@ -7,8 +7,10 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError do
     respond_to do |format|
       format.html { render 'errors/forbidden', status: :forbidden }
-  
+
       format.json { head :forbidden }
+
+      format.js { head :forbidden }
     end
   end
 
