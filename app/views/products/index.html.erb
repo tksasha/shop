@@ -3,10 +3,13 @@
     <tr>
       <th>Name</th>
       <th>Categories</th>
-      <th></th>
     </tr>
   </thead>
   <tbody>
     <%= render collection %>
   </tbody>
+  <tr>
+    <td><%= paginate collection %></td>
+    <td><%= page_entries_info collection %></td>
+  </tr>
 </table>
