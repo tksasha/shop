@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError do
     respond_to do |format|
       format.html { render 'errors/forbidden', status: :forbidden }
-
+  
       format.json { head :forbidden }
     end
   end
@@ -68,6 +68,8 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to [:new, :session] unless current_user }
 
       format.json { head :unauthorized unless current_user }
+
+      format.js { head :unauthorized unless current_user }
     end
   end
 
@@ -113,6 +115,8 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to resource }
 
       format.json { render }
+
+      format.js { render }
     end
   end
 
@@ -121,6 +125,8 @@ class ApplicationController < ActionController::Base
       format.html { render :new }
 
       format.json { render :errors }
+
+      format.js { render :errors }
     end
   end
 
@@ -129,6 +135,8 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to resource }
 
       format.json { render }
+
+      format.js { render }
     end
   end
 
@@ -137,6 +145,8 @@ class ApplicationController < ActionController::Base
       format.html { render :edit }
 
       format.json { render :errors }
+
+      format.js { render :errors }
     end
   end
 
@@ -145,6 +155,8 @@ class ApplicationController < ActionController::Base
       format.html { redirect_to resource_sym }
 
       format.json { head :no_content }
+
+      format.js { head :no_content }
     end
   end
 end
