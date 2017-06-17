@@ -1,4 +1,8 @@
 class BlocksController < ApplicationController
+  include Rest
+
+  include Authorization
+
   private
   alias_method :resource, :build_resource
 

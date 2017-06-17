@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+  include Rest
+
+  include Authorization
+
   private
   def resource_params
     params.require(:user).permit(:roles)
