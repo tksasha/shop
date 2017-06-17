@@ -131,6 +131,8 @@ end
 RSpec.shared_examples :destroy do |params|
   before { @format = (params && params[:format]) || :html }
 
+  before { @params = (params && params[:params]) || { id: 1 } }
+
   before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
 
   describe '#destroy' do
@@ -144,7 +146,7 @@ RSpec.shared_examples :destroy do |params|
 
     before { expect(resource).to receive(:destroy) }
 
-    before { delete :destroy, params: { id: 1 }, format: @format }
+    before { delete :destroy, params: @params, format: @format }
 
     it { success.call }
   end
