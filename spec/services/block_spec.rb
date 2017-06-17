@@ -18,4 +18,22 @@ RSpec.describe Block, type: :model do
 
     its(:save) { should eq(:save) }
   end
+
+  describe '#destroy' do
+    let(:user) { double }
+
+    subject { described_class.new user }
+
+    before { expect(user).to receive(:update).with(blocked_at: nil).and_return(:destroy) }
+
+    its(:destroy) { should eq(:destroy) }
+  end
+
+  describe '#user' do
+    let(:user) { double }
+
+    subject { described_class.new user }
+
+    its(:user) { should eq(user) }
+  end
 end

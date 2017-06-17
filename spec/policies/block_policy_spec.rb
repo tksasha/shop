@@ -3,7 +3,7 @@ require 'rails_helper'
 describe BlockPolicy do
   subject { described_class }
 
-  permissions :create? do
+  permissions :create?, :destroy? do
     let(:resource) { double }
 
     context do

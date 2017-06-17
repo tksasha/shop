@@ -1,16 +1,18 @@
 class BlocksController < ApplicationController
   private
+  alias_method :resource, :build_resource
+
   def resource_params
     User.find params[:user_id]
   end
 
-  def create_success_callback
-    flash.now[:success] = 'User was blocked'
-  end
+  def destroy_callback
+    respond_to do |format|
+      format.html { redirect_to resource_sym }
 
-  def create_failure_callback
-    flash.now[:danger] = 'User was not blocked'
-    
-    render :errors
+      format.json { head :no_content }
+
+      format.js { render }
+    end
   end
 end

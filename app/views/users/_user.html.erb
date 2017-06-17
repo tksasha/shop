@@ -1,7 +1,11 @@
-<tr>
+<tr id="user-<%= user.id %>">
   <td><%= user.email %></td>
   <td><%= user.roles.to_sentence %></td>
   <td><%= t(user.blocked_at || false) %></td>
   <td><%= link_to 'edit', [:edit, user], class: 'btn btn-link btn-xs' %></td>
-  <td><%= link_to 'block', [user, :block], class: 'btn btn-link btn-xs', method: :post, remote: true %></td>
+  <% if user.blocked_at.present? %>
+    <td><%= link_to 'unblock', [user, :block], class: 'btn btn-link btn-xs', method: :delete, remote: true %></td>
+  <% else %>
+    <td><%= link_to 'block', [user, :block], class: 'btn btn-link btn-xs', method: :post, remote: true %></td>
+  <% end %>
 </tr>
