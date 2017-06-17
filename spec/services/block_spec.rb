@@ -12,7 +12,9 @@ RSpec.describe Block, type: :model do
       end
     end
 
-    before { expect(user).to receive(:update).with(blocked: true).and_return(:save) }
+    before { expect(DateTime).to receive(:now).and_return(:timestamp) }
+
+    before { expect(user).to receive(:update).with(blocked_at: :timestamp).and_return(:save) }
 
     its(:save) { should eq(:save) }
   end

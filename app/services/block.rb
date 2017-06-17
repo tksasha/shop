@@ -6,6 +6,6 @@ class Block
   def save
     @user.auth_tokens.destroy_all
 
-    @user.update blocked: true
+    @user.update blocked_at: DateTime.now
   end
 end

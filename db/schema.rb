@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170610112643) do
+ActiveRecord::Schema.define(version: 20170617142503) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.integer "user_id"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20170610112643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "roles"
-    t.boolean "blocked", default: false, null: false
+    t.datetime "blocked_at"
   end
 
 end
