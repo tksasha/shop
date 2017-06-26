@@ -1,0 +1,4 @@
+<%= simple_form_for resource do |f| %>
+  <%= f.input :roles, collection: [:user, :admin], include_blank: false %>
+  <%= f.submit class: 'btn btn-primary btn-block' %>
+<% end %>

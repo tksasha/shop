@@ -3,8 +3,6 @@ require 'rails_helper'
 RSpec.describe Session, type: :model do
   subject { described_class.new email: 'one@digits.com', password: 'password' }
 
-  it { should delegate_method(:user_id).to(:user).as(:id) }
-
   describe '#user' do
     before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(:user) }
 
@@ -15,11 +13,7 @@ RSpec.describe Session, type: :model do
     context do
       before { allow(User).to receive(:find_by).with(email: 'one@digits.com').and_return(nil) }
 
-      before { subject.valid? }
-
       it { should_not be_valid }
-
-      it { expect(subject.errors[:email]).to eq [I18n.t('session.error.validation')] }
     end
 
     context do
@@ -29,17 +23,43 @@ RSpec.describe Session, type: :model do
 
       before { expect(user).to receive(:authenticate).with('password').and_return(false) }
 
-      before { subject.valid? }
-
-      it { expect(subject.errors[:password]).to eq [I18n.t('session.error.validation')] }
+      it { should_not be_valid }
     end
 
     context do
       let(:user) { double }
 
+      let(:auth_token) { double }
+
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
       before { expect(user).to receive(:authenticate).with('password').and_return(true) }
+
+      before { expect(user).to receive(:auth_tokens).and_return(auth_token) }
+
+      before { expect(auth_token).to receive(:build).and_return(auth_token) }
+
+      before { expect(auth_token).to receive(:save).and_return(false) }
+
+      it { should_not be_valid }
+    end
+
+    context do
+      let(:user) { double }
+
+      let(:auth_token) { double }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+
+      before { expect(user).to receive(:authenticate).with('password').and_return(true) }
+
+      before { expect(user).to receive(:auth_tokens).and_return(auth_token) }
+
+      before { expect(auth_token).to receive(:build).and_return(auth_token) }
+
+      before { expect(auth_token).to receive(:save).and_return(true) }
+
+      before { expect(auth_token).to receive(:value).and_return(:auth_token) }
 
       it { should be_valid }
     end
@@ -65,5 +85,33 @@ RSpec.describe Session, type: :model do
 
   describe '#destroy' do
     it { expect { subject.destroy }.to_not raise_error }
+  end
+
+  describe '#user_blocked?' do
+    context do
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(nil) }
+
+      its(:user_blocked?) { should eq false }
+    end
+
+    context do
+      let(:user) { double }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+
+      before { expect(user).to receive(:blocked_at).and_return(nil) }
+
+      its(:user_blocked?) { should eq false }
+    end
+
+    context do
+      let(:user) { double }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+
+      before { expect(user).to receive(:blocked_at).and_return(:timestamp) }
+
+      its(:user_blocked?) { should eq true }
+    end
   end
 end

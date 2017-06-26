@@ -1,4 +1,8 @@
 class ProfilesController < ApplicationController
+  include Rest
+
+  include Authorization
+
   skip_before_action :authenticate_user, only: [:new, :create]
 
   after_action :login_user, only: :create
@@ -10,6 +14,10 @@ class ProfilesController < ApplicationController
 
   def resource
     @resource ||= current_user
+  end
+
+  def build_resource
+    @resource = UserFactory.build resource_params
   end
 
   def resource_params

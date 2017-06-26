@@ -2,3 +2,5 @@ en:
   session:
     error:
       validation: 'invalid email or password'
+  :true: 'True'
+  :false: 'False'

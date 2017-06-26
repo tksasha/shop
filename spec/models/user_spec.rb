@@ -12,4 +12,8 @@ RSpec.describe User, type: :model do
   it { should allow_value('one@digits.com').for(:email) }
 
   it { should have_secure_password }
+
+  it { should validate_presence_of :roles }
+
+  it { should have_many :auth_tokens }
 end

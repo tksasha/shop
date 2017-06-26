@@ -9,9 +9,11 @@ gem 'draper'
 gem 'email_validator'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 gem 'simple_form'
 gem 'pundit'
 gem 'kaminari'
+gem 'bitmask_attributes'
 
 group :development, :test do
   gem 'rspec-rails'

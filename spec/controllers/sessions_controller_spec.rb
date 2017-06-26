@@ -19,9 +19,9 @@ RSpec.describe SessionsController, type: :controller do
     context do
       before { expect(resource).to receive(:persisted?).and_return(true) }
 
-      before { expect(resource).to receive(:user_id).and_return(1) }
+      before { expect(resource).to receive(:auth_token).and_return(1) }
 
-      after { expect(subject.session[:user_id]).to eq 1 }
+      after { expect(subject.session[:auth_token]).to eq 1 }
 
       its(:login_user) { should eq 1 }
     end
@@ -29,7 +29,7 @@ RSpec.describe SessionsController, type: :controller do
     context do
       before { expect(resource).to receive(:persisted?).and_return(false) }
 
-      after { expect(subject.session[:user_id]).to eq nil }
+      after { expect(subject.session[:auth_token]).to eq nil }
 
       its(:login_user) { should eq nil }
     end
@@ -41,29 +41,30 @@ RSpec.describe SessionsController, type: :controller do
     before { expect(subject).to receive(:resource).and_return(resource) }
 
     context do
-      before { subject.session[:user_id] = 1 }
+      before { subject.session[:auth_token] = 1 }
 
       before { expect(resource).to receive(:destroyed?).and_return(true) }
 
       before { subject.send(:logout_user) }
 
-      it { expect(subject.session[:user_id]).to eq nil }
+      it { expect(subject.session[:auth_token]).to eq nil }
     end
 
     context do
-      before { subject.session[:user_id] = 1 }
+      before { subject.session[:auth_token] = 1 }
 
       before { expect(resource).to receive(:destroyed?).and_return(false) }
 
       before { subject.send(:logout_user) }
 
-      it { expect(subject.session[:user_id]).to eq 1 }
+      it { expect(subject.session[:auth_token]).to eq 1 }
     end
   end
 
-  it_behaves_like :new
+  it_behaves_like :new, skip_authenticate_user: true
 
-  it_behaves_like :create do
+  it_behaves_like :create, skip_authenticate_user: true do
+
     let(:resource) { double }
 
     before { expect(subject).to receive(:login_user) }
@@ -73,9 +74,26 @@ RSpec.describe SessionsController, type: :controller do
     let(:failure) { -> { should render_template :new } }
   end
 
+  it_behaves_like :create, skip_authenticate_user: true, format: :json do
+
+    let(:resource) { double }
+
+    before { expect(subject).to receive(:login_user) }
+
+    let(:success) { -> { should render_template :create } }
+
+    let(:failure) { -> { should render_template :errors } }
+  end
+
   it_behaves_like :destroy do
     before { expect(subject).to receive(:logout_user) }
 
     let(:success) { -> { should redirect_to [:new, :session] } }
+  end
+
+  it_behaves_like :destroy, format: :json do
+    before { expect(subject).to receive(:logout_user) }
+
+    let(:success) { -> { expect(response).to have_http_status(:no_content) } }
   end
 end
