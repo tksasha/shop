@@ -8,7 +8,7 @@ class Block
   def save
     @user.auth_tokens.destroy_all
 
-    @user.update blocked_at: DateTime.now
+    @user.touch :blocked_at
   end
 
   def destroy
