@@ -28,16 +28,16 @@ module Authorization
 
   def auth_token
     respond_to do |format|
-      format.html { @token = session[:auth_token] }
+      format.html { @auth_token = session[:auth_token] }
 
-      format.js { @token = session[:auth_token] }
+      format.js { @auth_token = session[:auth_token] }
 
       format.json do
-        authenticate_with_http_token { |token, options| @token = token }
+        authenticate_with_http_token { |token, options| @auth_token = token }
       end
-    end if !@token
+    end unless @auth_token
 
-    @token
+    @auth_token
   end
 
   def authenticate_user
