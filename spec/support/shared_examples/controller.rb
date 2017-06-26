@@ -140,7 +140,7 @@ RSpec.shared_examples :destroy do |params|
 
     before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
 
-    before { expect(subject).to receive(:resource).and_return(resource).twice() }
+    before { subject.instance_variable_set :@resource, resource }
 
     before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
 

@@ -4,8 +4,6 @@ class BlocksController < ApplicationController
   include Authorization
 
   private
-  alias_method :resource, :build_resource
-
   def resource_params
     params[:user_id]
   end
@@ -18,5 +16,9 @@ class BlocksController < ApplicationController
 
       format.js { render }
     end
+  end
+
+  def resource
+    @resource ||= build_resource
   end
 end
