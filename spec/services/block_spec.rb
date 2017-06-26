@@ -1,10 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Block, type: :model do  
+  subject { described_class.new :user_id }
+
   describe '#save' do
     let(:user) { double }
 
-    subject { described_class.new user }
+    before { expect(User).to receive(:find).with(:user_id).and_return(user) }
 
     before do
       expect(user).to receive(:auth_tokens) do
@@ -22,7 +24,7 @@ RSpec.describe Block, type: :model do
   describe '#destroy' do
     let(:user) { double }
 
-    subject { described_class.new user }
+    before { expect(User).to receive(:find).with(:user_id).and_return(user) }
 
     before { expect(user).to receive(:update).with(blocked_at: nil).and_return(:destroy) }
 
@@ -30,10 +32,8 @@ RSpec.describe Block, type: :model do
   end
 
   describe '#user' do
-    let(:user) { double }
+    before { expect(User).to receive(:find).with(:user_id).and_return(:user) }
 
-    subject { described_class.new user }
-
-    its(:user) { should eq(user) }
+    its(:user) { should eq(:user) }
   end
 end

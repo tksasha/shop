@@ -7,7 +7,7 @@ class BlocksController < ApplicationController
   alias_method :resource, :build_resource
 
   def resource_params
-    User.find params[:user_id]
+    params[:user_id]
   end
 
   def destroy_callback

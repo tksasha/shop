@@ -1,8 +1,8 @@
 class Block
   attr_reader :user
 
-  def initialize user
-    @user = user
+  def initialize user_id
+    @user = User.find user_id
   end
 
   def save
