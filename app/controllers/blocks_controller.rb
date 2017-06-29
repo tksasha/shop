@@ -10,7 +10,7 @@ class BlocksController < ApplicationController
 
   def destroy_callback
     respond_to do |format|
-      format.html { redirect_to resource_sym }
+      format.html { head :no_content }
 
       format.json { head :no_content }
 
