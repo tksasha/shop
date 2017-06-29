@@ -1,8 +1,4 @@
 class SessionsController < ApplicationController
-  include Rest
-
-  include Authorization
-
   skip_before_action :authenticate!, only: [:new, :create]
 
   after_action :login_user, only: :create

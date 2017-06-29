@@ -1,4 +1,4 @@
-module Rest
+module ActAsRESTController
   extend ActiveSupport::Concern
 
   included do

@@ -1,8 +1,4 @@
 class BlocksController < ApplicationController
-  include Rest
-
-  include Authorization
-
   private
   def resource_params
     params[:user_id]
