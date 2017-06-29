@@ -14,7 +14,7 @@ module Authorization
       end
     end
 
-    before_action :authenticate_user
+    before_action :authenticate!
 
     before_action -> { authorize resource }, except: :index
 
@@ -40,7 +40,7 @@ module Authorization
     @auth_token
   end
 
-  def authenticate_user
+  def authenticate!
     respond_to do |format|
       format.html { redirect_to [:new, :session] unless current_user }
 

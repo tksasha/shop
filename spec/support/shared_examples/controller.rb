@@ -1,8 +1,8 @@
 RSpec.shared_examples :new do |params|
-  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#new' do
-    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
     before { expect(subject).to receive(:initialize_resource) }
 
@@ -17,10 +17,10 @@ RSpec.shared_examples :new do |params|
 end
 
 RSpec.shared_examples :show do |params|
-  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#show' do
-    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
     before { expect(subject).to receive(:resource).and_return(:resource) }
 
@@ -37,10 +37,10 @@ RSpec.shared_examples :create do |params|
 
   before { @format = (params && params[:format]) || :html }
 
-  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#create' do
-    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
     before { expect(subject).to receive(:build_resource) }
 
@@ -67,10 +67,10 @@ RSpec.shared_examples :create do |params|
 end
 
 RSpec.shared_examples :edit do |params|
-  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#edit' do
-    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
     before { expect(subject).to receive(:resource).and_return(:resource) }
 
@@ -83,10 +83,10 @@ RSpec.shared_examples :edit do |params|
 end
 
 RSpec.shared_examples :update do |params|
-  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#update' do
-    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
     before { allow(subject).to receive(:resource).and_return(resource) }
 
@@ -113,10 +113,10 @@ RSpec.shared_examples :update do |params|
 end
 
 RSpec.shared_examples :index do |params|
-  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#index' do
-    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
     before { expect(subject).to receive(:collection).and_return(:collection) }
 
@@ -133,12 +133,12 @@ RSpec.shared_examples :destroy do |params|
 
   before { @params = (params && params[:params]) || { id: 1 } }
 
-  before { @skip_authenticate_user = (params && params[:skip_authenticate_user]) || false }
+  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#destroy' do
     let(:resource) { double }
 
-    before { expect(subject).to receive(:authenticate_user) unless @skip_authenticate_user }
+    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
     before { subject.instance_variable_set :@resource, resource }
 

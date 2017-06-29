@@ -61,9 +61,9 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  it_behaves_like :new, skip_authenticate_user: true
+  it_behaves_like :new, skip_authenticate: true
 
-  it_behaves_like :create, skip_authenticate_user: true do
+  it_behaves_like :create, skip_authenticate: true do
 
     let(:resource) { double }
 
@@ -74,7 +74,7 @@ RSpec.describe SessionsController, type: :controller do
     let(:failure) { -> { should render_template :new } }
   end
 
-  it_behaves_like :create, skip_authenticate_user: true, format: :json do
+  it_behaves_like :create, skip_authenticate: true, format: :json do
 
     let(:resource) { double }
 
