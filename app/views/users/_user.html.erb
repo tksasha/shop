@@ -3,11 +3,11 @@
 
   <td><%= user.roles.to_sentence %></td>
 
-  <td><%= display_user_blocked user.blocked_at %></td>
+  <td><%= user.blocked_at %></td>
 
   <td><%= link_to 'edit', [:edit, user], class: 'btn btn-link btn-xs' %></td>
 
-  <% if user.blocked_at.present? %>
+  <% if user.blocked? %>
     <td><%= link_to 'unblock', [user, :block], class: 'btn btn-link btn-xs', method: :delete, remote: true %></td>
   <% else %>
     <td><%= link_to 'block', [user, :block], class: 'btn btn-link btn-xs', method: :post, remote: true %></td>
