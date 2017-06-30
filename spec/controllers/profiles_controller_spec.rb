@@ -35,11 +35,11 @@ RSpec.describe ProfilesController, type: :controller do
     end
   end
 
-  it_behaves_like :new, skip_authenticate_user: true
+  it_behaves_like :new, skip_authenticate: true
 
   it_behaves_like :show
 
-  it_behaves_like :create, skip_authenticate_user: true do
+  it_behaves_like :create, skip_authenticate: true do
 
     let(:resource) { double }
 

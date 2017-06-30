@@ -1,24 +1,10 @@
-module Authorization
-  include Pundit
-
+module ActsAsAuthenticatedController
   extend ActiveSupport::Concern
 
   included do
-    rescue_from Pundit::NotAuthorizedError do
-      respond_to do |format|
-        format.html { render 'errors/forbidden', status: :forbidden }
+    helper_method :current_user
 
-        format.json { head :forbidden }
-
-        format.js { head :forbidden }
-      end
-    end
-
-    before_action :authenticate_user
-
-    before_action -> { authorize resource }, except: :index
-
-    before_action -> { authorize collection }, only: :index
+    before_action :authenticate!
   end
 
   private
@@ -40,7 +26,7 @@ module Authorization
     @auth_token
   end
 
-  def authenticate_user
+  def authenticate!
     respond_to do |format|
       format.html { redirect_to [:new, :session] unless current_user }
 

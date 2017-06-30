@@ -1,5 +1,5 @@
 (function () {
-  $('#user-<%= resource.user.id %>').replaceWith('<%= j render resource.user %>')
+  $('#<%= dom_id resource.user %>').replaceWith('<%= j render resource.user.decorate %>')
 
-$('#user-<%= resource.user.id %>').effect('highlight')
+  $('#<%= dom_id resource.user %>').effect('highlight')
 })();

@@ -89,27 +89,25 @@ RSpec.describe Session, type: :model do
 
   describe '#user_blocked?' do
     context do
-      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(nil) }
+      let(:user) { stub_model User }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
       its(:user_blocked?) { should eq false }
     end
 
     context do
-      let(:user) { double }
+      let(:user) { stub_model User, blocked_at: nil }
 
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
-
-      before { expect(user).to receive(:blocked_at).and_return(nil) }
 
       its(:user_blocked?) { should eq false }
     end
 
     context do
-      let(:user) { double }
+      let(:user) { stub_model User, blocked_at: DateTime.now }
 
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
-
-      before { expect(user).to receive(:blocked_at).and_return(:timestamp) }
 
       its(:user_blocked?) { should eq true }
     end

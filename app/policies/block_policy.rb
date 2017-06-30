@@ -3,7 +3,5 @@ class BlockPolicy < ApplicationPolicy
     user.present? && user.roles?(:admin)
   end
 
-  def destroy?
-    create?
-  end
+  alias_method :destroy?, :create?
 end
