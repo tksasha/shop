@@ -37,7 +37,7 @@ class Session
 
   private
   def user
-    @user ||= UserDecorator.find_by email: @email
+    @user ||= User.find_by email: @email
   end
 
   def user_must_exist

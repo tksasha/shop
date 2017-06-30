@@ -1,8 +1,6 @@
 class UserDecorator < Draper::Decorator
   delegate_all
 
-  decorates_finders
-
   def blocked?
     model.blocked_at.present?
   end
