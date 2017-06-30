@@ -7,13 +7,13 @@ RSpec.describe UserDecorator do
 
   describe 'blocked?' do
     context do
-      let(:user) { stub_model User, blocked_at: datetime } 
+      let(:user) { stub_model User, blocked_at: datetime }
 
       its(:blocked?) { should eq true }
     end
 
     context do
-      let(:user) { stub_model User } 
+      let(:user) { stub_model User }
 
       its(:blocked?) { should eq false }
     end
@@ -21,13 +21,13 @@ RSpec.describe UserDecorator do
 
   describe 'blocked_at' do
     context do
-      let(:user) { stub_model User, blocked_at: datetime } 
+      let(:user) { stub_model User, blocked_at: datetime }
 
       its(:blocked_at) { should eq '03 Feb 01, 04:05' }
     end
 
     context do
-      let(:user) { stub_model User } 
+      let(:user) { stub_model User }
 
       its(:blocked_at) { should eq 'False' }
     end
