@@ -1,8 +1,8 @@
-module ActAsRESTController
+module ActsAsRESTController
   extend ActiveSupport::Concern
 
   included do
-    helper_method :collection, :resource, :current_user
+    helper_method :collection, :resource
 
     before_action :build_resource, only: :create
 

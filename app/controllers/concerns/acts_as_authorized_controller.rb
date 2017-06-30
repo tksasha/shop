@@ -1,4 +1,4 @@
-module ActAsAuthorizedController
+module ActsAsAuthorizedController
   include Pundit
 
   extend ActiveSupport::Concern

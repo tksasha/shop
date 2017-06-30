@@ -1,7 +1,9 @@
-module ActAsAuthenticatedController
+module ActsAsAuthenticatedController
   extend ActiveSupport::Concern
 
   included do
+    helper_method :current_user
+
     before_action :authenticate!
   end
 
