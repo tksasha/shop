@@ -5,7 +5,16 @@ class User < ApplicationRecord
 
   validates :roles, presence: true
 
+  validates :confirmation_token, presence: true
+
   has_secure_password
 
   has_many :auth_tokens
+
+  after_commit :send_confirmation_email, on: :create
+
+  private
+  def send_confirmation_email
+    ConfirmationMailer.email(self).deliver_now
+  end
 end
