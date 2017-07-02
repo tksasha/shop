@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resource :profile, only: [:new, :create, :show]
 
+  resources :confirmations, only: [:show, :index]
+
   resource :session, only: [:new, :create, :destroy]
   
   resources :products, only: [:index]
