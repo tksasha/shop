@@ -4,7 +4,7 @@ RSpec.describe ConfirmationMailer, type: :mailer do
   describe '#email' do
     let(:user) { double }
 
-    let(:subject) { described_class.email user } 
+    let(:subject) { described_class.email user }
 
     before { allow(user).to receive(:persisted?).and_return(true) }
 
@@ -14,7 +14,7 @@ RSpec.describe ConfirmationMailer, type: :mailer do
 
     its(:subject) { should eq 'Confirmation' }
 
-    its(:from) { should eq ['from@example.com'] } 
+    its(:from) { should eq ['from@example.com'] }
 
     its(:to) { should eq ['email'] }
   end
