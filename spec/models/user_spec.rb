@@ -11,9 +11,28 @@ RSpec.describe User, type: :model do
 
   it { should allow_value('one@digits.com').for(:email) }
 
-  it { should have_secure_password }
-
   it { should validate_presence_of :roles }
 
+  it { should validate_presence_of :confirmation_token }
+
+  it { should have_secure_password }
+
   it { should have_many :auth_tokens }
+
+  it { should callback(:send_confirmation_email).after(:commit).on(:create) }
+
+  describe '#send_confirmation_email' do
+    subject { UserFactory.build email: 'to@example.com', password_digest: 'password_digest' }
+
+    before { subject.send(:send_confirmation_email) }
+
+    it do
+      #
+      # ConfirmationMailer.email(self).deliver_now
+      #
+      expect(ConfirmationMailer).to receive(:email).with(subject) do
+        double.tap { |a| expect(a).to receive(:deliver_now) }
+      end
+    end
+  end
 end

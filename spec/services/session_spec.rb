@@ -112,4 +112,32 @@ RSpec.describe Session, type: :model do
       its(:user_blocked?) { should eq true }
     end
   end
+
+  describe '#user_confirmed?' do
+    context do
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(nil) }
+
+      its(:user_confirmed?) { should eq false }
+    end
+
+    context do
+      let(:user) { double }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+
+      before { expect(user).to receive(:confirmed?).and_return(false) }
+
+      its(:user_confirmed?) { should eq false }
+    end
+
+    context do
+      let(:user) { double }
+
+      before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
+
+      before { expect(user).to receive(:confirmed?).and_return(true) }
+
+      its(:user_confirmed?) { should eq true }
+    end
+  end
 end

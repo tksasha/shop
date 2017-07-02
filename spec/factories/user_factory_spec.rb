@@ -4,7 +4,11 @@ RSpec.describe UserFactory do
   subject { described_class.new email: 'one@digits.com', password: 'password' }
 
   describe '#build' do
-    before { expect(User).to receive(:new).with(email: 'one@digits.com', password: 'password', roles: :user).and_return(:resource) }
+    let(:params) { { email: 'one@digits.com', password: 'password', roles: :user, confirmation_token: :uuid } }
+
+    before { expect(SecureRandom).to receive(:uuid).and_return(:uuid) }
+
+    before { expect(User).to receive(:new).with(params).and_return(:resource) }
 
     its(:build) { should eq :resource }
   end

@@ -3,27 +3,53 @@ require 'rails_helper'
 describe SessionPolicy do
   subject { described_class }
 
-  permissions :new?, :create? do
+  permissions :new? do
     let(:resource) { double }
 
     context do
       let(:user) { nil }
 
-      before { expect(resource).to receive(:user_blocked?).twice().and_return(false) }
-
       it { should permit user, resource }
     end
 
     context do
-      let(:user) { nil }
-
-      before { expect(resource).to receive(:user_blocked?).twice().and_return(true) }
+      let(:user) { double }
 
       it { should_not permit user, resource }
     end
+  end
+
+  permissions :create? do
+    let(:resource) { double }
 
     context do
-      let(:user) { User.new }
+      let(:user) { nil }
+
+      context do
+        before { expect(resource).to receive(:user_blocked?).and_return(false) }
+
+        context do
+          before { expect(resource).to receive(:user_confirmed?).and_return(true) }
+
+          it { should permit user, resource }
+        end
+
+        context do
+          before { expect(resource).to receive(:user_confirmed?).and_return(false) }
+
+          it { should_not permit user, resource }
+        end
+      end
+
+      context do
+        before { expect(resource).to receive(:user_blocked?).and_return(true) }
+
+        it { should_not permit user, resource }
+      end
+    end
+
+    context do
+      let(:user) { double }
 
       it { should_not permit user, resource }
     end
@@ -33,7 +59,7 @@ describe SessionPolicy do
     let(:resource) { double }
 
     context do
-      let(:user) { User.new }
+      let(:user) { double }
 
       it { should permit user, resource }
     end
