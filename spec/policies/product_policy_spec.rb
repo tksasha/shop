@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ProductPolicy do
   subject { described_class }
 
-  permissions :index? do
+  permissions :index?, :show? do
     let(:resource) { double }
 
     context do
