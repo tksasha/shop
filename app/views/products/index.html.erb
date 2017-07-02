@@ -8,8 +8,16 @@
   <tbody>
     <%= render collection %>
   </tbody>
-  <tr>
-    <td><%= paginate collection %></td>
-    <td><%= page_entries_info collection %></td>
-  </tr>
 </table>
+
+<div>
+  <%= link_to 'New product', [:new, :product], class: 'btn btn-primary btn-block' %>
+</div>
+
+<div class="text-center">
+  <%= paginate collection %>
+</div>
+
+<div class="text-center">
+  <%= page_entries_info collection %>
+</div>
