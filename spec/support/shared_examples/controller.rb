@@ -20,11 +20,13 @@ RSpec.shared_examples :show do |params|
   before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#show' do
+    let(:resource) { double }
+
     before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
 
-    before { expect(subject).to receive(:resource).and_return(:resource) }
+    before { expect(subject).to receive(:resource).and_return(resource) }
 
-    before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
+    before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
     
     before { get :show, params: { id: 1 } }
 
