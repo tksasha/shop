@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20170617142503) do
     t.datetime "updated_at", null: false
     t.integer "roles"
     t.datetime "blocked_at"
+    t.boolean "confirmed", default: false, null: false
+    t.string "confirmation_token"
   end
 
 end
