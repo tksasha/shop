@@ -4,7 +4,7 @@ class UserFactory
   end
 
   def build
-    User.new @params.merge(roles: :user)
+    User.new @params.merge(roles: :user, confirmation_token: SecureRandom.uuid)
   end
 
   class << self

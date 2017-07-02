@@ -1,13 +1,7 @@
 class ProfilesController < ApplicationController
   skip_before_action :authenticate!, only: [:new, :create]
 
-  after_action :login_user, only: :create
-
   private
-  def login_user
-    session[:user_id] = resource.id unless resource.new_record?
-  end
-
   def resource
     @resource ||= current_user
   end
@@ -25,6 +19,6 @@ class ProfilesController < ApplicationController
   end
 
   def create_success_callback
-    redirect_to :profile
+    redirect_to :confirmations
   end
 end

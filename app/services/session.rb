@@ -35,6 +35,10 @@ class Session
     !!user&.decorate&.blocked?
   end
 
+  def user_confirmed?
+    !!user&.confirmed?
+  end
+
   private
   def user
     @user ||= User.find_by email: @email
