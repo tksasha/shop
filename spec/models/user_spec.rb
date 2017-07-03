@@ -22,9 +22,7 @@ RSpec.describe User, type: :model do
   describe '#send_confirmation_email' do
     subject { UserFactory.build email: 'to@example.com', password_digest: 'password_digest' }
 
-    before { subject.send(:send_confirmation_email) }
-
-    it do
+    before do
       #
       # ConfirmationMailer.email(self).deliver_now
       #
@@ -32,5 +30,7 @@ RSpec.describe User, type: :model do
         double.tap { |a| expect(a).to receive(:deliver_now) }
       end
     end
+
+    it { expect { subject.send(:send_confirmation_email) }.to_not raise_error }
   end
 end
