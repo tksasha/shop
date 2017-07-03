@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe ConfirmationMailer, type: :mailer do
   describe '#email' do
-    let(:user) { stub_model User, email: 'email', confirmation_token: 'confirmation_token' }
+    let(:user) { stub_model User, email: 'one@digits.com', confirmation_token: 'XXXX-YYYY-ZZZZ' }
 
     let(:subject) { described_class.email user }
 
