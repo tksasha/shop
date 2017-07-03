@@ -10,6 +10,6 @@ RSpec.describe ConfirmationMailer, type: :mailer do
 
     its(:from) { should eq ['from@example.com'] }
 
-    its(:to) { should eq ['email'] }
+    its(:to) { should eq ['one@digits.com'] }
   end
 end
