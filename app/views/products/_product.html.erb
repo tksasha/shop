@@ -1,6 +1,7 @@
 <tr>
   <td><%= product.name %></td>
-  <td>
-    <%= product.categories.pluck(:name).to_sentence %> 
-  </td>
+
+  <td><%= product.categories.pluck(:name).to_sentence %></td>
+
+  <td><%= link_to 'view', product, class: 'btn btn-link btn-xs' %></td>
 </tr>

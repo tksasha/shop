@@ -1,0 +1,14 @@
+<p>Name: <%= resource.name %></p>
+
+<p>Categories: </p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render resource.categories %>
+  </tbody>
+</table>
