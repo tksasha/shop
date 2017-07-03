@@ -5,8 +5,6 @@ class User < ApplicationRecord
 
   validates :roles, presence: true
 
-  validates :confirmation_token, presence: true
-
   has_secure_password
 
   has_many :auth_tokens
