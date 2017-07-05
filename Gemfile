@@ -14,6 +14,7 @@ gem 'simple_form'
 gem 'pundit'
 gem 'kaminari'
 gem 'bitmask_attributes'
+gem 'dotenv-rails'
 
 group :development, :test do
   gem 'rspec-rails'
