@@ -27,4 +27,5 @@ RSpec.describe ProductsController, type: :controller do
 
   it_behaves_like :destroy do
     let(:success) { -> { should redirect_to :products } }
+  end
 end

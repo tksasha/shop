@@ -9,8 +9,6 @@ describe SessionPolicy do
     context do
       let(:user) { nil }
 
-      before { expect(resource).to receive(:user_not_blocked?).twice().and_return(true) }
-
       it { should permit user, resource }
     end
 
@@ -28,7 +26,7 @@ describe SessionPolicy do
       let(:user) { nil }
 
       context do
-        before { expect(resource).to receive(:user_not_blocked?).and_return(false) }
+        before { expect(resource).to receive(:user_not_blocked?).and_return(true) }
 
         context do
           before { expect(resource).to receive(:user_confirmed?).and_return(true) }
@@ -44,7 +42,7 @@ describe SessionPolicy do
       end
 
       context do
-        before { expect(resource).to receive(:user_not_blocked?).and_return(true) }
+        before { expect(resource).to receive(:user_not_blocked?).and_return(false) }
 
         it { should_not permit user, resource }
       end
