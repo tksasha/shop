@@ -77,7 +77,7 @@ module ActsAsRESTController
 
       format.json { head :no_content }
 
-      format.js { head :no_content }
+      format.js { render }
     end
   end
 
