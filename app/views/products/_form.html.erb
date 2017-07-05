@@ -1,5 +1,5 @@
 <%= simple_form_for resource do |f| %>
   <%= f.input :name %>
-  <%= f.input :categories, collection: Category.all, input_html: { multiple: true } %>
+  <%= f.input :category_ids, collection: Category.all, input_html: { multiple: true } %>
   <%= f.submit class: 'btn btn-primary btn-block' %>
 <% end %>

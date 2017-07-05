@@ -5,11 +5,7 @@ class ProductsController < ApplicationController
   end
 
   def resource_params
-    params.require(:product).permit(:name, categories: [])
-  end
-
-  def build_resource
-    @resource = ProductFactory.build resource_params
+    params.require(:product).permit(:name, category_ids: [])
   end
 
   def create_success_callback
