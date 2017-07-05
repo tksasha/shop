@@ -1,8 +1,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "jquery-ui";
+@import "bootstrap-multiselect";
 
 @import "*";
-@import "jquery-ui";
 
 body {
     padding-top: 20px;

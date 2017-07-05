@@ -3,9 +3,13 @@ class ProductPolicy < ApplicationPolicy
     user.present?
   end
 
+  alias_method :show?, :index?
+
   def destroy?
     user.present? && user.roles?(:admin)
   end
 
-  alias_method :show?, :index?
+  def new?
+    user.present? && user.roles?(:admin)
+  end
 end

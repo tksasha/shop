@@ -87,13 +87,13 @@ RSpec.describe Session, type: :model do
     it { expect { subject.destroy }.to_not raise_error }
   end
 
-  describe '#user_blocked?' do
+  describe '#user_not_blocked?' do
     context do
       let(:user) { stub_model User }
 
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
-      its(:user_blocked?) { should eq false }
+      its(:user_not_blocked?) { should eq true }
     end
 
     context do
@@ -101,7 +101,7 @@ RSpec.describe Session, type: :model do
 
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
-      its(:user_blocked?) { should eq false }
+      its(:user_not_blocked?) { should eq true }
     end
 
     context do
@@ -109,7 +109,7 @@ RSpec.describe Session, type: :model do
 
       before { expect(User).to receive(:find_by).with(email: 'one@digits.com').and_return(user) }
 
-      its(:user_blocked?) { should eq true }
+      its(:user_not_blocked?) { should eq false }
     end
   end
 

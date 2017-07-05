@@ -4,7 +4,7 @@ class SessionPolicy < ApplicationPolicy
   end
 
   def create?
-    new? && !resource.user_blocked? && resource.user_confirmed?
+    !user.present? && resource.user_not_blocked? && resource.user_confirmed?
   end
 
   def destroy?

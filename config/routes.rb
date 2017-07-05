@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
   
-  resources :products, only: [:index, :show, :destroy]
+  resources :products, only: [:index, :new, :create, :show, :destroy]
 
   resources :users, only: [:index, :edit, :update] do
     resource :block, only: [:create, :destroy]

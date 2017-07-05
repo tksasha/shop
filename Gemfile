@@ -16,6 +16,7 @@ gem 'kaminari'
 gem 'bitmask_attributes'
 gem 'dotenv-rails'
 gem 'paranoia'
+gem 'bootstrap-multiselect-rails'
 
 group :development, :test do
   gem 'rspec-rails'
