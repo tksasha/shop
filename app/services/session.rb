@@ -31,8 +31,8 @@ class Session
     !!@destroyed
   end
 
-  def user_blocked?
-    !!user&.decorate&.blocked?
+  def user_not_blocked?
+    !user&.decorate&.blocked?
   end
 
   private
