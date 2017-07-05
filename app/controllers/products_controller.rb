@@ -5,12 +5,6 @@ class ProductsController < ApplicationController
   end
 
   def destroy_callback
-    respond_to do |format|
-      format.html { redirect_to :products }
-
-      format.json { head :no_content }
-
-      format.js { render }
-    end
+    redirect_to :products
   end
 end
