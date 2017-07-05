@@ -4,6 +4,7 @@
       <th>Name</th>
       <th>Categories</th>
       <th></th>
+      <%= content_tag :th if policy(Product).destroy? %>
     </tr>
   </thead>
   <tbody>

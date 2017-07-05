@@ -15,6 +15,7 @@ gem 'pundit'
 gem 'kaminari'
 gem 'bitmask_attributes'
 gem 'dotenv-rails'
+gem 'paranoia'
 
 group :development, :test do
   gem 'rspec-rails'

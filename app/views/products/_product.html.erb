@@ -1,7 +1,12 @@
-<tr>
+<tr id="<%= dom_id product %>">
   <td><%= product.name %></td>
 
   <td><%= product.categories.pluck(:name).to_sentence %></td>
 
   <td><%= link_to 'view', product, class: 'btn btn-link btn-xs' %></td>
+
+  <% if policy(Product).destroy? %>
+    <td><%= link_to 'delete', product, class: 'btn btn-link btn-xs', 
+            data: { method: :delete, confirm: 'Are you sure?' } %></td>
+  <% end %>
 </tr>
