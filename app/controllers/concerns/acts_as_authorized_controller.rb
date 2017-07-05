@@ -1,9 +1,9 @@
 module ActsAsAuthorizedController
-  include Pundit
-
   extend ActiveSupport::Concern
 
   included do
+    include Pundit
+
     rescue_from Pundit::NotAuthorizedError do
       respond_to do |format|
         format.html { render 'errors/forbidden', status: :forbidden }
