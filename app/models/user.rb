@@ -13,6 +13,6 @@ class User < ApplicationRecord
 
   private
   def send_confirmation_email
-    ConfirmationMailer.email(self).deliver_now
+    ConfirmationMailer.email(self).deliver_later
   end
 end

@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
       # ConfirmationMailer.email(self).deliver_now
       #
       expect(ConfirmationMailer).to receive(:email).with(subject) do
-        double.tap { |a| expect(a).to receive(:deliver_now) }
+        double.tap { |a| expect(a).to receive(:deliver_later) }
       end
     end
 
