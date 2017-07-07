@@ -15,6 +15,7 @@ RSpec.configure do |config|
   end
 
   config.include Permitter
+  config.include Paperclip::Shoulda::Matchers
 
   [:controller, :view, :request].each do |type|
     config.include ::Rails::Controller::Testing::TestProcess, :type => type
