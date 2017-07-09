@@ -11,8 +11,4 @@ class ProductsController < ApplicationController
   def destroy_callback
     redirect_to :products
   end
-
-  def create_success_callback
-    redirect_to :products
-  end
 end
