@@ -19,7 +19,7 @@ describe ProductPolicy do
     end
   end
 
-  permissions :new?, :create?, :destroy? do
+  permissions :new?, :create?, :edit?, :update?, :destroy? do
     let(:resource) { double }
 
     context do

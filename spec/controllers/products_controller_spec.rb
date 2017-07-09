@@ -18,11 +18,21 @@ RSpec.describe ProductsController, type: :controller do
   it_behaves_like :show
 
   it_behaves_like :create do
-    let(:resource) { double }
+    let(:resource) { stub_model Product }
 
-    let(:success) { -> { should redirect_to :products } }
+    let(:success) { -> { should redirect_to resource } }
 
     let(:failure) { -> { should render_template :new } }
+  end
+
+  it_behaves_like :edit
+
+  it_behaves_like :update do
+    let(:resource) { stub_model Product }
+
+    let(:success) { -> { should redirect_to resource } }
+
+    let(:failure) { -> { should render_template :edit } }
   end
 
   it_behaves_like :destroy do
