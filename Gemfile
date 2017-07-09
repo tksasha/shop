@@ -18,6 +18,7 @@ gem 'dotenv-rails'
 gem 'paranoia'
 gem 'bootstrap-multiselect-rails'
 gem 'paperclip'
+gem 'aws-sdk'
 
 group :development, :test do
   gem 'rspec-rails'
