@@ -11,10 +11,9 @@ RSpec.describe Product, type: :model do
 
   it { should have_attached_file :image }
 
-  it { should validate_presence_of :name }
+  it { should validate_attachment_presence :image }
 
-  # TODO:
-  # preserve_files: true
-  # content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }
-  # size: { in: 0..5.megabytes }
+  it { should validate_attachment_content_type(:image).allowing('image/gif', 'image/jpeg', 'image/png') }
+
+  it { should validate_attachment_size(:image).in(0..5.megabytes) }
 end
