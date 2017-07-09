@@ -4,7 +4,8 @@
       <th>Name</th>
       <th>Categories</th>
       <th></th>
-      <%= content_tag :th if policy(Product).destroy? %>
+      <%= content_tag :th if policy(collection).edit? %>
+      <%= content_tag :th if policy(collection).destroy? %>
     </tr>
   </thead>
   <tbody>
