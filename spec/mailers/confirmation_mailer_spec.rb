@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe ConfirmationMailer, type: :mailer do
   describe '#email' do
