@@ -19,6 +19,7 @@ gem 'paranoia'
 gem 'bootstrap-multiselect-rails'
 gem 'paperclip'
 gem 'aws-sdk'
+gem 'sidekiq'
 
 group :development, :test do
   gem 'rspec-rails'
