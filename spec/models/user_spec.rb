@@ -3,7 +3,11 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { should validate_presence_of :email }
 
-  it { should validate_uniqueness_of(:email).case_insensitive }
+  context do
+    before { allow(subject).to receive(:send_confirmation_email) }
+
+    it { should validate_uniqueness_of(:email).case_insensitive }
+  end
 
   it { should_not allow_value('one@').for(:email) }
 
@@ -24,7 +28,7 @@ RSpec.describe User, type: :model do
 
     before do
       #
-      # ConfirmationMailer.email(self).deliver_now
+      # ConfirmationMailer.email(self).deliver_later
       #
       expect(ConfirmationMailer).to receive(:email).with(subject) do
         double.tap { |a| expect(a).to receive(:deliver_later) }
