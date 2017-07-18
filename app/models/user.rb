@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   has_many :auth_tokens
 
+  has_many :purchases
+
   after_commit :send_confirmation_email, on: :create
 
   private

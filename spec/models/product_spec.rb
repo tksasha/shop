@@ -16,4 +16,8 @@ RSpec.describe Product, type: :model do
   it { should validate_attachment_content_type(:image).allowing('image/gif', 'image/jpeg', 'image/png') }
 
   it { should validate_attachment_size(:image).in(0..5.megabytes) }
+
+  it { should validate_presence_of :price }
+
+  it { should validate_numericality_of(:price).is_greater_than(0) }
 end

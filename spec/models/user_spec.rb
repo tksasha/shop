@@ -21,6 +21,8 @@ RSpec.describe User, type: :model do
 
   it { should have_many :auth_tokens }
 
+  it { should have_many :purchases }
+
   it { should callback(:send_confirmation_email).after(:commit).on(:create) }
 
   describe '#send_confirmation_email' do
