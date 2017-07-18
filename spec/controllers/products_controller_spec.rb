@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe ProductsController, type: :controller do 
   describe '#resource_params' do
     let(:params) do
-      { product: { name: 'name', category_ids: ['1', '2', '3'], image: '' } }
+      { product: { name: 'name', category_ids: ['1', '2', '3'], image: '', price: 1 } }
     end
 
     before { expect(subject).to receive(:params).and_return(acp params) }

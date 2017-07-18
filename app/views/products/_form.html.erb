@@ -1,6 +1,11 @@
 <%= simple_form_for resource do |f| %>
   <%= f.input :name %>
+
+  <%= f.input :price %>
+
   <%= f.input :category_ids, collection: Category.all, input_html: { multiple: true, class: 'multiselect' } %>
+
   <%= f.input :image, as: :file %>
+
   <%= f.submit class: 'btn btn-primary btn-block' %>
 <% end %>

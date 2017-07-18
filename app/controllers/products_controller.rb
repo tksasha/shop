@@ -5,7 +5,7 @@ class ProductsController < ApplicationController
   end
 
   def resource_params
-    params.require(:product).permit(:name, :image, category_ids: [])
+    params.require(:product).permit(:name, :image, :price, category_ids: [])
   end
 
   def destroy_callback
