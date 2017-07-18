@@ -1,4 +1,8 @@
 RSpec.shared_examples :new do |params|
+  before { @params = (params && params[:params]) || {} }
+
+  before { @format = (params && params[:format]) || :html }
+
   before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#new' do
@@ -10,13 +14,17 @@ RSpec.shared_examples :new do |params|
 
     before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
 
-    before { get :new }
+    before { get :new, params: @params, format: @format }
 
     it { should render_template :new }
   end
 end
 
 RSpec.shared_examples :show do |params|
+  before { @params = (params && params[:params]) || { id: 1 } }
+
+  before { @format = (params && params[:format]) || :html }
+
   before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#show' do
@@ -28,7 +36,7 @@ RSpec.shared_examples :show do |params|
 
     before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
     
-    before { get :show, params: { id: 1 } }
+    before { get :show, params: @params, format: @format }
 
     it { should render_template :show }
   end
@@ -69,6 +77,10 @@ RSpec.shared_examples :create do |params|
 end
 
 RSpec.shared_examples :edit do |params|
+  before { @params = (params && params[:params]) || { id: 1 } }
+
+  before { @format = (params && params[:format]) || :html }
+
   before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#edit' do
@@ -78,13 +90,17 @@ RSpec.shared_examples :edit do |params|
 
     before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
 
-    before { get :edit, params: { id: 1 } }
+    before { get :edit, params: @params, format: @format }
 
     it { should render_template :edit }
   end
 end
 
 RSpec.shared_examples :update do |params|
+  before { @params = (params && params[:params]) || { id: 1 } }
+
+  before { @format = (params && params[:format]) || :html }
+
   before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#update' do
@@ -99,7 +115,7 @@ RSpec.shared_examples :update do |params|
     context do
       before { expect(resource).to receive(:update).with(:resource_params).and_return(true) }
 
-      before { patch :update, params: { id: 1 } }
+      before { patch :update, params: @params, format: @format }
 
       it { success.call }
     end
@@ -107,7 +123,7 @@ RSpec.shared_examples :update do |params|
     context do
       before { expect(resource).to receive(:update).with(:resource_params).and_return(false) }
 
-      before { patch :update, params: { id: 1 } }
+      before { patch :update, params: @params, format: @format }
 
       it { failure.call }
     end
@@ -115,6 +131,10 @@ RSpec.shared_examples :update do |params|
 end
 
 RSpec.shared_examples :index do |params|
+  before { @params = (params && params[:params]) || {} }
+
+  before { @format = (params && params[:format]) || :html }
+
   before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
 
   describe '#index' do
@@ -124,7 +144,7 @@ RSpec.shared_examples :index do |params|
 
     before { expect(subject).to receive(:authorize).with(:collection).and_return(true) }
 
-    before { get :index }
+    before { get :index, params: @params, format: @format }
 
     it { should render_template :index }
   end
