@@ -18,4 +18,12 @@ RSpec.describe PurchasesController, type: :controller do
 
     let(:failure) { -> { should render_template :errors } }
   end
+
+  it_behaves_like :update, format: :json do
+    let(:resource) { double }
+
+    let(:success) { -> { expect(response).to have_http_status(:no_content)} }
+
+    let(:failure) { -> { should render_template :errors } }
+  end
 end

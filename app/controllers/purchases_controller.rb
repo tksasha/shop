@@ -7,4 +7,8 @@ class PurchasesController < ApplicationController
   def build_resource
     @resource = PurchaseFactory.build current_user.id, resource_params
   end
+
+  def update_success_callback
+    head :no_content
+  end
 end

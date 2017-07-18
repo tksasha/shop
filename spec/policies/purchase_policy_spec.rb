@@ -18,4 +18,30 @@ describe PurchasePolicy do
       it { should permit user, resource }
     end
   end
+
+  permissions :update? do
+    context do
+      let(:user) { nil }
+
+      let(:resource) { double }
+
+      it { should_not permit user, resource }
+    end
+
+    context do
+      let(:user) { stub_model User, id: 1 }
+
+      context do
+        let(:resource) { stub_model Purchase, user_id: 2 }
+
+        it { should_not permit user, resource }
+      end
+
+      context do
+        let(:resource) { stub_model Purchase, user_id: 1 }
+
+        it { should permit user, resource }
+      end
+    end
+  end
 end
