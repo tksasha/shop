@@ -19,7 +19,7 @@ describe PurchasePolicy do
     end
   end
 
-  permissions :update? do
+  permissions :update?, :destroy? do
     context do
       let(:user) { nil }
 

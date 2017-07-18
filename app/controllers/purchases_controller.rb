@@ -11,4 +11,8 @@ class PurchasesController < ApplicationController
   def update_success_callback
     head :no_content
   end
+
+  def destroy_callback
+    head :no_content
+  end
 end

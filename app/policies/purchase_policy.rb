@@ -6,4 +6,6 @@ class PurchasePolicy < ApplicationPolicy
   def update?
     user.present? && user.id == resource.user_id
   end
+
+  alias_method :destroy?, :update?
 end
