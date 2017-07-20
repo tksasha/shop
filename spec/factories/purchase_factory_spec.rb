@@ -1,18 +1,24 @@
 require 'rails_helper'
 
 RSpec.describe PurchaseFactory do
+  let(:params) { { user_id: 1, product_id: product.id, amount: 3, price: product.price } }
+
+  let(:product) { stub_model Product, price: 4 }
+
+  subject { described_class.new params[:user_id], product_id: params[:product_id], amount: params[:amount] }
+
   describe '#build' do
-    let(:product) { stub_model Product, price: 4 }
-
-    let(:params) { { user_id: 1, product_id: product.id, amount: 3, price: product.price } }
-
-    subject { described_class.new params[:user_id], product_id: params[:product_id], amount: params[:amount] }
-
-    before { expect(Product).to receive(:find).with(params[:product_id]).and_return(product) }
-
     before { expect(Purchase).to receive(:new).with(params).and_return(:resource) }
 
+    before { expect(subject).to receive(:product).and_return(product) }
+
     its(:build) { should eq :resource }
+  end
+
+  describe '#product' do
+    before { expect(Product).to receive(:find).with(params[:product_id]).and_return(product) }
+
+    its(:product) { should eq product }
   end
 
   describe '.build' do

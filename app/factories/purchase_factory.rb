@@ -1,14 +1,19 @@
 class PurchaseFactory
+  delegate :price, to: :product
+
   def initialize user_id, params={}
     @params = params
 
     @user_id = user_id
-
-    @price = Product.find(params[:product_id]).price
   end
 
   def build
-    Purchase.new @params.merge(user_id: @user_id, price: @price)
+    Purchase.new @params.merge(user_id: @user_id, price: price)
+  end
+
+  private
+  def product
+    @product ||= Product.find @params[:product_id]
   end
 
   class << self
