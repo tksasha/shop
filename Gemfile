@@ -20,6 +20,7 @@ gem 'bootstrap-multiselect-rails'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'sidekiq'
+gem 'aasm'
 
 group :development, :test do
   gem 'rspec-rails'
