@@ -7,6 +7,8 @@ class Purchase < ApplicationRecord
 
   validates :product, presence: true
 
+  belongs_to :order, counter_cache: true, optional: true
+
   validates :amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   validates :price, presence: true, numericality: { greater_than: 0 }

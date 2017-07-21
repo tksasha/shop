@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :purchases, only: [:create, :update, :destroy]
 
+  resources :orders, only: :create
+
   resources :confirmations, only: [:show, :index]
 
   resource :session, only: [:new, :create, :destroy]

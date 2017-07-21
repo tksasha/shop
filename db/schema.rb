@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170718134509) do
+ActiveRecord::Schema.define(version: 20170720193551) do
 
   create_table "auth_tokens", force: :cascade do |t|
     t.integer "user_id"
@@ -33,6 +33,13 @@ ActiveRecord::Schema.define(version: 20170718134509) do
     t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
 
+  create_table "orders", force: :cascade do |t|
+    t.string "aasm_state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "purchases_count"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -46,13 +53,6 @@ ActiveRecord::Schema.define(version: 20170718134509) do
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
-  create_table "products_tags", id: false, force: :cascade do |t|
-    t.integer "tag_id"
-    t.integer "product_id"
-    t.index ["product_id"], name: "index_products_tags_on_product_id"
-    t.index ["tag_id"], name: "index_products_tags_on_tag_id"
-  end
-
   create_table "purchases", force: :cascade do |t|
     t.integer "user_id"
     t.integer "product_id"
@@ -60,14 +60,10 @@ ActiveRecord::Schema.define(version: 20170718134509) do
     t.decimal "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "order_id"
+    t.index ["order_id"], name: "index_purchases_on_order_id"
     t.index ["product_id"], name: "index_purchases_on_product_id"
     t.index ["user_id"], name: "index_purchases_on_user_id"
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -76,9 +72,9 @@ ActiveRecord::Schema.define(version: 20170718134509) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "roles"
-    t.datetime "blocked_at"
     t.boolean "confirmed", default: false, null: false
     t.string "confirmation_token"
+    t.datetime "blocked_at"
   end
 
 end

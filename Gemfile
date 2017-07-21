@@ -21,6 +21,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'sidekiq'
 gem 'aasm'
+gem 'rails-observers'
 
 group :development, :test do
   gem 'rspec-rails'
