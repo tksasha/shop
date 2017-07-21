@@ -104,4 +104,8 @@ module ActsAsRESTController
   def build_resource
     @resource = resource_model.new resource_params
   end
+
+  def resource_params
+    ActionController::Parameters.new
+  end
 end
