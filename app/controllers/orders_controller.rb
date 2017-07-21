@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   private
-  def resource_params
+  def build_resource
+    @resource = Order.new purchases: current_user.purchases.where(order_id: nil)
   end
 end
