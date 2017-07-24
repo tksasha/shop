@@ -94,6 +94,6 @@ RSpec.describe SessionsController, type: :controller do
   it_behaves_like :destroy, format: :json do
     before { expect(subject).to receive(:logout_user) }
 
-    let(:success) { -> { expect(response).to have_http_status(:no_content) } }
+    let(:success) { -> { should respond_with(:no_content) } }
   end
 end

@@ -20,6 +20,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 gem 'sidekiq'
 gem 'pg'
+gem 'aasm'
 
 group :development, :test do
   gem 'rspec-rails'

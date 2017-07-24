@@ -1,6 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  it { should have_secure_password }
+
+  it { should have_many :auth_tokens }
+
+  it { should have_many :orders }
+
+  it { should have_many :purchases }
+
   it { should validate_presence_of :email }
 
   context do
@@ -16,12 +24,6 @@ RSpec.describe User, type: :model do
   it { should allow_value('one@digits.com').for(:email) }
 
   it { should validate_presence_of :roles }
-
-  it { should have_secure_password }
-
-  it { should have_many :auth_tokens }
-
-  it { should have_many :purchases }
 
   it { should callback(:send_confirmation_email).after(:commit).on(:create) }
 

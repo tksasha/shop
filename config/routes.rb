@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  resource :profile, only: [:new, :create, :show] do
-    resources :purchases, only: [:create, :update, :destroy]
-  end
+  resource :profile, only: [:new, :create, :show]
+
+  resources :purchases, only: [:create, :update, :destroy]
+
+  resources :orders, only: :create
 
   resources :confirmations, only: [:show, :index]
 
