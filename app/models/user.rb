@@ -1,15 +1,17 @@
 class User < ApplicationRecord
-  validates :email, presence: true, uniqueness: { case_sensitive: false }, email: true
-
   bitmask :roles, as: [:user, :admin]
-
-  validates :roles, presence: true
 
   has_secure_password
 
   has_many :auth_tokens
 
+  has_many :orders
+
   has_many :purchases
+
+  validates :email, presence: true, uniqueness: { case_sensitive: false }, email: true
+
+  validates :roles, presence: true
 
   after_commit :send_confirmation_email, on: :create
 

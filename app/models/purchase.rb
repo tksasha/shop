@@ -1,15 +1,13 @@
 class Purchase < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, optional: false
 
-  validates :user, presence: true
-
-  belongs_to :product
-
-  validates :product, presence: true
+  belongs_to :product, optional: false
 
   belongs_to :order, counter_cache: true, optional: true
 
   validates :amount, presence: true, numericality: { only_integer: true, greater_than: 0 }
 
   validates :price, presence: true, numericality: { greater_than: 0 }
+
+  scope :cart, -> { where order_id: nil }
 end
