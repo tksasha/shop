@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails'
-gem 'sqlite3'
 gem 'puma'
 gem 'sass-rails'
 gem 'bcrypt'
@@ -20,6 +19,7 @@ gem 'bootstrap-multiselect-rails'
 gem 'paperclip'
 gem 'aws-sdk'
 gem 'sidekiq'
+gem 'pg'
 
 group :development, :test do
   gem 'rspec-rails'

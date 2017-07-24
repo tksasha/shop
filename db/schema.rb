@@ -12,8 +12,11 @@
 
 ActiveRecord::Schema.define(version: 20170718134509) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "auth_tokens", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -27,8 +30,8 @@ ActiveRecord::Schema.define(version: 20170718134509) do
   end
 
   create_table "categories_products", id: false, force: :cascade do |t|
-    t.integer "category_id"
-    t.integer "product_id"
+    t.bigint "category_id"
+    t.bigint "product_id"
     t.index ["category_id"], name: "index_categories_products_on_category_id"
     t.index ["product_id"], name: "index_categories_products_on_product_id"
   end
@@ -46,16 +49,9 @@ ActiveRecord::Schema.define(version: 20170718134509) do
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
-  create_table "products_tags", id: false, force: :cascade do |t|
-    t.integer "tag_id"
-    t.integer "product_id"
-    t.index ["product_id"], name: "index_products_tags_on_product_id"
-    t.index ["tag_id"], name: "index_products_tags_on_tag_id"
-  end
-
   create_table "purchases", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
+    t.bigint "user_id"
+    t.bigint "product_id"
     t.integer "amount"
     t.decimal "price"
     t.datetime "created_at", null: false
@@ -64,21 +60,17 @@ ActiveRecord::Schema.define(version: 20170718134509) do
     t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "roles"
-    t.datetime "blocked_at"
     t.boolean "confirmed", default: false, null: false
     t.string "confirmation_token"
+    t.datetime "blocked_at"
   end
 
+  add_foreign_key "purchases", "products"
+  add_foreign_key "purchases", "users"
 end
