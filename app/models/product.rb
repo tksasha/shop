@@ -18,7 +18,7 @@ class Product < ApplicationRecord
     file_name: { matches: [/jpe?g\z/, /gif\z/, /png\z/] },
     size: { in: 0..5.megabytes }
 
-  pg_search_scope :search_by_description,
+  pg_search_scope :find_by_description,
     against: :description,
     using: {
       tsearch: {
@@ -27,4 +27,6 @@ class Product < ApplicationRecord
         tsvector_column: :description_tsvector
       }
     }
+
+  pg_search_scope :find_by_name, against: :name, using: :trigram
 end

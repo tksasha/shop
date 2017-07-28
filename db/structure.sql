@@ -21,6 +21,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
+--
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
 SET search_path = public, pg_catalog;
 
 SET default_tablespace = '';
@@ -385,6 +399,13 @@ CREATE INDEX index_auth_tokens_on_user_id ON auth_tokens USING btree (user_id);
 
 
 --
+-- Name: index_categories_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_categories_on_name ON categories USING gist (name gist_trgm_ops);
+
+
+--
 -- Name: index_categories_products_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -410,6 +431,13 @@ CREATE INDEX index_orders_on_user_id ON orders USING btree (user_id);
 --
 
 CREATE INDEX index_products_on_deleted_at ON products USING btree (deleted_at);
+
+
+--
+-- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_name ON products USING gist (name gist_trgm_ops);
 
 
 --
@@ -481,6 +509,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170720193424'),
 ('20170720193551'),
 ('20170724073206'),
-('20170728111718');
+('20170728111718'),
+('20170728121426');
 
 
