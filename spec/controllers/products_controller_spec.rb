@@ -13,6 +13,8 @@ RSpec.describe ProductsController, type: :controller do
 
   it_behaves_like :index
 
+  it_behaves_like :index, format: :json
+
   it_behaves_like :new
 
   it_behaves_like :show
