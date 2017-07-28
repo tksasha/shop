@@ -1,4 +1,6 @@
 class Product < ApplicationRecord
+  include PgSearch
+
   acts_as_paranoid
 
   has_and_belongs_to_many :categories
@@ -15,4 +17,14 @@ class Product < ApplicationRecord
     content_type: { content_type: ['image/jpeg', 'image/gif', 'image/png'] },
     file_name: { matches: [/jpe?g\z/, /gif\z/, /png\z/] },
     size: { in: 0..5.megabytes }
+
+  pg_search_scope :search_by_description,
+    against: :description,
+    using: {
+      tsearch: {
+        prefix: true,
+        dictionary: :english,
+        tsvector_column: :description_tsvector
+      }
+    }
 end

@@ -21,6 +21,7 @@ gem 'aws-sdk'
 gem 'sidekiq'
 gem 'pg'
 gem 'aasm'
+gem 'pg_search'
 
 group :development, :test do
   gem 'rspec-rails'
