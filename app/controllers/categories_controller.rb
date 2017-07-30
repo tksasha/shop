@@ -4,6 +4,6 @@ class CategoriesController < ApplicationController
   # GET /categories[?name=...]
   #
   def collection
-    @collection ||= params[:name] ? Category.find_by_name(params[:name]) : Category.all
+    @collection ||= CategorySearcher.search name: params[:name]
   end
 end

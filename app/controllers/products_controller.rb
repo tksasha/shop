@@ -4,15 +4,11 @@ class ProductsController < ApplicationController
   # GET /products?page=...[&description=...][&name=...]
   #
   def collection
-    unless @collection
-      @collection = params[:description] ? Product.find_by_description(params[:description]) : Product
-
-      @collection = @collection.find_by_name(params[:name]) if params[:name]
-
-      @collection = @collection.includes(:categories).order(:name).page params[:page]
-    end
-
-    @collection
+    @collection ||= ProductSearcher
+      .search(name: params[:name], description: params[:description])
+      .includes(:categories)
+      .order(:name)
+      .page(params[:page])
   end
 
   def resource_params

@@ -7,5 +7,5 @@ class Category < ApplicationRecord
   
   validates :name, uniqueness: true
 
-  pg_search_scope :find_by_name, against: :name, using: :trigram
+  pg_search_scope :search_by_name, against: :name, using: :trigram
 end

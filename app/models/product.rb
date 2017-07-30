@@ -18,15 +18,14 @@ class Product < ApplicationRecord
     file_name: { matches: [/jpe?g\z/, /gif\z/, /png\z/] },
     size: { in: 0..5.megabytes }
 
-  pg_search_scope :find_by_description,
-    against: :description,
+  pg_search_scope :search_by_description,
+    against: [:description, :name],
     using: {
       tsearch: {
-        prefix: true,
         dictionary: :english,
         tsvector_column: :description_tsvector
       }
     }
 
-  pg_search_scope :find_by_name, against: :name, using: :trigram
+  pg_search_scope :search_by_name, against: :name, using: :trigram
 end
