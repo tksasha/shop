@@ -1,6 +1,5 @@
 RSpec.shared_examples :search_by_attributes do |params|
-  params[:attributes] = [ params[:attributes] ] unless params[:attributes].respond_to? :each
-
+  params[:attributes] = [params[:attributes]] unless params[:attributes].respond_to? :each
 
   params[:attributes].each do |attribute|
     describe "#search_by_#{ attribute }"do
@@ -10,5 +9,5 @@ RSpec.shared_examples :search_by_attributes do |params|
 
       its :search { should eq :collection }
     end
-  end  
+  end
 end
