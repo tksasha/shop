@@ -1,3 +1,3 @@
 class CategorySearcher < ApplicationSearcher
-  searches_with_model :name
+  search_by_attributes :name
 end

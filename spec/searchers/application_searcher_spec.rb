@@ -14,10 +14,10 @@ describe ApplicationSearcher do
 
     subject { Dummy.new params }
 
-    #
-    # subject.resource_model.all => :results
-    #
     before do
+      #
+      # subject.resource_model.all => :results
+      #
       expect(subject).to receive(:resource_model) do
         double.tap { |a| expect(a).to receive(:all).and_return(:results) }
       end
@@ -31,10 +31,10 @@ describe ApplicationSearcher do
   end
 
   describe '.search' do
-    #
-    # described_class.new(params).search
-    #
     before do
+      #
+      # described_class.new(params).search
+      #
       expect(described_class).to receive(:new).with(:params) do
         double.tap { |a| expect(a).to receive(:search) }
       end
@@ -43,9 +43,11 @@ describe ApplicationSearcher do
     it { expect { described_class.search :params }.to_not raise_error }
   end
 
-  describe '.searches_with_model' do
-    subject { described_class.send :searches_with_model, :attr }
+  describe '.search_by_attributes' do
+    subject { described_class.send :search_by_attributes, :attr1, :attr2 }
 
-    it { expect { subject } .to change { described_class.private_instance_methods } .by [:search_by_attr] }
+    it do
+      expect { subject } .to change { described_class.private_instance_methods } .by [:search_by_attr1, :search_by_attr2]
+    end
   end
 end

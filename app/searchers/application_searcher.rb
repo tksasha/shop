@@ -32,14 +32,16 @@ class ApplicationSearcher
     end
 
     private
-    def searches_with_model attribute
-      method_name = :"search_by_#{ attribute }"
+    def search_by_attributes *attributes
+      attributes.each do |attribute|
+        method_name = :"search_by_#{ attribute }"
 
-      define_method method_name do |value|
-        @results = @results.send method_name, value if @results.respond_to? method_name, true
+        define_method method_name do |value|
+          @results = @results.send method_name, value if @results.respond_to? method_name, true
+        end
+
+        private method_name
       end
-
-      private method_name
     end
   end
 end

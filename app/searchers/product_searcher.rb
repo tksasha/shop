@@ -1,5 +1,3 @@
 class ProductSearcher < ApplicationSearcher
-  searches_with_model :name
-
-  searches_with_model :description
+  search_by_attributes :name, :description
 end
