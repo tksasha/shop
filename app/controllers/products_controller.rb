@@ -1,7 +1,14 @@
 class ProductsController < ApplicationController
   private
+  #
+  # GET /products?page=...[&description=...][&name=...]
+  #
   def collection
-    @collection ||= Product.includes(:categories).order(:name).page params[:page]
+    @collection ||= ProductSearcher
+      .search(name: params[:name], description: params[:description])
+      .includes(:categories)
+      .order(:name)
+      .page(params[:page])
   end
 
   def resource_params
