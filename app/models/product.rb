@@ -19,7 +19,7 @@ class Product < ApplicationRecord
     size: { in: 0..5.megabytes }
 
   pg_search_scope :search_by_description,
-    against: [:description, :name],
+    against: :description,
     using: {
       tsearch: {
         dictionary: :english,
