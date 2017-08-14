@@ -136,7 +136,7 @@ CREATE TABLE orders (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     purchases_count integer,
-    user_id integer
+    user_id bigint
 );
 
 
@@ -175,7 +175,8 @@ CREATE TABLE products (
     image_updated_at timestamp without time zone,
     price numeric,
     description text,
-    description_tsvector tsvector
+    description_tsvector tsvector,
+    similarities jsonb
 );
 
 
@@ -210,7 +211,7 @@ CREATE TABLE purchases (
     price numeric,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    order_id integer
+    order_id bigint
 );
 
 
@@ -510,6 +511,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170720193551'),
 ('20170724073206'),
 ('20170728111718'),
-('20170728121426');
+('20170728121426'),
+('20170814110755');
 
 
