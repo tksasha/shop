@@ -136,7 +136,8 @@ CREATE TABLE orders (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     purchases_count integer,
-    user_id bigint
+    user_id bigint,
+    total numeric(10,2) NOT NULL
 );
 
 
@@ -512,6 +513,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170724073206'),
 ('20170728111718'),
 ('20170728121426'),
-('20170814110755');
+('20170814110755'),
+('20170816084513');
 
 
