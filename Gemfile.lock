@@ -65,6 +65,9 @@ GEM
       sass (>= 3.4.19)
     bootstrap-multiselect-rails (0.9.9)
       rails (>= 4.0.0)
+    bootstrap4-kaminari-views (1.0.0)
+      kaminari (>= 0.13)
+      rails (>= 3.1)
     builder (3.2.3)
     climate_control (0.2.0)
     cocaine (0.5.8)
@@ -256,6 +259,7 @@ DEPENDENCIES
   bitmask_attributes
   bootstrap
   bootstrap-multiselect-rails
+  bootstrap4-kaminari-views
   dotenv-rails
   draper
   email_validator

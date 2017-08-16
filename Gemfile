@@ -22,6 +22,7 @@ gem 'pg'
 gem 'aasm'
 gem 'pg_search'
 gem 'bootstrap'
+gem 'bootstrap4-kaminari-views'
 
 group :development, :test do
   gem 'rspec-rails'
