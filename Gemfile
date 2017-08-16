@@ -29,6 +29,7 @@ end
 
 group :development do
   gem 'listen'
+  gem 'faker'
 end
 
 group :test do
