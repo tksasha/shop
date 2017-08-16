@@ -7,21 +7,17 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
 </head>
 <body>
+  <%= render 'widgets/header' %>
+
   <div class="container">
-    <%= render 'widgets/header' if current_user.present? %>
-
-    <div id="flash_messages">
-      <%= render 'widgets/flash_messages' %>
-    </div>
-
-    <% if current_user.present? %>
-      <div class="jumbotron">
+    <div class="row">
+      <div class="col-sm-10 mx-auto">
         <%= yield %>
       </div>
-    <% else %>
-      <%= yield %>
-    <% end %>
+    </div>
   </div>
+
+  <%= render 'widgets/footer' %>
 
   <%= javascript_include_tag :application %>
 </body>

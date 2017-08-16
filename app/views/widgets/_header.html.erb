@@ -1,23 +1,28 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Shop</a>
-    </div>
+<header class="header">
+  <nav class="navbar navbar-expand-md navbar-light bg-light mb-4">
+    <%= link_to 'Shop', :root, class: 'navbar-brand' %>
 
-    <% if current_user.present? %>
-      <div id="navbar" class="navbar-collapse collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><%= link_to 'Users', :users if current_user.roles? :admin %></li>
-          <li><%= link_to 'Products', :products %></li>
-          <li><%= link_to 'Log out', :session, method: :delete %></li>
-        </ul>
-      </div>
-    <% end %>
-  </div>
-</nav>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ml-auto">
+        <% if current_user.present? %>
+        <li class="nav-item">
+          <%= link_to 'Profile', :profile, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Users', :users, class: 'nav-link' if current_user.roles? :admin %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Products', :products, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Log out', :session, class: 'nav-link', method: :delete %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</header>

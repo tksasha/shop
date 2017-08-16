@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-responsive table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -14,13 +14,11 @@
   </tbody>
 </table>
 
-<div class="text-center">
-  <%= paginate collection %>
-</div>
+<%= paginate collection, theme: 'twitter-bootstrap-4', pagination_class: 'pagination justify-content-center' %>
 
-<div class="text-center">
+<p class="text-center">
   <%= page_entries_info collection %>
-</div>
+</p>
 
 <div>
   <%= link_to 'New product', [:new, :product], class: 'btn btn-primary btn-block' if policy(Product).new? %>
