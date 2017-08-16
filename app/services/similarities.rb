@@ -12,7 +12,11 @@ class Similarities
   private
   def purchases
     @order.purchases.inject([]) do |results, purchase|
-      results.push product_id: purchase.product_id, amount: purchase.amount
+      if purchase.product_id == @product.id
+        results
+      else
+        results.push product_id: purchase.product_id, amount: purchase.amount
+      end
     end
   end
 

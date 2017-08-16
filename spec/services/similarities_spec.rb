@@ -1,13 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Similarities do
-  let :product { stub_model Product, similarities: [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
+  let :product { stub_model Product, id: 4, similarities: [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
 
   let :purchases do
     [
       Purchase.new(product_id: 1, amount: 1, price: 1.1),
       Purchase.new(product_id: 2, amount: 2, price: 2.2),
       Purchase.new(product_id: 3, amount: 3, price: 3.3),
+      Purchase.new(product_id: 4, amount: 4, price: 4.4)
     ]
   end
 
