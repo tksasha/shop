@@ -6,11 +6,17 @@ class Similarities
   end
 
   def update!
-    @product.update! similarities: merged_similarities
+    @product.update! similarities: similarities
   end
 
   private
-  def purchases
+  def product_similarities
+    return [] unless @product.similarities.respond_to? :map
+
+    @product.similarities.map &:symbolize_keys
+  end
+
+  def purchases_similarities
     @order.purchases.inject([]) do |results, purchase|
       if purchase.product_id == @product.id
         results
@@ -20,38 +26,16 @@ class Similarities
     end
   end
 
-  def source_similarities
-    return [] unless @product.similarities.respond_to? :map
-
-    @product.similarities.map &:symbolize_keys
-  end
-
-  def source_similarities_hash
-    source_similarities.inject({}) do |results, similarities|
-      results[similarities[:product_id]] = similarities[:amount]
+  def similarities_hash
+    (product_similarities + purchases_similarities).inject(Hash.new 0) do |results, similarity|
+      results[similarity[:product_id]] += similarity[:amount]
 
       results
     end
   end
 
-  def merged_similarities_hash
-    results = source_similarities_hash
-
-    purchases.each do |purchase|
-      if results.key? purchase[:product_id]
-        results[purchase[:product_id]] += purchase[:amount]
-      else
-        results[purchase[:product_id]] = purchase[:amount]
-      end
-    end
-
-    results
-  end
-
-  def merged_similarities
-    merged_similarities_hash.inject([]) do |results, (product_id, amount)|
-      results.push product_id: product_id, amount: amount
-    end
+  def similarities
+    similarities_hash.inject([]) { |results, (product_id, amount)| results.push(product_id: product_id, amount: amount) }
   end
 
   class << self

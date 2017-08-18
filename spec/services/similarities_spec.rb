@@ -16,23 +16,23 @@ RSpec.describe Similarities do
 
   subject { described_class.new product, order }
 
-  its :purchases { should eq [{ product_id: 1, amount: 1 }, { product_id: 2, amount: 2 }, { product_id: 3, amount: 3 }] }
-
-  describe '#source_similarities' do
-    its :source_similarities { should eq [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
+  describe '#product_similarities' do
+    its :product_similarities { should eq [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
 
     context do
       let :product { stub_model Product }
 
-      its :source_similarities { should eq [] }
+      its :product_similarities { should eq [] }
     end
   end
 
-  its :source_similarities_hash { should eq 1 => 1, 3 => 3 }
+  its :purchases_similarities do
+    should eq [{ product_id: 1, amount: 1 }, { product_id: 2, amount: 2 }, { product_id: 3, amount: 3 }]
+  end
 
-  its :merged_similarities_hash { should eq 1 => 2, 2 => 2, 3 => 6 }
+  its :similarities_hash { should eq 1 => 2, 2 => 2, 3 => 6 }
 
-  its :merged_similarities do
+  its :similarities do
     should eq [{ product_id: 1, amount: 2 }, { product_id: 3, amount: 6 }, { product_id: 2, amount: 2 }]
   end
 
