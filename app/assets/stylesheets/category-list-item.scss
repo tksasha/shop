@@ -1,0 +1,22 @@
+@import "bootstrap/functions";
+@import "bootstrap/variables";
+
+.category-list-item {
+  height: 300px;
+  width: 300px;
+  position: relative;
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.category-list-item__name {
+  color: theme-color("light");
+  background: theme-color("info");
+  float: left;
+  padding: 5px 20px;
+  font-size: 1.6rem;
+  position: absolute;
+  bottom: 15px;
+  left: 0px;
+}

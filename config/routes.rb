@@ -18,4 +18,6 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: :index
+
+  resources :widgets, only: :index
 end

@@ -69,6 +69,7 @@ GEM
       rails (>= 3.1)
     builder (3.2.3)
     climate_control (0.2.0)
+    clrs (2.0.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     concurrent-ruby (1.0.5)
@@ -261,6 +262,7 @@ DEPENDENCIES
   bootstrap
   bootstrap-multiselect-rails
   bootstrap4-kaminari-views
+  clrs
   dotenv-rails
   draper
   email_validator
