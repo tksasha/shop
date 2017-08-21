@@ -1,5 +1,46 @@
 <div class="container-fluid">
   <div class="widget-list-item">
+    <div class="widget-list-item__header">Carousel</div>
+
+    <div class="home-slider carousel slide mx-auto" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target=".home-slider" data-slide-to="0" class="active"></li>
+        <li data-target=".home-slider" data-slide-to="1"></li>
+        <li data-target=".home-slider" data-slide-to="2"></li>
+      </ol>
+
+      <div class="carousel-inner" role="listbox">
+        <div class="carousel-item active home-slider__slide">
+          <img class="d-block img-fluid" src="http://placehold.it/1200x350.png">
+        </div>
+
+        <div class="carousel-item home-slider__slide">
+          <img class="d-block img-fluid" src="http://placehold.it/1200x400.png">
+        </div>
+
+        <div class="carousel-item home-slider__slide">
+          <img class="d-block img-fluid" src="http://placehold.it/1200x350.png">
+
+          <div class="carousel-caption d-md-block">
+            <h3>Lorem Ipsum</h3>
+            <p>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.</p>
+          </div>
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href=".home-slider" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+
+      <a class="carousel-control-next" href=".home-slider" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="widget-list-item">
     <div class="widget-list-item__header">Categories</div>
 
     <div class="category-list">
