@@ -8,6 +8,11 @@
   float: left;
   margin-right: 20px;
   margin-bottom: 20px;
+  transition: all .5s ease-out 0s;
+}
+
+.category-list-item:hover {
+  transform: scale(1.025);
 }
 
 .category-list-item__name {
