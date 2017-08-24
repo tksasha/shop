@@ -93,7 +93,11 @@ CREATE TABLE categories (
     id bigint NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    image_file_name character varying,
+    image_content_type character varying,
+    image_file_size integer,
+    image_updated_at timestamp without time zone
 );
 
 
@@ -479,11 +483,51 @@ ALTER TABLE ONLY purchases
 
 
 --
+-- Name: auth_tokens fk_rails_0d66c22f4c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY auth_tokens
+    ADD CONSTRAINT fk_rails_0d66c22f4c FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
 -- Name: purchases fk_rails_2888c5cba9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY purchases
     ADD CONSTRAINT fk_rails_2888c5cba9 FOREIGN KEY (user_id) REFERENCES users(id);
+
+
+--
+-- Name: categories_products fk_rails_a1088dab8c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY categories_products
+    ADD CONSTRAINT fk_rails_a1088dab8c FOREIGN KEY (category_id) REFERENCES categories(id);
+
+
+--
+-- Name: purchases fk_rails_a9d81871ca; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY purchases
+    ADD CONSTRAINT fk_rails_a9d81871ca FOREIGN KEY (order_id) REFERENCES orders(id);
+
+
+--
+-- Name: categories_products fk_rails_ef34d93ed9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY categories_products
+    ADD CONSTRAINT fk_rails_ef34d93ed9 FOREIGN KEY (product_id) REFERENCES products(id);
+
+
+--
+-- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES users(id);
 
 
 --
@@ -514,6 +558,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170728111718'),
 ('20170728121426'),
 ('20170814110755'),
-('20170816084513');
+('20170816084513'),
+('20170818125339'),
+('20170821113212');
 
 
