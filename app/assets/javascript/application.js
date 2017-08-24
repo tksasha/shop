@@ -5,5 +5,7 @@
 // = require bootstrap-sprockets
 // = require bootstrap-multiselect
 //
+// = require PrettyPlacement
+//
 // = require_tree .
 // = require_self
