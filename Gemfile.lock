@@ -47,13 +47,13 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.1.2.6)
       execjs
-    aws-sdk (2.10.29)
-      aws-sdk-resources (= 2.10.29)
-    aws-sdk-core (2.10.29)
+    aws-sdk (2.10.32)
+      aws-sdk-resources (= 2.10.32)
+    aws-sdk-core (2.10.32)
       aws-sigv4 (~> 1.0)
       jmespath (~> 1.0)
-    aws-sdk-resources (2.10.29)
-      aws-sdk-core (= 2.10.29)
+    aws-sdk-resources (2.10.32)
+      aws-sdk-core (= 2.10.32)
     aws-sigv4 (1.0.1)
     bcrypt (3.1.11)
     bitmask_attributes (1.0.0)
@@ -69,7 +69,6 @@ GEM
       rails (>= 3.1)
     builder (3.2.3)
     climate_control (0.2.0)
-    clrs (2.0.2)
     cocaine (0.5.8)
       climate_control (>= 0.0.3, < 1.0)
     concurrent-ruby (1.0.5)
@@ -262,7 +261,6 @@ DEPENDENCIES
   bootstrap
   bootstrap-multiselect-rails
   bootstrap4-kaminari-views
-  clrs
   dotenv-rails
   draper
   email_validator
@@ -289,4 +287,4 @@ DEPENDENCIES
   simple_form
 
 BUNDLED WITH
-   1.15.3
+   1.15.4
