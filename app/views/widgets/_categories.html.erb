@@ -1,0 +1,9 @@
+<div class="widget-list-item">
+  <div class="widget-list-item__header">Categories</div>
+
+  <div class="category-list">
+    <% categories.each do |image, name| %>
+      <%= render 'category', image: image, name: name %>
+    <% end %>
+  </div>
+</div>

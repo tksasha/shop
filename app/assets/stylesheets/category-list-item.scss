@@ -25,3 +25,17 @@
   bottom: 15px;
   left: 0px;
 }
+
+.category-list-item__edit-button-wrapper {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+}
+
+.category-list-item__edit-button {
+  visibility: hidden;
+}
+
+.category-list-item:hover .btn {
+  visibility: visible;
+}
