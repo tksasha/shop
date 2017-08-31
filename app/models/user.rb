@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   bitmask :roles, as: [:user, :admin]
 
+  has_currency :currency
+
   has_secure_password
 
   has_many :auth_tokens

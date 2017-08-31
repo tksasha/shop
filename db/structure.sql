@@ -261,7 +261,8 @@ CREATE TABLE users (
     roles integer,
     confirmed boolean DEFAULT false NOT NULL,
     confirmation_token character varying,
-    blocked_at timestamp without time zone
+    blocked_at timestamp without time zone,
+    currency character varying
 );
 
 
@@ -560,6 +561,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170814110755'),
 ('20170816084513'),
 ('20170818125339'),
-('20170821113212');
+('20170821113212'),
+('20170829153658');
 
 
