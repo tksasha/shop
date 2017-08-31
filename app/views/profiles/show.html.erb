@@ -1,5 +1,9 @@
 <h1>Welcome</h1>
 
-<p class="lead">
-  <strong>Email: </strong> <%= resource.email %>
-</p>
+<div class="lead">
+  <p><strong>Email: </strong> <%= resource.email %></p>
+
+  <p><strong>Currency: </strong> <%= resource.currency %></p>
+</div>
+
+<%= link_to 'Edit profile', [:edit, :profile], class: 'btn btn-primary' %>

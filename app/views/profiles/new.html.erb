@@ -1,7 +1,16 @@
 <div id="login-page">
   <div class="center-outter">
     <div class="center-inner col-xs-10 col-md-3 page">
-      <%= render 'form', submit_text: 'Register' %>
+      <%= simple_form_for resource, url: :profile do |f| %>
+        <%= f.input :email, required: true %>
+
+        <%= f.input :password, required: true %>
+
+        <%= f.input :password_confirmation, required: true %>
+
+        <%= f.submit 'Register', class: 'btn btn-primary btn-block' %>
+      <% end %>
+
       <%= link_to 'Existing user? Log in', [:new, :session], class: 'btn btn-link btn-block' %>
     </div>
   </div>
