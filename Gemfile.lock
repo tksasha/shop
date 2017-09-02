@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/just806me/currency.git
-  revision: 3d43d9c6dfbda38ee8be6a572c712eada5f50ea7
+  revision: c175e6b16f6c02f1ac50834f86ef6e13679d222c
   specs:
-    currency (0.0.1)
+    currency (0.0.2)
       activemodel
       activerecord
       activesupport
