@@ -23,6 +23,8 @@ gem 'aasm'
 gem 'pg_search'
 gem 'bootstrap'
 gem 'bootstrap4-kaminari-views'
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
 
 group :development, :test do
   gem 'rspec-rails'

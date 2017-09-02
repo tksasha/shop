@@ -11,6 +11,8 @@ module ActsAsAuthorizedController
         format.json { head :forbidden }
 
         format.js { head :forbidden }
+
+        format.pdf { head :forbidden }
       end
     end
 
