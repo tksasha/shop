@@ -1,11 +1,9 @@
 class ProductsController < ApplicationController
-  def index
+  def show
     respond_to do |format|
       format.html
 
-      format.json
-
-      format.pdf { render pdf: 'index' }
+      format.pdf { render pdf: 'show' }
     end
   end
 
@@ -14,16 +12,11 @@ class ProductsController < ApplicationController
   # GET /products?page=...[&description=...][&name=...]
   #
   def collection
-    unless @collection
-      @collection = ProductSearcher
-        .search(name: params[:name], description: params[:description])
-        .includes(:categories)
-        .order(:name)
-
-      @collection = @collection.page params[:page] unless request.format.pdf?
-    end
-
-    @collection
+    @collection ||= ProductSearcher
+      .search(name: params[:name], description: params[:description])
+      .includes(:categories)
+      .order(:name)
+      .page params[:page]
   end
 
   def resource_params

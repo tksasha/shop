@@ -11,8 +11,6 @@ RSpec.describe ProductsController, type: :controller do
     its(:resource_params) { should eq permit! params[:product] }
   end
 
-  it_behaves_like :index, format: :pdf
-
   it_behaves_like :index
 
   it_behaves_like :index, format: :json
@@ -20,6 +18,8 @@ RSpec.describe ProductsController, type: :controller do
   it_behaves_like :new
 
   it_behaves_like :show
+
+  it_behaves_like :show, format: :pdf
 
   it_behaves_like :create do
     let(:resource) { stub_model Product }
