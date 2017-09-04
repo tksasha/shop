@@ -1,5 +1,5 @@
 <%= simple_form_for resource, url: :profile do |f| %>
-  <%= f.input :currency, collection: Currency::Options.currencies, include_blank: false %>
+  <%= f.input :currency, collection: CurrencyConverter::Options.currencies, include_blank: false %>
 
   <%= f.submit 'Update', class: 'btn btn-primary btn-block' %>
 <% end %>

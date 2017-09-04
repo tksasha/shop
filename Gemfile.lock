@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/just806me/currency.git
-  revision: c175e6b16f6c02f1ac50834f86ef6e13679d222c
+  revision: 460e8428f3e27fc09c667aa4e619113b7f9f9abe
   specs:
-    currency (0.0.2)
+    currency_converter (0.0.2)
       activemodel
       activerecord
       activesupport
@@ -694,7 +694,7 @@ DEPENDENCIES
   bootstrap!
   bootstrap-multiselect-rails!
   bootstrap4-kaminari-views!
-  currency!
+  currency_converter!
   dotenv-rails!
   draper!
   email_validator!

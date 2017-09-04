@@ -25,7 +25,7 @@ source 'https://rubygems.org' do
   gem 'redis'
 end
 
-gem 'currency', git: 'https://github.com/just806me/currency.git'
+gem 'currency_converter', git: 'https://github.com/just806me/currency.git'
 
 group :development, :test do
   gem 'rspec-rails'
