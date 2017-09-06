@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ProductsController, type: :controller do 
+RSpec.describe ProductsController, type: :controller do
   describe '#resource_params' do
     let(:params) do
       { product: { name: 'name', category_ids: ['1', '2', '3'], image: '', price: 1 } }

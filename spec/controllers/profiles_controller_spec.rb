@@ -13,7 +13,7 @@ RSpec.describe ProfilesController, type: :controller do
 
       its(:resource_params) { should eq permit! params[:user] }
     end
-    
+
     context do
       let(:params) do
         { user: { currency: 'usd' } }
