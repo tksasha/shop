@@ -262,7 +262,7 @@ CREATE TABLE users (
     confirmed boolean DEFAULT false NOT NULL,
     confirmation_token character varying,
     blocked_at timestamp without time zone,
-    currency character varying
+    currency integer
 );
 
 
@@ -562,6 +562,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170816084513'),
 ('20170818125339'),
 ('20170821113212'),
-('20170829153658');
+('20170829153658'),
+('20170909203801');
 
 
