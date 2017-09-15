@@ -10,7 +10,7 @@ describe ApplicationSearcher do
       def search_by_attr3 val; end
     end
 
-    let :params { { attr1: 'val1', attr2: 'val2', attr3: nil } }
+    let(:params) { { attr1: 'val1', attr2: 'val2', attr3: nil } }
 
     subject { Dummy.new params }
 
@@ -27,7 +27,7 @@ describe ApplicationSearcher do
 
     before { expect(subject).to receive(:search_by_attr2).with('val2') }
 
-    its :search { should eq :results }
+    its(:search) { should eq :results }
   end
 
   describe '.search' do
