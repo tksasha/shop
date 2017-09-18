@@ -20,11 +20,9 @@ RSpec.describe ProductsController, type: :controller do
   it_behaves_like :show
 
   it_behaves_like :show, format: :pdf do
-    before do
-      expect(subject).
-        to receive(:make_and_send_pdf).
-        with('show', WickedPdf.config.merge(basic_auth: nil))
-    end
+    let(:options) { WickedPdf.config.merge basic_auth: nil }
+
+    before { expect(subject).to receive(:make_and_send_pdf).with('show', options) }
   end
 
   it_behaves_like :create do
