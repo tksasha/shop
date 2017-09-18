@@ -19,7 +19,13 @@ RSpec.describe ProductsController, type: :controller do
 
   it_behaves_like :show
 
-  pending { it_behaves_like :show, format: :pdf }
+  it_behaves_like :show, format: :pdf do
+    before do
+      expect(subject).
+        to receive(:make_and_send_pdf).
+        with('show', WickedPdf.config.merge(basic_auth: nil))
+    end
+  end
 
   it_behaves_like :create do
     let(:resource) { stub_model Product }
