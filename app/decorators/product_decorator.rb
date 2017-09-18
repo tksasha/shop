@@ -1,9 +1,13 @@
 class ProductDecorator < Draper::Decorator
   delegate_all
 
-  def price params={}
-    currency = h.current_user.currency
+  delegate :current_user, to: :h
 
-    params[:format] ? currency.formated_convert(model.price) : currency.convert(model.price)
+  def converter
+    @converter ||= Converter.new to: current_user.currency, from: :usd
+  end
+
+  def price
+    converter.convert product.price
   end
 end

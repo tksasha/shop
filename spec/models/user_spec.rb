@@ -41,4 +41,6 @@ RSpec.describe User, type: :model do
 
     it { expect { subject.send(:send_confirmation_email) }.to_not raise_error }
   end
+
+  it { should define_enum_for(:currency).with(%I(usd uah eur)) }
 end
