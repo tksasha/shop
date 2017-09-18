@@ -1,4 +1,6 @@
 class Converter
+  API_URL = "http://free.currencyconverterapi.com/api/v3/convert?q=%s&compact=ultra"
+
   attr_reader :from, :to
 
   def initialize params
@@ -11,12 +13,6 @@ class Converter
     result = (value * rate).round 2
 
     Currency.new result, to
-  end
-
-  def == other
-    return false unless other
-
-    from == other.from && to == other.to
   end
 
   private
@@ -48,12 +44,10 @@ class Converter
     redis.setex "currency:#{ pair }", 1.hour, value
   end
 
-  API_URL = "http://free.currencyconverterapi.com/api/v3/convert?q=%s&compact=ultra"
-
   def api_rate
     result = nil
 
-    open(API_URL % pair) { |request| result = JSON.parse(request.read)[pair] }
+    open(API_URL % pair) { |response| result = JSON.parse(response.read)[pair] }
 
     result.to_d if result
   end

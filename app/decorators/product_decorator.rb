@@ -8,6 +8,6 @@ class ProductDecorator < Draper::Decorator
   end
 
   def price
-    converter.convert product.price
+    @price ||= converter.convert product.price
   end
 end

@@ -103,14 +103,4 @@ RSpec.describe Converter do
 
     its(:api_rate) { should eq 1.5 }
   end
-
-  describe '#==' do
-    subject { described_class.new from: :usd, to: :uah }
-
-    it { should eq described_class.new from: :usd, to: :uah }
-
-    it { should_not eq described_class.new from: :uah, to: :usd }
-
-    it { should_not eq described_class.new from: :usd, to: :eur }
-  end
 end

@@ -2,7 +2,7 @@ class Currency < String
   def initialize value, currency
     @value = value
 
-    @currency = currency
+    @currency = currency.to_sym
 
     super to_s
   end
@@ -13,9 +13,9 @@ class Currency < String
 
   def to_s
     case @currency
-    when :usd, 'usd'
+    when :usd
       "$#{ @value }"
-    when :eur, 'eur'
+    when :eur
       "€#{ @value }"
     else
       "#{ @value } #{ @currency.to_s.upcase }"

@@ -17,7 +17,11 @@ RSpec.describe ProductDecorator do
       end
     end
 
-    its(:converter) { should eq Converter.new to: :uah, from: :usd }
+    its(:converter) { should be_a Converter }
+
+    its('converter.to') { should eq :uah }
+
+    its('converter.from') { should eq :usd }
   end
 
   describe '#price' do
