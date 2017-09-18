@@ -1,4 +1,12 @@
 class ProductsController < ApplicationController
+  def show
+    respond_to do |format|
+      format.html
+
+      format.pdf { render pdf: 'show' }
+    end
+  end
+
   private
   def collection
     @collection ||= ProductSearcher.

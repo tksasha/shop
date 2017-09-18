@@ -1,5 +1,5 @@
 RSpec.shared_examples :search_by_attributes do |params|
-  let :model { params[:model] || described_class.name.gsub(/Searcher\z/, '').constantize }
+  let(:model) { params[:model] || described_class.name.gsub(/Searcher\z/, '').constantize }
 
   params[:attributes] = [params[:attributes]] unless params[:attributes].respond_to? :each
 
@@ -9,7 +9,7 @@ RSpec.shared_examples :search_by_attributes do |params|
 
       before { expect(model).to receive(:"search_by_#{ attribute }").with(:value).and_return(:collection) }
 
-      its :search { should eq :collection }
+      its(:search) { should eq :collection }
     end
   end
 end

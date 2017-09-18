@@ -24,6 +24,8 @@ gem 'pg_search'
 gem 'bootstrap'
 gem 'bootstrap4-kaminari-views'
 gem 'redis'
+gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
 
 group :development, :test do
   gem 'rspec-rails'

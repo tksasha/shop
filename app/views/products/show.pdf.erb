@@ -1,0 +1,7 @@
+<%= wicked_pdf_image_tag resource.image.url, class: 'img-fluid' %>
+
+<p>Name: <%= resource.name %></p>
+
+<p>Price: <%= resource.price %></p>
+
+<p>Categories: <%= resource.categories.pluck(:name).to_sentence %></p>

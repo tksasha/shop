@@ -12,7 +12,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe '#login_user' do
-    let (:resource) { double }
+    let(:resource) { double }
 
     before { allow(subject).to receive(:resource).and_return(resource) }
 
@@ -36,7 +36,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe '#logout_user' do
-    let (:resource) { double }
+    let(:resource) { double }
 
     before { expect(subject).to receive(:resource).and_return(resource) }
 

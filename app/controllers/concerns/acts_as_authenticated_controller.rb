@@ -21,6 +21,8 @@ module ActsAsAuthenticatedController
       format.json do
         authenticate_with_http_token { |token, options| @auth_token = token }
       end
+
+      format.pdf { @auth_token = session[:auth_token] }
     end unless @auth_token
 
     @auth_token
@@ -33,6 +35,8 @@ module ActsAsAuthenticatedController
       format.json { head :unauthorized unless current_user }
 
       format.js { head :unauthorized unless current_user }
+
+      format.pdf { head :unauthorized unless current_user }
     end
   end
 end

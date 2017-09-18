@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe WidgetsController, type: :controller do
-  its :collection { should eq Widget }
+  its(:collection) { should eq Widget }
 
   describe '#index' do
     before { expect(subject).to receive(:authenticate!) }

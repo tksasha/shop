@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe Similarities do
-  let :product { stub_model Product, id: 4, similarities: [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
+  let(:product) { stub_model Product, id: 4, similarities: [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
 
-  let :purchases do
+  let(:purchases) do
     [
       Purchase.new(product_id: 1, amount: 1, price: 1.1),
       Purchase.new(product_id: 2, amount: 2, price: 2.2),
@@ -12,27 +12,27 @@ RSpec.describe Similarities do
     ]
   end
 
-  let :order { double purchases: purchases }
+  let(:order) { double purchases: purchases }
 
   subject { described_class.new product, order }
 
   describe '#product_similarities' do
-    its :product_similarities { should eq [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
+    its(:product_similarities) { should eq [{ product_id: 1, amount: 1 }, { product_id: 3, amount: 3 }] }
 
     context do
-      let :product { stub_model Product }
+      let(:product) { stub_model Product }
 
-      its :product_similarities { should eq [] }
+      its(:product_similarities) { should eq [] }
     end
   end
 
-  its :purchases_similarities do
+  its(:purchases_similarities) do
     should eq [{ product_id: 1, amount: 1 }, { product_id: 2, amount: 2 }, { product_id: 3, amount: 3 }]
   end
 
-  its :similarities_hash { should eq 1 => 2, 2 => 2, 3 => 6 }
+  its(:similarities_hash) { should eq 1 => 2, 2 => 2, 3 => 6 }
 
-  its :similarities do
+  its(:similarities) do
     should eq [{ product_id: 1, amount: 2 }, { product_id: 3, amount: 6 }, { product_id: 2, amount: 2 }]
   end
 
