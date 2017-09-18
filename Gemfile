@@ -25,8 +25,6 @@ gem 'bootstrap'
 gem 'bootstrap4-kaminari-views'
 gem 'redis'
 
-gem 'currency_converter', git: 'https://github.com/just806me/currency.git'
-
 group :development, :test do
   gem 'rspec-rails'
 end
