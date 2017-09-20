@@ -37,5 +37,11 @@ RSpec.describe Currency do
 
       its(:to_s) { should eq '€11.00' }
     end
+
+    context do
+      subject { described_class.new name: :uah, value: 11.1 }
+
+      its(:to_s) { should eq '11.10 UAH' }
+    end
   end
 end

@@ -22,7 +22,7 @@ class Currency < String
     when :eur
       "€#{ '%.2f' % value }"
     else
-      "#{ value } #{ name.to_s.upcase }"
+      "#{ '%.2f' % value } #{ name.to_s.upcase }"
     end
   end
 end
