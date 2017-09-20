@@ -1,39 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe ProductDecorator do
-  subject { described_class.new stub_model Product, price: 2.1 }
+  subject { described_class.new stub_model Product, price: 2.1, currency: :usd }
 
-  describe '#current_user' do
-    it { should delegate_method(:current_user).to :h }
-  end
+  it { should delegate_method(:current_user).to(:h) }
 
-  describe '#converter' do
-    before do
-      #
-      # subject.current_user.currency -> :uah
-      #
-      expect(subject).to receive(:current_user) do
-        double.tap { |a| expect(a).to receive(:currency).and_return :uah }
-      end
-    end
-
-    its(:converter) { should be_a Converter }
-
-    its('converter.to') { should eq :uah }
-
-    its('converter.from') { should eq :usd }
-  end
+  it { should delegate_method(:current_user_currency).to(:current_user).as(:currency) }
 
   describe '#price' do
-    before do
-      #
-      # subject.converter.convert -> :price
-      #
-      expect(subject).to receive(:converter) do
-        double.tap { |a| expect(a).to receive(:convert).with(2.1).and_return :price }
-      end
-    end
+    before { expect(subject).to receive(:current_user_currency).and_return(:uah) }
 
-    its(:price) { should eq :price }
+    before { expect(CurrencyConverter).to receive(:convert).with(from: 'usd', to: :uah, sum: 2.1).and_return(54.60) }
+
+    its(:price) { should eq 54.60 }
   end
 end

@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   bitmask :roles, as: [:user, :admin]
 
-  enum currency: %I(usd uah eur)
+  enum currency: Currency::ALLOWED
 
   has_secure_password
 

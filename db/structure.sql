@@ -181,7 +181,8 @@ CREATE TABLE products (
     price numeric,
     description text,
     description_tsvector tsvector,
-    similarities jsonb
+    similarities jsonb,
+    currency integer DEFAULT 0
 );
 
 
@@ -262,7 +263,7 @@ CREATE TABLE users (
     confirmed boolean DEFAULT false NOT NULL,
     confirmation_token character varying,
     blocked_at timestamp without time zone,
-    currency integer
+    currency integer DEFAULT 0
 );
 
 
@@ -563,6 +564,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170818125339'),
 ('20170821113212'),
 ('20170829153658'),
-('20170909203801');
+('20170909203801'),
+('20170920060910'),
+('20170920083525');
 
 

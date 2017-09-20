@@ -1,24 +1,28 @@
 class Currency < String
-  def initialize value, currency
-    @value = value
+  ALLOWED = %i(usd eur uah)
 
-    @currency = currency.to_sym
+  attr_reader :name, :value
+
+  def initialize name: nil, value: nil
+    @name = name.to_sym
+
+    @value = value.round 2
 
     super to_s
   end
 
   def to_d
-    @value
+    value
   end
 
   def to_s
-    case @currency
+    case name
     when :usd
-      "$#{ @value }"
+      "$#{ '%.2f' % value }"
     when :eur
-      "€#{ @value }"
+      "€#{ '%.2f' % value }"
     else
-      "#{ @value } #{ @currency.to_s.upcase }"
+      "#{ value } #{ name.to_s.upcase }"
     end
   end
 end
