@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: "profiles#show"
+  root to: 'profiles#show'
 
   resource :profile, only: [:new, :create, :show, :edit, :update]
 
