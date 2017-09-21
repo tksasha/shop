@@ -20,4 +20,6 @@ Rails.application.routes.draw do
   resources :categories, only: :index
 
   resources :widgets, only: :index
+
+  resource :version, only: :show
 end
