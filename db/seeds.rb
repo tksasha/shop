@@ -1,9 +1,10 @@
 raise 'Are you crazy?!!!' unless Rails.env.development?
 
-100.times.map do
-  Category.create name: Faker::Commerce.department
+16.times.map do
+  Category.create! name: Faker::Commerce.product_name, image: Faker::LoremPixel.image('500x500')
 end unless Category.first
 
+__END__
 categories_count = Category.count
 
 5000.times.map do

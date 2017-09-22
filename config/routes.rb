@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'profiles#show'
+  root to: 'home#show'
 
   resource :profile, only: [:new, :create, :show, :edit, :update]
 
@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     resource :block, only: [:create, :destroy]
   end
 
-  resources :categories, only: :index
+  resources :categories, only: %i(index edit)
 
   resources :widgets, only: :index
 end

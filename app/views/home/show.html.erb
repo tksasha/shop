@@ -1,0 +1,15 @@
+<div class="category-list">
+  <%= render collection: resource.categories, partial: 'categories/category', locals: { edit_button: :hide } %>
+</div>
+
+<%= content_for :javascripts do %>
+  <%= javascript_tag do %>
+    $(function() {
+      $('.category-list').PrettyPlacement({
+        item: '.category-list-item',
+        spacing: 15,
+        columns: 4,
+      });
+    });
+  <% end %>
+<% end %>

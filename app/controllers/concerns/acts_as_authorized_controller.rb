@@ -16,8 +16,17 @@ module ActsAsAuthorizedController
       end
     end
 
-    before_action -> { authorize resource }, except: :index
+    before_action :authorize_resource, except: :index
 
-    before_action -> { authorize collection }, only: :index
+    before_action :authorize_collection, only: :index
+  end
+
+  private
+  def authorize_resource
+    authorize resource
+  end
+
+  def authorize_collection
+    authorize collection
   end
 end
