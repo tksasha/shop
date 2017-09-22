@@ -287,6 +287,22 @@ ALTER SEQUENCE users_id_seq OWNED BY users.id;
 
 
 --
+-- Name: versions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE versions (
+    ios_minimal_recomended character varying DEFAULT '0.0.0'::character varying,
+    ios_minimal_compatible character varying DEFAULT '0.0.0'::character varying,
+    ios_blocked character varying[] DEFAULT '{}'::character varying[],
+    android_minimal_recomended character varying DEFAULT '0.0.0'::character varying,
+    android_minimal_compatible character varying DEFAULT '0.0.0'::character varying,
+    android_blocked character varying[] DEFAULT '{}'::character varying[],
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: auth_tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -567,6 +583,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170909203801'),
 ('20170920060910'),
 ('20170920083525'),
+('20170921072836'),
 ('20170922090356');
 
 

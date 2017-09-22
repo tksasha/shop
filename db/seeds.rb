@@ -14,3 +14,5 @@ categories_count = Category.count
 
   Product.create name: Faker::Commerce.product_name, price: Faker::Commerce.price, categories: [category]
 end unless Product.first
+
+Version.create unless Version.first
