@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  include ActsAsRESTController
   include ActsAsAuthenticatedController
+  include ActsAsRESTController
   include ActsAsAuthorizedController
 
   protect_from_forgery with: :exception, unless: -> { request.format.json? }
