@@ -26,6 +26,7 @@ gem 'bootstrap4-kaminari-views'
 gem 'redis'
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
+gem 'rack-cors', require: 'rack/cors'
 
 group :development, :test do
   gem 'rspec-rails'
