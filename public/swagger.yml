@@ -16,6 +16,8 @@ produces:
 paths:
   /categories:
     get:
+      tags:
+        - Category
       description: Get list of categories
       parameters:
         - name: Authorization
@@ -34,6 +36,8 @@ paths:
           description: Unauthorized
   /orders:
     post:
+      tags:
+        - Order
       description: Create new order
       parameters:
         - name: Authorization
@@ -52,6 +56,8 @@ paths:
           description: Unauthorized
   /products:
     get:
+      tags:
+        - Product
       description: Get list of products
       parameters:
         - name: Authorization
@@ -68,6 +74,8 @@ paths:
           description: Unauthorized
   /purchases:
     post:
+      tags:
+        - Purchase
       description: Add new purchase to order
       parameters:
         - name: Authorization
@@ -108,6 +116,8 @@ paths:
           description: Unauthorized
   /purchases/{id}:
     patch:
+      tags:
+        - Purchase
       description: Edit purchase
       parameters:
         - name: Authorization
@@ -146,6 +156,8 @@ paths:
         400:
           description: Bad request
     delete:
+      tags:
+        - Purchase
       description: Delete purchase
       parameters:
         - name: Authorization
@@ -166,6 +178,8 @@ paths:
           description: Unauthorized
   /session:
     post:
+      tags:
+        - Session
       description: Sign in
       parameters:
         - name: session
@@ -198,6 +212,8 @@ paths:
                 type: string
                 example: 0371354c-6d6b-4e0a-be32-a0791f0f569d
     delete:
+      tags:
+        - Session
       description: Sign out
       parameters:
         - name: Authorization
@@ -212,6 +228,8 @@ paths:
           description: Unauthorized
   /version:
     get:
+      tags:
+        - Version
       description: Get app versions
       responses:
         200:
