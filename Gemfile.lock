@@ -168,6 +168,7 @@ GEM
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.3)
+    rack-cors (1.0.1)
     rack-test (0.7.0)
       rack (>= 1.0, < 3)
     rails (5.1.4)
@@ -298,6 +299,7 @@ DEPENDENCIES
   pg_search
   puma
   pundit
+  rack-cors
   rails
   rails-controller-testing
   redis
