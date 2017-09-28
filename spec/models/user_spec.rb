@@ -43,4 +43,18 @@ RSpec.describe User, type: :model do
 
     it { expect { subject.send(:send_confirmation_email) }.to_not raise_error }
   end
+
+  describe '#email_user?' do
+    context do
+      subject { stub_model User, facebook_id: nil }
+
+      its(:email_user?) { should eq true }
+    end
+
+    context do
+      subject { stub_model User, facebook_id: 1 }
+
+      its(:email_user?) { should eq false }
+    end
+  end
 end
