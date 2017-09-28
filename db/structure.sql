@@ -263,7 +263,8 @@ CREATE TABLE users (
     confirmed boolean DEFAULT false NOT NULL,
     confirmation_token character varying,
     blocked_at timestamp without time zone,
-    currency integer DEFAULT 0
+    currency integer DEFAULT 0,
+    facebook_id bigint
 );
 
 
@@ -583,6 +584,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170920060910'),
 ('20170920083525'),
 ('20170921072836'),
-('20170922090356');
+('20170922090356'),
+('20170928082553');
 
 
