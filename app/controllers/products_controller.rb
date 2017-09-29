@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  skip_before_action :authenticate!, only: %i(index)
+
   def show
     respond_to do |format|
       format.html

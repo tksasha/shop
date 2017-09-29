@@ -17,7 +17,9 @@ Rails.application.routes.draw do
     resource :block, only: [:create, :destroy]
   end
 
-  resources :categories, only: %i(index edit)
+  resources :categories, only: %i(index edit) do
+    resources :products, only: %i(index)
+  end
 
   resources :widgets, only: :index
 
