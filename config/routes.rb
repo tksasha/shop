@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :confirmations, only: [:show, :index]
 
   resource :session, only: [:new, :create, :destroy]
-  
+
   resources :products
 
   resources :users, only: [:index, :edit, :update] do
@@ -22,4 +22,8 @@ Rails.application.routes.draw do
   resources :widgets, only: :index
 
   resource :version, only: :show
+
+  namespace :facebook do
+    resource :session, only: :create
+  end
 end
