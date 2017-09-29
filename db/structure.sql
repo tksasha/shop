@@ -259,7 +259,7 @@ CREATE TABLE users (
     password_digest character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    roles integer,
+    roles integer DEFAULT 1,
     confirmed boolean DEFAULT false NOT NULL,
     confirmation_token character varying,
     blocked_at timestamp without time zone,
@@ -585,6 +585,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170920083525'),
 ('20170921072836'),
 ('20170922090356'),
-('20170928082553');
+('20170928082553'),
+('20170929072507');
 
 
