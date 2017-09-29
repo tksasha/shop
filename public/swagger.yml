@@ -226,6 +226,37 @@ paths:
           description: Ok
         401:
           description: Unauthorized
+  /facebook/session:
+    post:
+      tags:
+        - Session
+      description: Sign in via facebook access token
+      parameters:
+        - name: session
+          in: body
+          required: true
+          schema:
+            type: object
+            required:
+              - session
+            properties:
+              session:
+                type: object
+                required:
+                  - access_token
+                properties:
+                  access_token:
+                    type: string
+                    example: access_token
+      responses:
+        200:
+          description: Ok
+          schema:
+            type: object
+            properties:
+              auth_token:
+                type: string
+                example: 0371354c-6d6b-4e0a-be32-a0791f0f569d
   /version:
     get:
       tags:
