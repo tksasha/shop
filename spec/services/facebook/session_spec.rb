@@ -16,9 +16,13 @@ RSpec.describe Facebook::Session, type: :model do
   end
 
   describe '#user' do
-    before { expect(subject).to receive(:facebook_user).and_return({ 'id' => 1 }).twice }
+    let(:new_record) { double }
 
-    before { expect(User).to receive(:find_or_create_by).with(facebook_id: 1).and_return :user }
+    before { allow(subject).to receive(:facebook_user).and_return({ 'id' => 1, 'email' => 'one@digits.com' }) }
+
+    before { expect(User).to receive(:find_or_create_by).with(facebook_id: 1).and_yield(new_record).and_return :user }
+
+    before { expect(new_record).to receive(:email=).with 'one@digits.com' }
 
     its(:user) { should eq :user }
   end

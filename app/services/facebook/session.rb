@@ -26,7 +26,9 @@ module Facebook
     end
 
     def user
-      @user ||= User.find_or_create_by facebook_id: facebook_user['id'] if facebook_user.present?
+      @user ||= User.find_or_create_by(facebook_id: facebook_user['id']) do |u|
+        u.email = facebook_user['email']
+      end if facebook_user.present?
     end
 
     def user_must_exist
