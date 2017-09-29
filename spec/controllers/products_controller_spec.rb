@@ -11,9 +11,9 @@ RSpec.describe ProductsController, type: :controller do
     its(:resource_params) { should eq permit! params[:product] }
   end
 
-  it_behaves_like :index
+  it_behaves_like :index, skip_authenticate: true
 
-  it_behaves_like :index, format: :json
+  it_behaves_like :index, format: :json, skip_authenticate: true
 
   it_behaves_like :new
 

@@ -1,6 +1,6 @@
 class ProductPolicy < ApplicationPolicy
   def index?
-    user.present?
+    true
   end
 
   alias_method :show?, :index?
