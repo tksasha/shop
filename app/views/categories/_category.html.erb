@@ -1,9 +1,11 @@
 <% edit_button ||= :show %>
 
 <div class="category-list-item">
-  <%= image_tag category.image %>
+  <%= link_to [category, :products] do %>
+    <%= image_tag category.image %>
 
-  <div class="category-list-item__name"><%= category.name %></div>
+    <div class="category-list-item__name"><%= category.name %></div>
+  <% end %>
 
   <%= content_tag :div, class: 'category-list-item__edit-button-wrapper' do %>
     <%= link_to 'edit', [:edit, category], class: 'btn btn-success btn-sm category-list-item__edit-button' %>
