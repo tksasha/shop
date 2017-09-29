@@ -2,6 +2,10 @@ en:
   session:
     error:
       validation: 'invalid email or password'
+  facebook:
+    session:
+      error:
+        validation: 'invalid access token'
 
   time:
     formats:
