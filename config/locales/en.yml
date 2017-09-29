@@ -6,6 +6,7 @@ en:
     session:
       error:
         validation: 'invalid access token'
+        blocked: 'user is blocked'
 
   time:
     formats:

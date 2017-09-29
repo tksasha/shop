@@ -2,7 +2,7 @@ module Facebook
   class Session
     include ActiveModel::Model
 
-    validate :facebook_user_must_exist, :user_must_exist, :auth_token_must_be_present
+    validate :facebook_user_must_exist, :user_must_exist, :user_must_not_be_blocked, :auth_token_must_be_present
 
     attr_reader :id, :auth_token
 
@@ -18,10 +18,6 @@ module Facebook
 
     def persisted?
       !!@persisted
-    end
-
-    def user_not_blocked?
-      !user&.decorate&.blocked?
     end
 
     private
@@ -51,6 +47,10 @@ module Facebook
           errors.add :auth_token, I18n.t('errors.messages.blank')
         end
       end
+    end
+
+    def user_must_not_be_blocked
+      errors.add :user, I18n.t('facebook.session.error.blocked') if user&.decorate&.blocked?
     end
   end
 end
