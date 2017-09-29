@@ -3,21 +3,31 @@ class User < ApplicationRecord
 
   enum currency: Currency::ALLOWED
 
-  has_secure_password
+  has_secure_password validations: false
 
-  has_many :auth_tokens
+  has_many :auth_tokens, dependent: :destroy
 
   has_many :orders
 
   has_many :purchases
 
-  validates :email, presence: true, if: :email_user?
+  with_options if: :email_user? do
+    validates_length_of :password, maximum: ActiveModel::SecurePassword::MAX_PASSWORD_LENGTH_ALLOWED
 
-  validates :email, uniqueness: { case_sensitive: false }, email: true
+    validates_confirmation_of :password, allow_blank: true
+
+    validates :email, presence: true
+
+    after_commit :send_confirmation_email, on: :create
+
+    validate do |record|
+      record.errors.add(:password, :blank) unless record.password_digest.present?
+    end
+  end
+
+  validates :email, uniqueness: { case_sensitive: false }, email: true, allow_nil: true
 
   validates :roles, presence: true
-
-  after_commit :send_confirmation_email, on: :create, if: :email_user?
 
   private
   def send_confirmation_email

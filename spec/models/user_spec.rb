@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   it { should have_secure_password }
 
-  it { should have_many :auth_tokens }
+  it { should have_many(:auth_tokens).dependent :destroy }
 
   it { should have_many :orders }
 
@@ -56,5 +56,13 @@ RSpec.describe User, type: :model do
 
       its(:email_user?) { should eq false }
     end
+  end
+
+  context do
+    subject { stub_model User, facebook_id: 1 }
+
+    it { should allow_value(nil).for :email }
+
+    it { should allow_value(nil).for :password_digest }
   end
 end
