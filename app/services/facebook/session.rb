@@ -2,18 +2,28 @@ module Facebook
   class Session
     include ActiveModel::Model
 
-    validate :facebook_user_must_exist, :user_must_exist, :user_must_not_be_blocked, :auth_token_must_be_present
-
-    attr_reader :id, :auth_token
-
     REMOTE_API = "https://graph.facebook.com/me?fields=id,email"
+
+    attr_accessor :access_token
+
+    attr_reader :id, :user
+
+    validates_presence_of :access_token
+
+    validate :access_token_must_be_valid
 
     def initialize params
       @access_token = params[:access_token]
     end
 
     def save
-      @persisted = valid?
+      return false unless valid?
+
+      find_or_create_user
+
+      create_auth_token
+
+      @persisted = true
     end
 
     def persisted?
@@ -21,38 +31,26 @@ module Facebook
     end
 
     private
-    def facebook_user
-      @facebook_user ||= JSON.parse open("#{ REMOTE_API }&access_token=#{ @access_token }").read
+    def response
+      JSON.parse open("#{ REMOTE_API }&access_token=#{ @access_token }").read
+    rescue OpenURI::HTTPError
+      @response = {}
     end
 
-    def user
-      @user ||= User.find_or_create_by(facebook_id: facebook_user['id']) do |u|
-        u.email = facebook_user['email']
-      end if facebook_user.present?
+    def auth_token
+      @auth_token ||= SecureRandom.uuid
     end
 
-    def user_must_exist
-      errors.add :access_token, I18n.t('facebook.session.error.validation') unless user.present?
+    def access_token_must_be_valid
+      errors.add :access_token, I18n.t('errors.messages.invalid') if response.blank?
     end
 
-    def facebook_user_must_exist
-      errors.add :access_token, I18n.t('facebook.session.error.validation') unless facebook_user.present?
+    def find_or_create_user
+      @user = User.find_or_create_by(facebook_id: response['id']) { |user| user.email = response['email'] }
     end
 
-    def auth_token_must_be_present
-      if user.present?
-        token = user.auth_tokens.build(value: SecureRandom.uuid)
-
-        if token.save
-          @auth_token = token.value
-        else
-          errors.add :auth_token, I18n.t('errors.messages.blank')
-        end
-      end
-    end
-
-    def user_must_not_be_blocked
-      errors.add :user, I18n.t('facebook.session.error.blocked') if user&.decorate&.blocked?
+    def create_auth_token
+      user.auth_tokens.create value: auth_token
     end
   end
 end
