@@ -5,10 +5,7 @@
 <%= content_for :javascripts do %>
   <%= javascript_tag do %>
     $(function() {
-      $('.pp-list').PrettyPlacement({
-        spacing: 15,
-        columns: 4,
-      });
+      $('.pp-list').PrettyPlacement();
     });
   <% end %>
 <% end %>
