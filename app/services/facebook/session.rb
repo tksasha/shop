@@ -32,7 +32,7 @@ module Facebook
 
     private
     def response
-      JSON.parse open("#{ REMOTE_API }&access_token=#{ @access_token }").read
+      @response ||= JSON.parse open("#{ REMOTE_API }&access_token=#{ @access_token }").read
     rescue OpenURI::HTTPError
       @response = {}
     end
