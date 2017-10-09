@@ -41,4 +41,14 @@
   </div>
 
   <%= render 'categories' %>
+
+  <%= render 'products' %>
 </div>
+
+<%= content_for :javascripts do %>
+  <%= javascript_tag do %>
+    $(function() {
+      $('.pp-list').PrettyPlacement();
+    });
+  <% end %>
+<% end %>

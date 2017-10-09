@@ -1,0 +1,32 @@
+.product-list-item {
+  box-shadow: 0 0 2px 1px #eee;
+}
+
+.product-list-item__image {
+}
+
+.product-list-item__image:hover {
+}
+
+.product-list-item__footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right:0;
+
+  padding: 10px;
+
+  background: white;
+}
+
+.product-list-item__price {
+  font-size: 2.1rem;
+  color: lighten(black, 50);
+}
+
+.product-list-item__add-to-cart-button {
+}
+
+.product-list-item__name {
+  color: lighten(black, 30);
+}

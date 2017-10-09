@@ -3,10 +3,10 @@ class CurrencyConverter
 
   EXPIRATION = 1.hour
 
-  def initialize from: :usd, to: :uah, sum: 0.0
-    @from = from
+  def initialize from: nil, to: nil, sum: 0.0
+    @from = from.presence || Currency::DEFAULT
 
-    @to = to
+    @to = to || Currency::DEFAULT
 
     @sum = sum
   end

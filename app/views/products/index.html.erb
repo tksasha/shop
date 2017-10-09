@@ -5,7 +5,15 @@
 <% end %>
 
 <div class="pp-list">
-  <%= render collection %>
+  <%= render collection.decorate %>
 </div>
 
 <%= paginate collection %>
+
+<%= content_for :javascripts do %>
+  <%= javascript_tag do %>
+    $(function() {
+      $('.pp-list').PrettyPlacement();
+    });
+  <% end %>
+<% end %>

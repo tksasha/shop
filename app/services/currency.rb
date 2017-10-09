@@ -1,6 +1,8 @@
 class Currency < String
   ALLOWED = %i(usd eur uah)
 
+  DEFAULT = :usd
+
   attr_reader :name, :value
 
   def initialize name: nil, value: nil

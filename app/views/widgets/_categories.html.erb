@@ -2,14 +2,6 @@
   <div class="widget-list-item__header">Categories</div>
 
   <div class="pp-list">
-    <%= render Category.all %>
+    <%= render Category.limit(16) %>
   </div>
 </div>
-
-<%= content_for :javascripts do %>
-  <%= javascript_tag do %>
-    $(function() {
-      $('.pp-list').PrettyPlacement();
-    });
-  <% end %>
-<% end %>

@@ -1,3 +1,17 @@
-<div class="pp-list-item">
-  <%= product.name %>
+<div class="pp-list-item product-list-item">
+  <%= link_to '#' do %>
+    <%= image_tag product.image, class: 'product-list-item__image' %>
+  <% end %>
+
+  <div class="container product-list-item__footer">
+    <div class="product-list-item__name">
+      <%= product.name %>
+    </div>
+
+    <div class="clearfix">
+      <div class="float-left product-list-item__price"><%= product.price %></div>
+
+      <div class="float-right"><%= link_to 'Add to Cart', '#', class: 'btn btn-success btn-sm' %></div>
+    </div>
+  </div>
 </div>
