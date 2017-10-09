@@ -2,13 +2,13 @@ module Facebook
   class Session
     include ActiveModel::Model
 
-    REMOTE_API = "https://graph.facebook.com/me?fields=id,email"
+    REMOTE_API = 'https://graph.facebook.com/me?fields=id,email'
 
     attr_accessor :access_token
 
     attr_reader :id, :user
 
-    validates_presence_of :access_token
+    validates :access_token, presence: true
 
     validate :access_token_must_be_valid
 
@@ -19,7 +19,7 @@ module Facebook
     def save
       return false unless valid?
 
-      @persisted = find_or_create_user && create_auth_token
+      @persisted = find_or_create_user && create_auth_token.persisted?
     end
 
     def persisted?
