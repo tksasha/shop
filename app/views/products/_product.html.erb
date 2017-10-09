@@ -3,15 +3,13 @@
     <%= image_tag product.image, class: 'product-list-item__image' %>
   <% end %>
 
-  <div class="container product-list-item__footer">
-    <div class="product-list-item__name">
-      <%= product.name %>
-    </div>
+  <div class="product-list-item__description">
+    <div class="product-list-item__name"><%= product.name %></div>
 
-    <div class="clearfix">
-      <div class="float-left product-list-item__price"><%= product.price %></div>
+    <div class="product-list-item__price-and-button-wrapper">
+      <div class="product-list-item__price"><%= product.price %></div>
 
-      <div class="float-right"><%= link_to 'Add to Cart', '#', class: 'btn btn-success btn-sm' %></div>
+      <%= link_to 'Add to Cart', '#', class: 'btn btn-success btn-sm product-list-item__add-to-cart-button' %>
     </div>
   </div>
 </div>
