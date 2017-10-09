@@ -5,6 +5,26 @@ RSpec.describe CurrencyConverter do
 
   its(:currencies) { should eq 'USD_UAH' }
 
+  describe '#from' do
+    it { expect(subject.instance_variable_get :@from).to eq :usd }
+
+    context do
+      subject { described_class.new from: nil }
+
+      it { expect(subject.instance_variable_get :@from).to eq :usd }
+    end
+  end
+
+  describe '#to' do
+    it { expect(subject.instance_variable_get :@to).to eq :uah }
+
+    context do
+      subject { described_class.new to: nil }
+
+      it { expect(subject.instance_variable_get :@to).to eq :usd }
+    end
+  end
+
   describe '#cached_exchange_rate' do
     context do
       before { expect($redis).to receive(:get).with('currencies_exchange_rate:USD_UAH').and_return('25.52') }

@@ -7,6 +7,12 @@ RSpec.describe ProductDecorator do
 
   it { should delegate_method(:current_user_currency).to(:current_user).as(:currency) }
 
+  describe '#current_user_currency' do
+    before { expect(subject).to receive(:current_user) }
+
+    its(:current_user_currency) { should be_nil }
+  end
+
   describe '#price' do
     before { expect(subject).to receive(:current_user_currency).and_return(:uah) }
 
