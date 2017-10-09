@@ -43,9 +43,9 @@ RSpec.describe Facebook::Session, type: :model do
     context do
       before { expect(subject).to receive(:valid?).and_return true }
 
-      before { expect(subject).to receive :find_or_create_user }
+      before { expect(subject).to receive(:find_or_create_user).and_return true }
 
-      before { expect(subject).to receive :create_auth_token }
+      before { expect(subject).to receive(:create_auth_token).and_return true }
 
       its(:save) { should eq true }
     end

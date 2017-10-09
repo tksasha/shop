@@ -19,11 +19,7 @@ module Facebook
     def save
       return false unless valid?
 
-      find_or_create_user
-
-      create_auth_token
-
-      @persisted = true
+      @persisted = find_or_create_user && create_auth_token
     end
 
     def persisted?
