@@ -46,4 +46,16 @@ RSpec.describe ProductsController, type: :controller do
   it_behaves_like :destroy do
     let(:success) { -> { should redirect_to :products } }
   end
+
+  describe '#parent' do
+    its(:parent) { should be_nil }
+
+    context do
+      before { expect(subject).to receive(:params).twice.and_return(category_id: 1136) }
+
+      before { expect(Category).to receive(:find).with(1136).and_return(:category) }
+
+      its(:parent) { should eq :category }
+    end
+  end
 end

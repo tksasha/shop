@@ -7,8 +7,6 @@ class Product < ApplicationRecord
 
   has_attached_file :image, preserve_files: true
 
-  paginates_per 7
-
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   validates :price, presence: true, numericality: { greater_than: 0 }

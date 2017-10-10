@@ -1,25 +1,25 @@
-<table class="table table-responsive table-hover">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Categories</th>
-      <th></th>
-      <%= content_tag :th if policy(collection).edit? %>
-      <%= content_tag :th if policy(collection).destroy? %>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render collection.decorate %>
-  </tbody>
-</table>
+<%= breadcrumbs do %>
+  <li class="breadcrumb-item active">Products</li>
+<% end %>
 
-<%= paginate collection, theme: 'twitter-bootstrap-4', pagination_class: 'pagination justify-content-center' %>
-
-<p class="text-center">
-  <%= page_entries_info collection %>
-</p>
-
-<div>
-  <%= link_to 'New product', [:new, :product], class: 'btn btn-primary btn-block' if policy(Product).new? %>
+<div class="category-label-for-product-list">
+  <% if parent %>
+    <%= parent.name %>
+  <% else %>
+    All Products
+  <% end %>
 </div>
+
+<div class="pp-list">
+  <%= render collection.decorate %>
+</div>
+
+<%= paginate collection %>
+
+<%= content_for :javascripts do %>
+  <%= javascript_tag do %>
+    $(function() {
+      $('.pp-list').PrettyPlacement();
+    });
+  <% end %>
+<% end %>

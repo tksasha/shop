@@ -3,7 +3,7 @@ class ProductDecorator < Draper::Decorator
 
   delegate :current_user, to: :h
 
-  delegate :currency, to: :current_user, prefix: true
+  delegate :currency, to: :current_user, prefix: true, allow_nil: true
 
   def price
     @price ||= CurrencyConverter.convert from: product.currency, to: current_user_currency, sum: product.price

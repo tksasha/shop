@@ -13,7 +13,6 @@ class ProductsController < ApplicationController
   def collection
     @collection ||= ProductSearcher.
       search(params).
-      includes(:categories).
       order(:name).
       page(params[:page])
   end
@@ -24,5 +23,11 @@ class ProductsController < ApplicationController
 
   def destroy_callback
     redirect_to :products
+  end
+
+  def parent
+    return unless params[:category_id].present?
+
+    @parent ||= Category.find params[:category_id]
   end
 end

@@ -2,7 +2,7 @@ module ActsAsRESTController
   extend ActiveSupport::Concern
 
   included do
-    helper_method :collection, :resource
+    helper_method :parent, :collection, :resource
 
     before_action :build_resource, only: :create
 

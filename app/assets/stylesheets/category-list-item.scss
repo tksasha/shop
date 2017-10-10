@@ -1,19 +1,10 @@
+@import "variables";
 @import "bootstrap/functions";
 @import "bootstrap/variables";
 
-.category-list-item {
-  position: relative;
-  float: left;
-  transition: all .5s ease-out 0s;
-}
-
-.category-list-item:hover {
-  transform: scale(1.025);
-}
-
 .category-list-item__name {
-  color: theme-color("light");
-  background: theme-color("info");
+  color: $blue;
+  background: theme-color("light");
   float: left;
   padding: 5px 20px;
   font-size: 1.4rem;
