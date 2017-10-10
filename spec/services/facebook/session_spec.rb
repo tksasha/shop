@@ -33,8 +33,6 @@ RSpec.describe Facebook::Session, type: :model do
     context do
       before { expect(subject).to receive(:valid?).and_return false }
 
-      before { expect(subject).to_not receive :find_or_create_user }
-
       before { expect(subject).to_not receive :create_auth_token }
 
       its(:save) { should eq false }
@@ -43,18 +41,37 @@ RSpec.describe Facebook::Session, type: :model do
     context do
       before { expect(subject).to receive(:valid?).and_return true }
 
-      before { expect(subject).to receive(:find_or_create_user).and_return true }
+      context do
+        before { expect(subject).to receive(:create_auth_token).and_return nil }
 
-      before do
-        #
-        # subject.create_auth_token.persisted? -> true
-        #
-        expect(subject).to receive(:create_auth_token) do
-          double.tap { |a| expect(a).to receive(:persisted?).and_return true }
-        end
+        its(:save) { should eq false }
       end
 
-      its(:save) { should eq true }
+      context do
+        before do
+          #
+          # subject.create_auth_token.persisted? -> false
+          #
+          expect(subject).to receive(:create_auth_token) do
+            double.tap { |a| expect(a).to receive(:persisted?).and_return false }
+          end
+        end
+
+        its(:save) { should eq false }
+      end
+
+      context do
+        before do
+          #
+          # subject.create_auth_token.persisted? -> true
+          #
+          expect(subject).to receive(:create_auth_token) do
+            double.tap { |a| expect(a).to receive(:persisted?).and_return true }
+          end
+        end
+
+        its(:save) { should eq true }
+      end
     end
   end
 
@@ -96,7 +113,7 @@ RSpec.describe Facebook::Session, type: :model do
     end
   end
 
-  describe '#find_or_create_user' do
+  describe '#user' do
     let(:user) { double }
 
     before { expect(subject).to receive(:response).and_return({ 'id' => 1, 'email' => 'one@digits.com' }).twice }
@@ -105,29 +122,35 @@ RSpec.describe Facebook::Session, type: :model do
 
     before { expect(user).to receive(:email=).with 'one@digits.com' }
 
-    before { subject.send :find_or_create_user }
-
     its(:user) { should eq :user }
   end
 
   describe '#create_auth_token' do
-    before { expect(subject).to receive(:auth_token).and_return :auth_token }
+    context do
+      let(:user) { double }
 
-    before do
-      #
-      # subject.user.auth_tokens.create value: :auth_token
-      #
-      expect(subject).to receive(:user) do
-        double.tap do |user|
-          expect(user).to receive(:auth_tokens) do
-            double.tap do |auth_tokens|
-              expect(auth_tokens).to receive(:create).with value: :auth_token
-            end
+      before { expect(subject).to receive(:auth_token).and_return :auth_token }
+
+      before { expect(subject).to receive(:user).and_return(user).twice }
+
+      before do
+        #
+        # user.auth_tokens.create value: :auth_token -> :create_auth_token
+        #
+        expect(user).to receive(:auth_tokens) do
+          double.tap do |a|
+            expect(a).to receive(:create).with(value: :auth_token).and_return :create_auth_token
           end
         end
       end
+
+      its(:create_auth_token) { should eq :create_auth_token }
     end
 
-    it { expect { subject.send :create_auth_token }.to_not raise_error }
+    context do
+      before { expect(subject).to receive(:user).and_return nil }
+
+      its(:create_auth_token) { should be_nil }
+    end
   end
 end

@@ -4,9 +4,7 @@ module Facebook
 
     REMOTE_API = 'https://graph.facebook.com/me?fields=id,email'
 
-    attr_accessor :access_token
-
-    attr_reader :id, :user
+    attr_accessor :access_token, :id
 
     validates :access_token, presence: true
 
@@ -19,7 +17,7 @@ module Facebook
     def save
       return false unless valid?
 
-      @persisted = find_or_create_user && create_auth_token.persisted?
+      @persisted = !!create_auth_token&.persisted?
     end
 
     def persisted?
@@ -41,11 +39,13 @@ module Facebook
       errors.add :access_token, I18n.t('errors.messages.invalid') if response.blank?
     end
 
-    def find_or_create_user
-      @user = User.find_or_create_by(facebook_id: response['id']) { |user| user.email = response['email'] }
+    def user
+      @user ||= User.find_or_create_by(facebook_id: response['id']) { |user| user.email = response['email'] }
     end
 
     def create_auth_token
+      return if user.blank?
+      
       user.auth_tokens.create value: auth_token
     end
   end
