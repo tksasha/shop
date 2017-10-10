@@ -9,6 +9,8 @@ module ActsAsAuthenticatedController
 
   private
   def current_user
+    return if auth_token.blank?
+
     @current_user ||= User.joins(:auth_tokens).where(auth_tokens: { value: auth_token }).first
   end
 
