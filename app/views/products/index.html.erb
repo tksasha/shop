@@ -1,8 +1,14 @@
 <%= breadcrumbs do %>
-  <li class="breadcrumb-item active"><%= parent.name %></li>
-
   <li class="breadcrumb-item active">Products</li>
 <% end %>
+
+<div class="category-label-for-product-list">
+  <% if parent %>
+    <%= parent.name %>
+  <% else %>
+    All Products
+  <% end %>
+</div>
 
 <div class="pp-list">
   <%= render collection.decorate %>

@@ -33,7 +33,7 @@
 }
 
 .product-list-item:hover .product-list-item__description {
-  background: yellow;
+  background: lighten(yellow, 30);
 }
 
 .product-list-item:hover .product-list-item__price {

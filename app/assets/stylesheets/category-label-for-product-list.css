@@ -1,0 +1,12 @@
+.category-label-for-product-list {
+  box-shadow: 0 0 2px 1px #ddd;
+
+  padding: 20px;
+  margin: 20px 0;
+
+  color: #777;
+
+  text-align: center;
+
+  font-size: 1.1rem;
+}
