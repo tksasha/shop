@@ -3,10 +3,10 @@ class Category < ApplicationRecord
 
   has_and_belongs_to_many :products
 
-  has_attached_file :image, preserve_files: true
-  
+  has_attached_file :image, preserve_files: true, styles: { list: '500x500#' }
+
   validates :name, presence: true
-  
+
   validates :name, uniqueness: true
 
   validates_attachment :image, presence: true,
