@@ -45,7 +45,7 @@ module Facebook
 
     def create_auth_token
       return if user.blank?
-      
+
       user.auth_tokens.create value: auth_token
     end
   end
