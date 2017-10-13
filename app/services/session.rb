@@ -1,9 +1,14 @@
 class Session
   include ActiveModel::Model
 
-  validate :user_must_exist, :password_must_pass_authentication, :auth_token_must_be_present
+  validate :user_must_exist,
+           :user_must_not_be_blocked,
+           :user_must_be_confirmed,
+           :password_must_pass_authentication
 
-  attr_reader :id, :email, :password, :auth_token
+  attr_accessor :id, :email, :password
+
+  validates :email, :password, presence: true
 
   def initialize params = {}
     @email = params[:email]
@@ -14,7 +19,9 @@ class Session
   end
 
   def save
-    @persisted = valid?
+    return false unless valid?
+
+    @persisted = !!create_auth_token&.persisted?
   end
 
   def persisted?
@@ -31,36 +38,44 @@ class Session
     !!@destroyed
   end
 
-  def user_not_blocked?
-    !user&.decorate&.blocked?
-  end
-
-  def user_confirmed?
-    !!user&.confirmed?
+  def auth_token
+    @auth_token ||= SecureRandom.uuid
   end
 
   private
   def user
-    @user ||= User.find_by email: @email
+    @user ||= User.find_by email: @email if @email.present?
   end
 
   def user_must_exist
-    errors.add :email, I18n.t('session.error.validation') unless user.present?
+    return if @email.blank?
+
+    errors.add :email, I18n.t('session.error.email.invalid') if user.blank?
+  end
+
+  def user_must_not_be_blocked
+    return if user.blank?
+
+    errors.add :email, I18n.t('session.error.email.blocked') if user.decorate.blocked?
+  end
+
+  def user_must_be_confirmed
+    return if user.blank?
+
+    errors.add :email, I18n.t('session.error.email.not_confirmed') unless user.confirmed?
   end
 
   def password_must_pass_authentication
-    errors.add :password, I18n.t('session.error.validation') unless user.present? && user.authenticate(@password)
+    return if user.blank?
+
+    return if @password.blank?
+
+    errors.add :password, I18n.t('session.error.password.invalid') unless user.authenticate @password
   end
 
-  def auth_token_must_be_present
-    if user.present? && !errors.has_key?(:password)
-      token = user.auth_tokens.build(value: SecureRandom.uuid)
+  def create_auth_token
+    return if user.blank?
 
-      if token.save
-        @auth_token = token.value
-      else
-        errors.add :auth_token, I18n.t('errors.messages.blank')
-      end
-    end
+    user.auth_tokens.create value: auth_token
   end
 end

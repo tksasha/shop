@@ -1,7 +1,12 @@
 en:
   session:
     error:
-      validation: 'invalid email or password'
+      email:
+        invalid: 'invalid email'
+        blocked: 'user is blocked'
+        not_confirmed: 'email is not confirmed'
+      password:
+        invalid: 'invalid password'
   facebook:
     session:
       error:
