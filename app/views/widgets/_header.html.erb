@@ -9,18 +9,27 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav ml-auto">
         <% if current_user.present? %>
-        <li class="nav-item">
-          <%= link_to 'Profile', :profile, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Users', :users, class: 'nav-link' if current_user.roles? :admin %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Products', :products, class: 'nav-link' %>
-        </li>
-        <li class="nav-item">
-          <%= link_to 'Log out', :session, class: 'nav-link', method: :delete %>
-        </li>
+          <li class="nav-item">
+            <%= link_to 'Profile', :profile, class: 'nav-link' %>
+          </li>
+          <% if current_user.roles? :admin %>
+            <li class="nav-item">
+              <%= link_to 'Users', :users, class: 'nav-link' %>
+            </li>
+          <% end  %>
+          <li class="nav-item">
+            <%= link_to 'Products', :products, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Log out', :session, class: 'nav-link', method: :delete %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Log in', [:new, :session], class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Register', [:new, :profile], class: 'nav-link' %>
+          </li>
         <% end %>
       </ul>
     </div>
