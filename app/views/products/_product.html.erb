@@ -3,6 +3,10 @@
     <%= image_tag product.image, class: 'product-list-item__image' %>
   <% end %>
 
+  <% if policy(product).edit? %>
+    <%= link_to 'Edit', [:edit, product], class: 'btn btn-success btn-sm product-list-item__edit-button', remote: true %>
+  <% end %>
+
   <div class="product-list-item__description">
     <div class="product-list-item__name"><%= product.name %></div>
 
