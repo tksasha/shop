@@ -3,6 +3,8 @@
 
   <%= f.input :price %>
 
+  <%= f.input :amount %>
+
   <%= f.input :category_ids, collection: Category.all, input_html: { multiple: true, class: 'multiselect' } %>
 
   <%= f.input :image, as: :file %>
