@@ -43,6 +43,16 @@ RSpec.describe ProductsController, type: :controller do
     let(:failure) { -> { should render_template :edit } }
   end
 
+  it_behaves_like :edit, format: :js
+
+    it_behaves_like :update, format: :js do
+      let(:resource) { stub_model Product }
+
+      let(:success) { -> { should render_template :update } }
+
+      let(:failure) { -> { should render_template :edit } }
+    end
+
   it_behaves_like :destroy do
     let(:success) { -> { should redirect_to :products } }
   end
