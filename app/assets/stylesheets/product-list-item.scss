@@ -21,6 +21,13 @@
   line-height: 1;
 }
 
+.product-list-item__price_small {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1;
+  text-decoration: line-through;
+}
+
 .product-list-item__add-to-cart-button {
   position: absolute;
   bottom: 0;

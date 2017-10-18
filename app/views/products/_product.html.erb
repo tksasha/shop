@@ -7,7 +7,13 @@
     <div class="product-list-item__name"><%= product.name %></div>
 
     <div class="product-list-item__price-and-button-wrapper">
-      <div class="product-list-item__price"><%= product.price %></div>
+      <% if product.discount_price.present? %>
+        <div class="product-list-item__price"><%= product.discount_price %></div>
+
+        <div class="product-list-item__price_small"><%= product.price %></div>
+      <% else %>
+        <div class="product-list-item__price"><%= product.price %></div>
+      <% end %>
 
       <%= link_to 'Add to Cart', '#', class: 'btn btn-success btn-sm product-list-item__add-to-cart-button' %>
     </div>
