@@ -5,7 +5,7 @@ class Product < ApplicationRecord
 
   has_and_belongs_to_many :categories
 
-  has_attached_file :image, preserve_files: true
+  has_attached_file :image, preserve_files: true, styles: { '500x500': '500x500#' }
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
 
