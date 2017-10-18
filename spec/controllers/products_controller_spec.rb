@@ -53,7 +53,7 @@ RSpec.describe ProductsController, type: :controller do
     context do
       before { expect(subject).to receive(:params).twice.and_return(category_id: 1136) }
 
-      before { expect(Category).to receive(:find).with(1136).and_return(:category) }
+      before { expect(Category).to receive(:find_by!).with(slug: 1136).and_return(:category) }
 
       its(:parent) { should eq :category }
     end

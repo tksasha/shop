@@ -10,10 +10,10 @@ describe ProductSearcher do
 
     before do
       #
-      # collection.joins(:categories).where(categories: { id: 1201 }) -> :collection
+      # collection.joins(:categories).where(categories: { slug: 1201 }) -> :collection
       #
       expect(collection).to receive(:joins).with(:categories) do
-        double.tap { |a| expect(a).to receive(:where).with(categories: { id: 1201 }).and_return(:collection) }
+        double.tap { |a| expect(a).to receive(:where).with(categories: { slug: 1201 }).and_return(:collection) }
       end
     end
 
