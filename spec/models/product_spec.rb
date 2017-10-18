@@ -22,4 +22,6 @@ RSpec.describe Product, type: :model do
   it { should validate_numericality_of(:price).is_greater_than(0) }
 
   it { should define_enum_for(:currency).with(Currency::ALLOWED) }
+
+  it { should validate_numericality_of(:discount_price).is_greater_than(0).allow_nil }
 end
