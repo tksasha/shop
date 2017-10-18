@@ -28,6 +28,6 @@ class ProductsController < ApplicationController
   def parent
     return unless params[:category_id].present?
 
-    @parent ||= Category.find params[:category_id]
+    @parent ||= Category.find_by! slug: params[:category_id]
   end
 end

@@ -3,6 +3,6 @@ class ProductSearcher < ApplicationSearcher
 
   private
   def search_by_category_id category_id
-    @results = @results.joins(:categories).where(categories: { id: category_id })
+    @results = @results.joins(:categories).where(categories: { slug: category_id })
   end
 end
