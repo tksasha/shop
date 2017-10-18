@@ -11,7 +11,11 @@ class PurchaseFactory < ApplicationFactory
   end
 
   def price
-    @price ||= product.price * @params[:amount]
+    @price ||= product_price * @params[:amount]
+  end
+
+  def product_price
+    @product_price ||= product.discount_price.present? ? product.discount_price : product.price
   end
 
   def product
