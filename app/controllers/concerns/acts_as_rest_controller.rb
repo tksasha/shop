@@ -47,7 +47,7 @@ module ActsAsRESTController
 
       format.json { render :errors }
 
-      format.js { render :errors }
+      format.js { render :new }
     end
   end
 
@@ -67,7 +67,7 @@ module ActsAsRESTController
 
       format.json { render :errors }
 
-      format.js { render :errors }
+      format.js { render :edit }
     end
   end
 
