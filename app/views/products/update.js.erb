@@ -1,0 +1,7 @@
+(function() {
+  $('#<%= dom_id resource %>').replaceWith('<%= j render resource.decorate %>');
+
+  $('.modal').modal('hide');
+
+  $('.pp-list').PrettyPlacement();
+}());

@@ -7,4 +7,8 @@ class BlocksController < ApplicationController
   def resource
     @resource ||= build_resource
   end
+
+  def create_failure_callback
+    render :errors
+  end
 end
