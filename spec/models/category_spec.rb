@@ -54,8 +54,6 @@ it { should have_and_belong_to_many :products }
   describe '#to_param' do
     subject { described_class.new slug: 'foods-and-beverages' }
 
-    it { should validate_attachment_size(:image).in(0..5.megabytes) }
-
     its(:to_param) { should eq 'foods-and-beverages' }
   end
 end
