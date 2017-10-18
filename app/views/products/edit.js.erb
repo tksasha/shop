@@ -1,5 +1,7 @@
 $(function() {
   $('.modal .modal-body').html('<%= j render('form', remote: true) %>');
 
+  $('.modal .modal-body .multiselect').multiselect();
+
   $('.modal').modal();
 }());
