@@ -27,11 +27,17 @@ RSpec.describe ProfilesController, type: :controller do
     end
   end
 
-  it_behaves_like :new, skip_authenticate: true
+  it_behaves_like :new, skip_authenticate: true do
+    let(:described_model) { User }
+  end
 
-  it_behaves_like :show
+  it_behaves_like :show do
+    let(:described_model) { User }
+  end
 
   it_behaves_like :create, skip_authenticate: true do
+    let(:described_model) { User }
+
     let(:resource) { double }
 
     let(:success) { -> { should redirect_to :confirmations } }
@@ -39,9 +45,13 @@ RSpec.describe ProfilesController, type: :controller do
     let(:failure) { -> { should render_template :new } }
   end
 
-  it_behaves_like :edit
+  it_behaves_like :edit do
+    let(:described_model) { User }
+  end
 
   it_behaves_like :update do
+    let(:described_model) { User }
+
     let(:resource) { double }
 
     let(:success) { -> { should redirect_to :profile } }
