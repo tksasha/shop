@@ -61,19 +61,6 @@ RSpec.describe SessionsController, type: :controller do
     end
   end
 
-  it_behaves_like :new, skip_authenticate: true
-
-  it_behaves_like :create, skip_authenticate: true do
-
-    let(:resource) { double }
-
-    before { expect(subject).to receive(:login_user) }
-
-    let(:success) { -> { should redirect_to :profile } }
-
-    let(:failure) { -> { should render_template :new } }
-  end
-
   it_behaves_like :create, skip_authenticate: true, format: :json do
 
     let(:resource) { double }
@@ -83,12 +70,6 @@ RSpec.describe SessionsController, type: :controller do
     let(:success) { -> { should render_template :create } }
 
     let(:failure) { -> { should render_template :errors } }
-  end
-
-  it_behaves_like :destroy do
-    before { expect(subject).to receive(:logout_user) }
-
-    let(:success) { -> { should redirect_to [:new, :session] } }
   end
 
   it_behaves_like :destroy, format: :json do
