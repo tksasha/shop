@@ -97,7 +97,8 @@ CREATE TABLE categories (
     image_file_name character varying,
     image_content_type character varying,
     image_file_size integer,
-    image_updated_at timestamp without time zone
+    image_updated_at timestamp without time zone,
+    slug character varying NOT NULL
 );
 
 
@@ -183,8 +184,8 @@ CREATE TABLE products (
     description_tsvector tsvector,
     similarities jsonb,
     currency integer DEFAULT 0,
-    discount_price numeric,
-    amount integer DEFAULT 0 NOT NULL
+    amount integer DEFAULT 0 NOT NULL,
+    discount_price numeric
 );
 
 
@@ -580,7 +581,6 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170728121426'),
 ('20170814110755'),
 ('20170816084513'),
-('20170818125339'),
 ('20170821113212'),
 ('20170829153658'),
 ('20170909203801'),
@@ -590,6 +590,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20170922090356'),
 ('20170928082553'),
 ('20170929072507'),
+('20171018040224'),
 ('20171018121520'),
 ('20171018131351');
 

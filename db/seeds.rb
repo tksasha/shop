@@ -1,5 +1,7 @@
 raise 'Are you crazy?!!!' unless Rails.env.development?
 
+exit 0
+
 16.times.map do
   filename = 'tmp/image.jpeg'
 
