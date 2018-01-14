@@ -43,4 +43,6 @@ group :test do
   gem 'rspec-its'
   gem 'rspec-activemodel-mocks'
   gem 'rails-controller-testing'
+
+  gem 'simplecov', require: false
 end
