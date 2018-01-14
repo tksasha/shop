@@ -1,31 +1,21 @@
 Rails.application.routes.draw do
-  root to: 'home#show'
-
-  resource :profile, only: [:new, :create, :show, :edit, :update]
-
-  resources :purchases, only: [:create, :update, :destroy]
-
-  resources :orders, only: :create
-
-  resources :confirmations, only: [:show, :index]
-
-  resource :session, only: [:new, :create, :destroy]
-
-  resources :products
-
-  resources :users, only: [:index, :edit, :update] do
-    resource :block, only: [:create, :destroy]
-  end
-
-  resources :categories, only: %i(index edit) do
-    resources :products, only: %i(index)
-  end
-
-  resources :widgets, only: :index
+  resources :confirmations, only: :show
 
   resource :version, only: :show
 
+  resources :products, only: %i(index show)
+
+  resources :categories, only: :index do
+    resources :products, only: :index
+  end
+
+  resources :orders, only: :create
+
+  resources :purchases, only: %i(create update destroy)
+
+  resource :session, only: %i(create destroy)
+
   namespace :facebook do
-    resource :session, only: :create
+    resource :session, only: %i(create destroy)
   end
 end

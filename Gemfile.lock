@@ -277,7 +277,7 @@ DEPENDENCIES
   listen
   paperclip
   paranoia
-  pg (= 0.21)
+  pg (~> 0.21.0)
   pg_search
   puma
   pundit
