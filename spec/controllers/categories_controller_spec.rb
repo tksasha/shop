@@ -1,13 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe CategoriesController, type: :controller do
-  describe '#resource' do
-    before { expect(subject).to receive(:params).and_return(id: 1136) }
+  describe '#collection' do
+    context do
+      before { subject.instance_variable_set :@collection, :collection }
 
-    before { expect(Category).to receive(:find_by!).with(slug: 1136).and_return(:category) }
+      its(:collection) { should eq :collection }
+    end
 
-    its(:resource) { should eq :category }
+    context do
+      before { expect(subject).to receive(:params).and_return(:params) }
+
+      before { expect(CategorySearcher).to receive(:search).with(:params).and_return(:collection) }
+
+      its(:collection) { should eq :collection }
+    end
   end
 
-  it_behaves_like :index, format: :json
+  it_behaves_like :index
 end

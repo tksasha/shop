@@ -1,9 +1,11 @@
 class ApplicationController < ActionController::Base
   include ActsAsAuthenticatedController
-  include ActsAsRESTController
+
+  before_action :build_resource, only: :create
+
+  helper_method :parent, :collection, :resource
+
   include ActsAsAuthorizedController
 
-  protect_from_forgery with: :exception, unless: -> { request.format.json? }
-
-  protect_from_forgery with: :null_session, if: -> { request.format.json? }
+  before_action -> { response.status = 201 }, only: :create
 end

@@ -1,47 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe Facebook::SessionsController, type: :controller do
+  describe '#resource' do
+    context do
+      before { subject.instance_variable_set :@resource, :resource }
+
+      its(:resource) { should eq :resource }
+    end
+
+    its(:resource) { should be_nil }
+  end
+
   describe '#resource_params' do
-    let(:params) do
-      { session: { access_token: 'access_token' } }
-    end
+    let(:params) { acp session: { access_token: 'access_token' } }
 
-    before { expect(subject).to receive(:params).and_return(acp params) }
+    before { expect(subject).to receive(:params).and_return(params) }
 
-    its(:resource_params) { should eq permit! params[:session] }
+    its(:resource_params) { should eq params[:session].permit! }
   end
 
-  describe '#login_user' do
-    let(:resource) { double }
+  describe '#build_resource' do
+    before { expect(subject).to receive(:resource_params).and_return(:params) }
 
-    before { allow(subject).to receive(:resource).and_return resource }
+    before { expect(Facebook::Session).to receive(:new).with(:params).and_return(:resource) }
 
-    context do
-      before { expect(resource).to receive(:persisted?).and_return true }
+    before { subject.send :build_resource }
 
-      before { expect(resource).to receive(:auth_token).and_return 1 }
-
-      after { expect(subject.session[:auth_token]).to eq 1 }
-
-      its(:login_user) { should eq 1 }
-    end
-
-    context do
-      before { expect(resource).to receive(:persisted?).and_return false }
-
-      after { expect(subject.session[:auth_token]).to eq nil }
-
-      its(:login_user) { should eq nil }
-    end
+    its(:resource) { should eq :resource }
   end
 
-  it_behaves_like :create, skip_authenticate: true, format: :json do
+  it_behaves_like :create, skip_authenticate: true do
     let(:resource) { double }
 
-    before { expect(subject).to receive(:login_user) }
+    let(:success) { -> { should render_template(:create).with_status(201) } }
 
-    let(:success) { -> { should render_template :create } }
-
-    let(:failure) { -> { should render_template :errors } }
+    let(:failure) { -> { should render_template(:errors).with_status(400) } }
   end
 end

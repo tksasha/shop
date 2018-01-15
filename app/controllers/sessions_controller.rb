@@ -1,9 +1,15 @@
 class SessionsController < ApplicationController
-  skip_before_action :authenticate!, only: [:new, :create]
+  skip_before_action :authenticate!, only: %i(new create)
 
-  after_action :login_user, only: :create
+  def create
+    render :errors, status: 400 unless resource.save
+  end
 
-  after_action :logout_user, only: :destroy
+  def destroy
+    resource.destroy
+
+    head 204
+  end
 
   private
   def resource
@@ -14,27 +20,7 @@ class SessionsController < ApplicationController
     params.require(:session).permit(:email, :password)
   end
 
-  def login_user
-    session[:auth_token] = resource.auth_token if resource.persisted?
-  end
-
-  def logout_user
-    session[:auth_token] = nil if resource.destroyed?
-  end
-
-  def create_success_callback
-    respond_to do |format|
-      format.html { redirect_to :profile }
-
-      format.json { render }
-    end
-  end
-
-  def destroy_callback
-    respond_to do |format|
-      format.html { redirect_to [:new, :session] }
-
-      format.json { head :no_content }
-    end
+  def build_resource
+    @resource = Session.new resource_params
   end
 end

@@ -2,15 +2,19 @@ module Facebook
   class SessionsController < ApplicationController
     skip_before_action :authenticate!, only: :create
 
-    after_action :login_user, only: :create
+    def create
+      render :errors, status: 400 unless resource.save
+    end
 
     private
+    attr_reader :resource
+
     def resource_params
       params.require(:session).permit(:access_token)
     end
 
-    def login_user
-      session[:auth_token] = resource.auth_token if resource.persisted?
+    def build_resource
+      @resource = Session.new resource_params
     end
   end
 end

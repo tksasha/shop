@@ -31,7 +31,7 @@ RSpec.describe ProductDecorator do
 
       before { expect(subject).to_not receive(:convert_currency) }
 
-      its(:discount_price) { should eq nil }
+      its(:discount_price) { should be_nil }
     end
   end
 

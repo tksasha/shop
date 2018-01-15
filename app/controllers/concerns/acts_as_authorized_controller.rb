@@ -5,15 +5,7 @@ module ActsAsAuthorizedController
     include Pundit
 
     rescue_from Pundit::NotAuthorizedError do
-      respond_to do |format|
-        format.html { render 'errors/forbidden', status: :forbidden }
-
-        format.json { head :forbidden }
-
-        format.js { head :forbidden }
-
-        format.pdf { head :forbidden }
-      end
+      head :forbidden
     end
 
     before_action :authorize_resource, except: :index
