@@ -1,175 +1,205 @@
-RSpec.shared_examples :new do |params|
-  before { @params = (params && params[:params]) || {} }
+RSpec.shared_examples :show do |params|
+  let :default_params { { skip_authenticate: false, format: :html, params: { id: 1 } } }
 
-  before { @format = (params && params[:format]) || :html }
+  let :resource { double }
 
-  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
+  include_examples :parse_params, params
 
-  describe '#new' do
-    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
+  include_examples :authenticate_user
 
-    before { expect(subject).to receive(:initialize_resource) }
+  include_examples :authorize_resource
 
-    before { expect(subject).to receive(:resource).and_return(:resource) }
+  describe '#show' do
+    before { get :show, params: request_params, format: format }
 
-    before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
+    it { should render_template :show }
 
-    before { get :new, params: @params, format: @format }
-
-    it { should render_template :new }
+    include_examples :has_policy
   end
 end
 
-RSpec.shared_examples :show do |params|
-  before { @params = (params && params[:params]) || { id: 1 } }
+RSpec.shared_examples :new do |params|
+  let :default_params { { skip_authenticate: false, format: :html, params: {} } }
 
-  before { @format = (params && params[:format]) || :html }
+  let :resource { :resource }
 
-  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
+  include_examples :parse_params, params
 
-  describe '#show' do
-    let(:resource) { double }
+  include_examples :authenticate_user
 
-    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
+  include_examples :authorize_resource
 
-    before { expect(subject).to receive(:resource).and_return(resource) }
+  describe '#new' do
+    before { expect(subject).to receive(:initialize_resource) }
 
-    before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
-    
-    before { get :show, params: @params, format: @format }
+    before { get :new, params: request_params, format: format }
 
-    it { should render_template :show }
+    it { should render_template :new }
+
+    include_examples :has_policy
   end
 end
 
 RSpec.shared_examples :create do |params|
-  before { @params = (params && params[:params]) || {} }
+  let :default_params { { skip_authenticate: false, format: :html, params: {} } }
 
-  before { @format = (params && params[:format]) || :html }
+  include_examples :parse_params, params
 
-  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
+  include_examples :authenticate_user
+
+  include_examples :authorize_resource
 
   describe '#create' do
-    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
-
     before { expect(subject).to receive(:build_resource) }
-
-    before { allow(subject).to receive(:resource).and_return(resource) }
-
-    before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
 
     context do
       before { expect(resource).to receive(:save).and_return(true) }
 
-      before { post :create, params: @params, format: @format }
+      before { post :create, params: request_params, format: format }
 
       it { success.call }
+
+      include_examples :has_policy
     end
 
     context do
       before { expect(resource).to receive(:save).and_return(false) }
 
-      before { post :create, params: @params, format: @format }
+      before { post :create, params: request_params, format: format }
 
       it { failure.call }
+
+      include_examples :has_policy
     end
   end
 end
 
 RSpec.shared_examples :edit do |params|
-  before { @params = (params && params[:params]) || { id: 1 } }
+  let :default_params { { skip_authenticate: false, format: :html, params: { id: 1 } } }
 
-  before { @format = (params && params[:format]) || :html }
+  let :resource { :resource }
 
-  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
+  include_examples :parse_params, params
+
+  include_examples :authenticate_user
+
+  include_examples :authorize_resource
 
   describe '#edit' do
-    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
-
-    before { expect(subject).to receive(:resource).and_return(:resource) }
-
-    before { expect(subject).to receive(:authorize).with(:resource).and_return(true) }
-
-    before { get :edit, params: @params, format: @format }
+    before { get :edit, params: request_params, format: format }
 
     it { should render_template :edit }
+
+    include_examples :has_policy
   end
 end
 
 RSpec.shared_examples :update do |params|
-  before { @params = (params && params[:params]) || { id: 1 } }
+  let :default_params { { skip_authenticate: false, format: :html, params: { id: 1 } } }
 
-  before { @format = (params && params[:format]) || :html }
+  include_examples :parse_params, params
 
-  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
+  include_examples :authenticate_user
+
+  include_examples :authorize_resource
 
   describe '#update' do
-    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
-
-    before { allow(subject).to receive(:resource).and_return(resource) }
-
-    before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
-
     before { expect(subject).to receive(:resource_params).and_return(:resource_params) }
 
     context do
       before { expect(resource).to receive(:update).with(:resource_params).and_return(true) }
 
-      before { patch :update, params: @params, format: @format }
+      before { patch :update, params: request_params, format: format }
 
       it { success.call }
+
+      include_examples :has_policy
     end
 
     context do
       before { expect(resource).to receive(:update).with(:resource_params).and_return(false) }
 
-      before { patch :update, params: @params, format: @format }
+      before { patch :update, params: request_params, format: format }
 
       it { failure.call }
+
+      include_examples :has_policy
     end
   end
 end
 
+RSpec.shared_examples :destroy do |params|
+  let :default_params { { skip_authenticate: false, format: :html, params: { id: 1 } } }
+
+  let :resource { double }
+
+  include_examples :parse_params, params
+
+  include_examples :authenticate_user
+
+  include_examples :authorize_resource
+
+  describe '#destroy' do
+    before { expect(resource).to receive(:destroy) }
+
+    before { delete :destroy, params: request_params, format: format }
+
+    it { success.call }
+
+    include_examples :has_policy
+  end
+end
+
 RSpec.shared_examples :index do |params|
-  before { @params = (params && params[:params]) || {} }
+  let :default_params { { skip_authenticate: false, format: :html, params: {} } }
 
-  before { @format = (params && params[:format]) || :html }
+  let :resource { :resource }
 
-  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
+  include_examples :parse_params, params
+
+  include_examples :authenticate_user
 
   describe '#index' do
-    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
-
     before { expect(subject).to receive(:collection).and_return(:collection) }
 
     before { expect(subject).to receive(:authorize).with(:collection).and_return(true) }
 
-    before { get :index, params: @params, format: @format }
+    before { get :index, params: request_params, format: format }
 
     it { should render_template :index }
+
+    include_examples :has_policy
   end
 end
 
-RSpec.shared_examples :destroy do |params|
-  before { @format = (params && params[:format]) || :html }
+#
+# Helpers
+#
 
-  before { @params = (params && params[:params]) || { id: 1 } }
+RSpec.shared_examples :parse_params do |params|
+  let :skip_authenticate { (params && params[:skip_authenticate]) || default_params[:skip_authenticate] }
 
-  before { @skip_authenticate = (params && params[:skip_authenticate]) || false }
+  let :format { (params && params[:format]) || default_params[:format] }
 
-  describe '#destroy' do
-    let(:resource) { double }
+  let :request_params { (params && params[:params]) || default_params[:params] }
+end
 
-    before { expect(subject).to receive(:authenticate!) unless @skip_authenticate }
+RSpec.shared_examples :authenticate_user do
+  before { expect(subject).to receive(:authenticate!) unless skip_authenticate }
+end
 
-    before { subject.instance_variable_set :@resource, resource }
+RSpec.shared_examples :authorize_resource do
+  before { allow(subject).to receive(:resource).and_return(resource) }
 
-    before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
+  before { expect(subject).to receive(:authorize).with(resource).and_return(true) }
+end
 
-    before { expect(resource).to receive(:destroy) }
+RSpec.shared_examples :has_policy do
+  it { expect { Pundit::PolicyFinder.new(described_model).policy! }.to_not raise_error }
+end
 
-    before { delete :destroy, params: @params, format: @format }
-
-    it { success.call }
+class RSpec::Core::ExampleGroup
+  def described_model
+    described_class.name.gsub(/Controller\z/, '').singularize.constantize
   end
 end
