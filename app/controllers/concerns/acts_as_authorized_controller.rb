@@ -8,9 +8,13 @@ module ActsAsAuthorizedController
       head :forbidden
     end
 
+    before_action :build_resource, only: :create
+
     before_action :authorize_resource, except: :index
 
     before_action :authorize_collection, only: :index
+
+    helper_method :parent, :collection, :resource
   end
 
   private
