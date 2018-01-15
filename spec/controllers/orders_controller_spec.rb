@@ -26,6 +26,6 @@ RSpec.describe OrdersController, type: :controller do
 
     let(:success) { -> { should render_template(:create).with_status(201) } }
 
-    let(:failure) { -> { should render_template(:errors).with_status(400) } }
+    let(:failure) { -> { should render_template(:errors).with_status(422) } }
   end
 end

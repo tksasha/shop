@@ -3,7 +3,7 @@ module Facebook
     skip_before_action :authenticate!, only: :create
 
     def create
-      render :errors, status: 400 unless resource.save
+      render :errors, status: 422 unless resource.save
     end
 
     private
