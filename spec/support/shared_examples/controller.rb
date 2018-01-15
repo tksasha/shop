@@ -1,5 +1,5 @@
 RSpec.shared_examples :show do |params|
-  let(:default_params) { { skip_authenticate: false, format: :html, params: { id: 1 } } }
+  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
 
   let(:resource) { double }
 
@@ -19,7 +19,7 @@ RSpec.shared_examples :show do |params|
 end
 
 RSpec.shared_examples :new do |params|
-  let(:default_params) { { skip_authenticate: false, format: :html, params: {} } }
+  let(:default_params) { { skip_authenticate: false, format: :json, params: {} } }
 
   let(:resource) { :resource }
 
@@ -41,7 +41,7 @@ RSpec.shared_examples :new do |params|
 end
 
 RSpec.shared_examples :create do |params|
-  let(:default_params) { { skip_authenticate: false, format: :html, params: {} } }
+  let(:default_params) { { skip_authenticate: false, format: :json, params: {} } }
 
   include_examples :parse_params, params
 
@@ -75,7 +75,7 @@ RSpec.shared_examples :create do |params|
 end
 
 RSpec.shared_examples :edit do |params|
-  let(:default_params) { { skip_authenticate: false, format: :html, params: { id: 1 } } }
+  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
 
   let(:resource) { :resource }
 
@@ -95,7 +95,7 @@ RSpec.shared_examples :edit do |params|
 end
 
 RSpec.shared_examples :update do |params|
-  let(:default_params) { { skip_authenticate: false, format: :html, params: { id: 1 } } }
+  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
 
   include_examples :parse_params, params
 
@@ -129,7 +129,7 @@ RSpec.shared_examples :update do |params|
 end
 
 RSpec.shared_examples :destroy do |params|
-  let(:default_params) { { skip_authenticate: false, format: :html, params: { id: 1 } } }
+  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
 
   let(:resource) { double }
 
@@ -151,7 +151,7 @@ RSpec.shared_examples :destroy do |params|
 end
 
 RSpec.shared_examples :index do |params|
-  let(:default_params) { { skip_authenticate: false, format: :html, params: {} } }
+  let(:default_params) { { skip_authenticate: false, format: :json, params: {} } }
 
   let(:resource) { :resource }
 
