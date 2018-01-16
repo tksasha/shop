@@ -1,13 +1,11 @@
 raise 'Are you crazy?!!!' unless Rails.env.development?
 
-exit 0
-
 16.times.map do
   filename = 'tmp/image.jpeg'
 
   file = File.open filename, 'wb+'
 
-  file.write open(Faker::LoremPixel.image('500x500')).read
+  file.write open('https://picsum.photos/500/500/?random').read
 
   file.close
 
@@ -24,7 +22,7 @@ Category.all.map do |category|
 
     file = File.open filename, 'wb+'
 
-    file.write open(Faker::LoremPixel.image('500x500')).read
+    file.write open('https://picsum.photos/500/500/?random').read
 
     file.close
 
