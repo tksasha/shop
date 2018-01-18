@@ -11,7 +11,7 @@ RSpec.describe SessionsController, type: :controller do
     context do
       before { expect(subject).to receive(:auth_token).and_return(:auth_token) }
 
-      before { expect(Session).to receive(:new).with(auth_token: :auth_token).and_return(:resource) }
+      before { expect(AuthToken).to receive(:find).with(:auth_token).and_return(:resource) }
 
       its(:resource) { should eq :resource }
     end
@@ -33,6 +33,14 @@ RSpec.describe SessionsController, type: :controller do
     before { subject.send :build_resource }
 
     its(:resource) { should eq :resource }
+  end
+
+  describe '#policy' do
+    before { expect(subject).to receive(:current_user).and_return(:current_user) }
+
+    before { expect(SessionPolicy).to receive(:new).with(:current_user, nil).and_return(:policy) }
+
+    its(:policy) { should eq :policy }
   end
 
   it_behaves_like :create, skip_authenticate: true do

@@ -13,7 +13,7 @@ class SessionsController < ApplicationController
 
   private
   def resource
-    @resource ||= Session.new auth_token: auth_token
+    @resource ||= AuthToken.find auth_token
   end
 
   def resource_params
@@ -22,5 +22,9 @@ class SessionsController < ApplicationController
 
   def build_resource
     @resource = Session.new resource_params
+  end
+
+  def policy *args
+    SessionPolicy.new current_user, nil
   end
 end

@@ -1,16 +1,11 @@
 en:
   session:
     error:
-      email:
-        invalid: 'invalid email'
-        blocked: 'user is blocked'
-        not_confirmed: 'email is not confirmed'
-      password:
-        invalid: 'invalid password'
+      not_confirmed: 'email is not confirmed'
+      blocked: 'user is blocked'
   facebook:
     session:
       error:
-        validation: 'invalid access token'
         blocked: 'user is blocked'
 
   time:
