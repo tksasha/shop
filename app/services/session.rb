@@ -1,6 +1,8 @@
 class Session
   include ActiveModel::Model
 
+  delegate :as_json, to: :auth_token, allow_nil: true
+
   attr_accessor :email, :password
 
   validates :email, :password, presence: true

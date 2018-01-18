@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Facebook::Session, type: :model do
   subject { described_class.new access_token: 'access_token'  }
 
+  it { should delegate_method(:as_json).to(:auth_token) }
+
   it { should validate_presence_of :access_token }
 
   it { expect(subject.method(:save).original_name).to eq(:valid?) }

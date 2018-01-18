@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Session, type: :model do
   subject { described_class.new email: 'one@digits.com', password: :password }
 
+  it { should delegate_method(:as_json).to(:auth_token) }
+
   it { should validate_presence_of :email }
 
   it { should validate_presence_of :password }
