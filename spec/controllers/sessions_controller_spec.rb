@@ -35,7 +35,7 @@ RSpec.describe SessionsController, type: :controller do
     its(:resource) { should eq :resource }
   end
 
-  it_behaves_like :create, skip_authenticate: true do
+  it_behaves_like :create, anonymous: true do
     let(:resource) { double }
 
     let(:success) { -> { should render_template(:create).with_status(201) } }

@@ -15,5 +15,5 @@ RSpec.describe VersionsController, type: :controller do
     end
   end
 
-  it_behaves_like :show, skip_authenticate: true
+  it_behaves_like :show, anonymous: true
 end
