@@ -76,7 +76,7 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         200:
           $ref: '#/components/responses/ProductList'
@@ -193,7 +193,7 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         name:
           type: string
         image:
