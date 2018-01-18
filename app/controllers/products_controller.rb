@@ -11,6 +11,6 @@ class ProductsController < ApplicationController
   end
 
   def collection
-    @collection ||= ProductSearcher.search(params).order(:name).page(params[:page])
+    @collection ||= ProductSearcher.search Product.order(:name).page(params[:page]), params
   end
 end

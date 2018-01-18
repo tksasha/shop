@@ -1,3 +1,5 @@
 class CategorySearcher < ApplicationSearcher
-  search_by_attributes :name
+  def search_by_name name
+    @results.search_by_name name
+  end
 end

@@ -9,20 +9,20 @@ RSpec.describe ProductsController, type: :controller do
     end
 
     context do
-      before { expect(subject).to receive(:params).twice.and_return(page: :page, param: :value) }
+      let(:params) { { page: :page, param: :value } }
+
+      before { expect(subject).to receive(:params).twice.and_return(params) }
 
       before do
         #
-        # ProductSearcher.search(page: :page, param: :value).order(:name).page(:page) -> :collection
+        # Product.order(:name).page(:page) -> :relation
         #
-        expect(ProductSearcher).to receive(:search).with(page: :page, param: :value) do
-          double.tap do |a|
-            expect(a).to receive(:order).with(:name) do
-              double.tap { |b| expect(b).to receive(:page).with(:page).and_return(:collection) }
-            end
-          end
+        expect(Product).to receive(:order).with(:name) do
+          double.tap { |a| expect(a).to receive(:page).with(:page).and_return(:relation) }
         end
       end
+
+      before { expect(ProductSearcher).to receive(:search).with(:relation, params).and_return(:collection) }
 
       its(:collection) { should eq :collection }
     end

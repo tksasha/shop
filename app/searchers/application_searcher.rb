@@ -1,47 +1,27 @@
 class ApplicationSearcher
-  def initialize params={}
+  attr_reader :results
+
+  def initialize relation, params = nil
+    @results = relation
+
     @params = params
   end
 
   def search
-    initialize_results
+    return @results unless @params.respond_to? :each
 
     @params.each do |attribute, value|
-      if value.present?
-        method_name = :"search_by_#{ attribute }"
+      method_name = :"search_by_#{ attribute }"
 
-        send method_name, value if respond_to? method_name, true
-      end
+      @results = send method_name, value if respond_to?(method_name, true)
     end
 
     @results
   end
 
-  private
-  def initialize_results
-    @results = resource_model.all
-  end
-
-  def resource_model
-    @resource_model ||= self.class.name.gsub(/Searcher\z/, '').constantize
-  end
-
   class << self
-    def search params={}
-      new(params).search
-    end
-
-    private
-    def search_by_attributes *attributes
-      attributes.each do |attribute|
-        method_name = :"search_by_#{ attribute }"
-
-        define_method method_name do |value|
-          @results = @results.send method_name, value if @results.respond_to? method_name, true
-        end
-
-        private method_name
-      end
+    def search *args
+      new(*args).search
     end
   end
 end

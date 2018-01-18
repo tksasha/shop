@@ -11,7 +11,9 @@ RSpec.describe CategoriesController, type: :controller do
     context do
       before { expect(subject).to receive(:params).and_return(:params) }
 
-      before { expect(CategorySearcher).to receive(:search).with(:params).and_return(:collection) }
+      before { expect(Category).to receive(:order).with(:slug).and_return(:relation) }
+
+      before { expect(CategorySearcher).to receive(:search).with(:relation, :params).and_return(:collection) }
 
       its(:collection) { should eq :collection }
     end

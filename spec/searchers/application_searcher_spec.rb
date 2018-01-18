@@ -1,37 +1,30 @@
 require 'rails_helper'
 
 describe ApplicationSearcher do
+  let(:relation) { double }
+
+  let(:params) { { attribute: :value } }
+
+  subject { described_class.new relation, params }
+
   describe '#search' do
-    class Dummy < described_class
-      def search_by_attr1 val; end
+    context do
+      before { def subject.search_by_attribute value; end }
 
-      def search_by_attr2 val; end
+      before { expect(subject).to receive(:search_by_attribute).with(:value).and_return(:result) }
 
-      def search_by_attr3 val; end
+      its(:search) { should eq :result }
     end
 
-    let(:params) { { attr1: 'val1', attr2: 'val2', attr3: nil } }
+    context do
+      let(:params) { nil }
 
-    subject { Dummy.new params }
-
-    before do
-      #
-      # subject.resource_model.all => :results
-      #
-      expect(subject).to receive(:resource_model) do
-        double.tap { |a| expect(a).to receive(:all).and_return(:results) }
-      end
+      its(:search) { should eq relation }
     end
-
-    before { expect(subject).to receive(:search_by_attr1).with('val1') }
-
-    before { expect(subject).to receive(:search_by_attr2).with('val2') }
-
-    its(:search) { should eq :results }
   end
 
   describe '.search' do
-    before do
+    it do
       #
       # described_class.new(params).search
       #
@@ -40,14 +33,6 @@ describe ApplicationSearcher do
       end
     end
 
-    it { expect { described_class.search :params }.to_not raise_error }
-  end
-
-  pending '.search_by_attributes' do
-    subject { described_class.send :search_by_attributes, :attr1, :attr2 }
-
-    it do
-      expect { subject } .to change { described_class.private_instance_methods } .by [:search_by_attr1, :search_by_attr2]
-    end
+    after { described_class.search :params }
   end
 end

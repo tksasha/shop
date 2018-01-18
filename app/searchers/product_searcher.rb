@@ -1,8 +1,13 @@
 class ProductSearcher < ApplicationSearcher
-  search_by_attributes :name, :description
+  def search_by_name name
+    @results.search_by_name name
+  end
 
-  private
+  def search_by_description description
+    @results.search_by_description description
+  end
+
   def search_by_category_id category_id
-    @results = @results.joins(:categories).where(categories: { slug: category_id })
+    @results.joins(:categories).where(categories: { slug: category_id })
   end
 end
