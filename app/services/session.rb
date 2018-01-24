@@ -1,7 +1,5 @@
 class Session
-  include ActiveModel::Model
-
-  delegate :as_json, to: :auth_token, allow_nil: true
+  include ActsAsSession
 
   attr_accessor :email, :password
 
@@ -14,16 +12,6 @@ class Session
 
     @password = params[:password]
   end
-
-  def persisted?
-    false
-  end
-
-  def auth_token
-    @auth_token ||= user&.auth_tokens&.create!
-  end
-
-  alias_method :save, :valid?
 
   private
   def user

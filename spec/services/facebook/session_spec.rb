@@ -1,35 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Facebook::Session, type: :model do
-  subject { described_class.new access_token: 'access_token'  }
+  subject { described_class.new access_token: 'access_token' }
 
-  it { should delegate_method(:as_json).to(:auth_token) }
+  it { should be_an ActsAsSession }
 
   it { should validate_presence_of :access_token }
-
-  it { expect(subject.method(:save).original_name).to eq(:valid?) }
-
-  its(:persisted?) { should eq false }
-
-  describe '#auth_token' do
-    context do
-      before { subject.instance_variable_set :@auth_token, :auth_token }
-
-      its(:auth_token) { should eq :auth_token }
-    end
-
-    context do
-      before { expect(subject).to receive(:user).and_return(nil) }
-
-      its(:auth_token) { should be_nil }
-    end
-
-    context do
-      before { expect(subject).to receive_message_chain(:user, :auth_tokens, :create!).and_return(:auth_token) }
-
-      its(:auth_token) { should eq :auth_token }
-    end
-  end
 
   describe '#response' do
     context do

@@ -1,8 +1,6 @@
 module Facebook
   class Session
-    include ActiveModel::Model
-
-    delegate :as_json, to: :auth_token, allow_nil: true
+    include ActsAsSession
 
     REMOTE_API = 'https://graph.facebook.com/me?fields=id,email'
 
@@ -12,19 +10,9 @@ module Facebook
 
     validate :access_token_must_be_valid
 
-    def initialize params
+    def initialize params={}
       @access_token = params[:access_token]
     end
-
-    def persisted?
-      false
-    end
-
-    def auth_token
-      @auth_token ||= user&.auth_tokens&.create!
-    end
-
-    alias_method :save, :valid?
 
     private
     def user
