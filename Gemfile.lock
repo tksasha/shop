@@ -133,6 +133,7 @@ GEM
     nio4r (2.2.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
+    oauth (0.5.4)
     paperclip (5.1.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -275,6 +276,7 @@ DEPENDENCIES
   jquery-ui-rails
   kaminari
   listen
+  oauth
   paperclip
   paranoia
   pg (~> 0.21.0)
