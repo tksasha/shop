@@ -18,4 +18,8 @@ Rails.application.routes.draw do
   namespace :facebook do
     resource :session, only: %i(create destroy)
   end
+
+  namespace :twitter do
+    resource :session, only: %i(create destroy)
+  end
 end

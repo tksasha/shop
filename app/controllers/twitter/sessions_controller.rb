@@ -1,4 +1,4 @@
-module Facebook
+module Twitter
   class SessionsController < ApplicationController
     skip_before_action :authenticate!, only: :create
 
@@ -10,7 +10,7 @@ module Facebook
     attr_reader :resource
 
     def resource_params
-      params.require(:session).permit(:access_token)
+      params.require(:session).permit(:oauth_token, :oauth_token_secret)
     end
 
     def build_resource

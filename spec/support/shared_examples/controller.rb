@@ -182,6 +182,8 @@ RSpec.shared_examples :parse_params do |params|
   let(:format) { (params && params[:format]) || default_params[:format] }
 
   let(:request_params) { (params && params[:params]) || default_params[:params] }
+
+  let(:policy) { (params && params[:policy]) || default_params[:policy] }
 end
 
 RSpec.shared_examples :authenticate_user do
@@ -195,7 +197,7 @@ RSpec.shared_examples :authorize_resource do
 end
 
 RSpec.shared_examples :has_policy do
-  it { expect { Pundit::PolicyFinder.new(described_model).policy! }.to_not raise_error }
+  it { expect { policy || Pundit::PolicyFinder.new(described_model).policy! }.to_not raise_error }
 end
 
 class RSpec::Core::ExampleGroup

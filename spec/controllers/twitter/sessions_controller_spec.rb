@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Facebook::SessionsController, type: :controller do
+RSpec.describe Twitter::SessionsController, type: :controller do
   describe '#resource' do
     context do
       before { subject.instance_variable_set :@resource, :resource }
@@ -12,7 +12,7 @@ RSpec.describe Facebook::SessionsController, type: :controller do
   end
 
   describe '#resource_params' do
-    let(:params) { acp session: { access_token: 'access_token' } }
+    let(:params) { acp session: { oauth_token: 'ABCD-EFGH-IJKL-MNOP', oauth_token_secret: 'KLMN-OPQR-STUV-WXYZ' } }
 
     before { expect(subject).to receive(:params).and_return(params) }
 
@@ -22,7 +22,7 @@ RSpec.describe Facebook::SessionsController, type: :controller do
   describe '#build_resource' do
     before { expect(subject).to receive(:resource_params).and_return(:params) }
 
-    before { expect(Facebook::Session).to receive(:new).with(:params).and_return(:resource) }
+    before { expect(Twitter::Session).to receive(:new).with(:params).and_return(:resource) }
 
     before { subject.send :build_resource }
 
