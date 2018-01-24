@@ -261,7 +261,8 @@ CREATE TABLE users (
     confirmation_token character varying,
     blocked_at timestamp without time zone,
     currency integer DEFAULT 0,
-    facebook_id bigint
+    facebook_id bigint,
+    twitter_id character varying
 );
 
 
@@ -477,6 +478,13 @@ CREATE INDEX index_purchases_on_user_id ON purchases USING btree (user_id);
 
 
 --
+-- Name: index_users_on_twitter_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_twitter_id ON users USING btree (twitter_id);
+
+
+--
 -- Name: products description_tsvector_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
@@ -581,6 +589,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171018121520'),
 ('20171018131351'),
 ('20180118153838'),
-('20180118154010');
+('20180118154010'),
+('20180124122155');
 
 

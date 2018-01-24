@@ -46,7 +46,7 @@ RSpec.describe User, type: :model do
 
   describe '#email_user?' do
     context do
-      subject { stub_model User, facebook_id: nil }
+      subject { stub_model User }
 
       its(:email_user?) { should eq true }
     end
@@ -56,10 +56,24 @@ RSpec.describe User, type: :model do
 
       its(:email_user?) { should eq false }
     end
+
+    context do
+      subject { stub_model User, twitter_id: 1 }
+
+      its(:email_user?) { should eq false }
+    end
   end
 
   context do
     subject { stub_model User, facebook_id: 1 }
+
+    it { should allow_value(nil).for :email }
+
+    it { should allow_value(nil).for :password_digest }
+  end
+
+  context do
+    subject { stub_model User, twitter_id: 1 }
 
     it { should allow_value(nil).for :email }
 

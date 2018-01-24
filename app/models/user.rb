@@ -35,6 +35,6 @@ class User < ApplicationRecord
   end
 
   def email_user?
-    facebook_id.blank?
+    facebook_id.blank? && twitter_id.blank?
   end
 end
