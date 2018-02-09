@@ -5,6 +5,8 @@ info:
 servers:
   - url: http://localhost:3000/api
     description: Local Server
+  - url: https://dry-hollows-65202.herokuapp.com
+    description: Production Server
 paths:
   /categories:
     get:
