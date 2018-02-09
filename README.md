@@ -19,21 +19,21 @@
 
 `.env`
 
-```
-//
-// it needs for Mailers
-//
+```ruby
+#
+# it needs for Mailers
+#
 HOST                 = 'localhost:3000'
 
-//
-// credentials to send email
-//
+#
+# credentials to send email
+#
 SES_SMTP_USERNAME    = ''
 SES_SMTP_PASSWORD    = ''
 
-//
-// Amazon S3 Settings
-//
+#
+# Amazon S3 Settings
+#
 S3_REGION             = 'eu-central-1'
 S3_HOST_NAME          = 's3.eu-central-1.amazonaws.com'
 S3_BUCKET             = ''
