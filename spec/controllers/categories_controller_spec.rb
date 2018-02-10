@@ -19,5 +19,5 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
-  it_behaves_like :index
+  it_behaves_like :index, skip_authenticate: true
 end

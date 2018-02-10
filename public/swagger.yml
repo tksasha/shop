@@ -78,7 +78,7 @@ paths:
           in: path
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         200:
           $ref: '#/components/responses/ProductList'
@@ -195,24 +195,12 @@ components:
       type: object
       properties:
         id:
-          type: integer
+          type: string
         name:
           type: string
-        created_at:
+        image:
           type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        image_file_name:
-          type: string
-        image_content_type:
-          type: string
-        image_file_size:
-          type: integer
-        image_updated_at:
-          type: string
-          format: date-time
+          format: uri
     Order:
       type: object
       properties:

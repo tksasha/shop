@@ -1,6 +1,8 @@
 class Category < ApplicationRecord
   include PgSearch
 
+  delegate :as_json, to: :decorate
+
   has_and_belongs_to_many :products
 
   has_attached_file :image, preserve_files: true, styles: { '500x500': '500x500#' }
