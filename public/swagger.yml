@@ -3,7 +3,7 @@ info:
   version: 0.0.1
   title: API for Shop Application for Trainees
 servers:
-  - url: http://localhost:3000/api
+  - url: http://localhost:3000
     description: Local Server
   - url: https://dry-hollows-65202.herokuapp.com
     description: Production Server
