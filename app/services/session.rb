@@ -1,13 +1,13 @@
 class Session
   include ActiveModel::Model
 
-  delegate :as_json, to: :auth_token, allow_nil: true
-
   attr_accessor :email, :password
 
   validates :email, :password, presence: true
 
   validate :user_must_exist, :password_must_pass_authentication, :user_must_not_be_blocked, :user_must_be_confirmed
+
+  delegate :as_json, to: :auth_token, allow_nil: true
 
   def initialize params = {}
     @email = params[:email]
