@@ -251,47 +251,19 @@ components:
           type: integer
         name:
           type: string
-        created_at:
+        image:
           type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-        deleted_at:
-          type: string
-          format: date-time
-        image_file_name:
-          type: string
-        image_content_type:
-          type: string
-        image_file_size:
-          type: integer
-        image_updated_at:
-          type: string
-          format: date-time
+          format: url
         description:
           type: string
-        description_tsvector:
-          type: string
-        price:
-          type: number
-        currency:
-          type: string
+          nullable: true
         amount:
           type: integer
+        price:
+          type: number
         discount_price:
           type: number
-        similarities:
-          type: array
-          items:
-            type: object
-            properties:
-              amount:
-                type: integer
-                example: 1
-              product_id:
-                type: integer
-                example: 1
+          nullable: true
     Version:
       type: object
       properties:

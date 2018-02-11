@@ -1,11 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe ProductDecorator do
-  subject { described_class.new stub_model Product, price: 2.1, discount_price: 1.1, currency: :usd }
+  let(:product) do
+    stub_model Product,
+      id: 22,
+      name: 'Food',
+      description: 'A description of product',
+      amount: 5,
+      price: 2.1,
+      discount_price: 1.1,
+      currency: :usd
+  end
+
+  subject { product.decorate }
 
   it { should delegate_method(:current_user).to(:h) }
 
   it { should delegate_method(:current_user_currency).to(:current_user).as(:currency) }
+
+  describe '#as_json' do
+    before { expect(subject).to receive(:image_url).and_return(:url) }
+
+    before { expect(subject).to receive(:price).and_return(24.99) }
+
+    before { expect(subject).to receive(:discount_price).and_return(12.99) }
+
+    its(:as_json) do
+      should eq id: 22,
+        name: 'Food',
+        description: 'A description of product',
+        image: :url,
+        amount: 5,
+        price: 24.99,
+        discount_price: 12.99
+    end
+  end
+
+  describe '#image_url' do
+    before { expect(subject).to receive_message_chain(:image, :url).and_return('/images/1.png') }
+
+    its(:image_url) { should eq 'http://test.host/images/1.png' }
+  end
 
   describe '#current_user_currency' do
     before { expect(subject).to receive(:current_user) }
