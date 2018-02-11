@@ -44,9 +44,9 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
-  it_behaves_like :index, skip_authenticate: true
+  it_behaves_like :index, anonymous: true
 
-  it_behaves_like :index, skip_authenticate: true, params: { category_id: 1 }
+  it_behaves_like :index, anonymous: true, params: { category_id: 1 }
 
   it_behaves_like :show, format: :pdf do
     let(:options) { WickedPdf.config.merge basic_auth: nil }

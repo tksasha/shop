@@ -1,5 +1,5 @@
 RSpec.shared_examples :show do |params|
-  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
+  let(:default_params) { { anonymous: false, format: :json, params: { id: 1 } } }
 
   let(:resource) { double }
 
@@ -19,7 +19,7 @@ RSpec.shared_examples :show do |params|
 end
 
 RSpec.shared_examples :new do |params|
-  let(:default_params) { { skip_authenticate: false, format: :json, params: {} } }
+  let(:default_params) { { anonymous: false, format: :json, params: {} } }
 
   let(:resource) { :resource }
 
@@ -41,7 +41,7 @@ RSpec.shared_examples :new do |params|
 end
 
 RSpec.shared_examples :create do |params|
-  let(:default_params) { { skip_authenticate: false, format: :json, params: {} } }
+  let(:default_params) { { anonymous: false, format: :json, params: {} } }
 
   include_examples :parse_params, params
 
@@ -75,7 +75,7 @@ RSpec.shared_examples :create do |params|
 end
 
 RSpec.shared_examples :edit do |params|
-  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
+  let(:default_params) { { anonymous: false, format: :json, params: { id: 1 } } }
 
   let(:resource) { :resource }
 
@@ -95,7 +95,7 @@ RSpec.shared_examples :edit do |params|
 end
 
 RSpec.shared_examples :update do |params|
-  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
+  let(:default_params) { { anonymous: false, format: :json, params: { id: 1 } } }
 
   include_examples :parse_params, params
 
@@ -129,7 +129,7 @@ RSpec.shared_examples :update do |params|
 end
 
 RSpec.shared_examples :destroy do |params|
-  let(:default_params) { { skip_authenticate: false, format: :json, params: { id: 1 } } }
+  let(:default_params) { { anonymous: false, format: :json, params: { id: 1 } } }
 
   let(:resource) { double }
 
@@ -151,7 +151,7 @@ RSpec.shared_examples :destroy do |params|
 end
 
 RSpec.shared_examples :index do |params|
-  let(:default_params) { { skip_authenticate: false, format: :json, params: {} } }
+  let(:default_params) { { anonymous: false, format: :json, params: {} } }
 
   let(:resource) { :resource }
 
@@ -177,7 +177,7 @@ end
 #
 
 RSpec.shared_examples :parse_params do |params|
-  let(:skip_authenticate) { (params && params[:skip_authenticate]) || default_params[:skip_authenticate] }
+  let(:anonymous) { (params && params[:anonymous]) || default_params[:anonymous] }
 
   let(:format) { (params && params[:format]) || default_params[:format] }
 
@@ -185,7 +185,7 @@ RSpec.shared_examples :parse_params do |params|
 end
 
 RSpec.shared_examples :authenticate_user do
-  before { expect(subject).to receive(:authenticate!) unless skip_authenticate }
+  before { expect(subject).to receive(:authenticate!) unless anonymous }
 end
 
 RSpec.shared_examples :authorize_resource do
