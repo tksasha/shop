@@ -4,10 +4,8 @@
 * Ruby on Rails >= 5.1.4
 * ImageMagick >= 7.0.7-7
 
-<!--
 # Presettings
 1. run `CREATE EXTENSION IF NOT EXISTS "pgcrypto"` in PostgreSQL console;
--->
 
 # Setting up:
 1. run `git clone https://github.com/tksasha/shop-backend shop`;
