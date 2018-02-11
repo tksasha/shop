@@ -30,7 +30,7 @@ paths:
       security:
         - Token: []
       responses:
-        200:
+        201:
           $ref: '#/components/responses/Order'
         401:
           $ref: '#/components/responses/Unauthorized'
@@ -92,7 +92,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/Purchase'
       responses:
-        200:
+        201:
           $ref: '#/components/responses/Purchase'
         401:
           $ref: '#/components/responses/Unauthorized'
@@ -149,7 +149,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/Session'
       responses:
-        200:
+        201:
           $ref: '#/components/responses/Session'
         422:
           $ref: '#/components/responses/InvalidSession'
@@ -172,7 +172,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/FacebookSession'
       responses:
-        200:
+        201:
           $ref: '#/components/responses/Session'
         422:
           $ref: '#/components/responses/InvalidFacebookSession'
@@ -184,6 +184,18 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/Version'
+  /users:
+    post:
+      tags:
+        - Users
+      summary: Sign up
+      requestBody:
+        $ref: '#/components/requestBodies/User'
+      responses:
+        201:
+          $ref: '#/components/responses/User'
+        422:
+          $ref: '#/components/responses/InvalidUser'
 components:
   securitySchemes:
     Token:
@@ -289,6 +301,23 @@ components:
               type: array
               items:
                 type: string
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+          format: email
+        roles:
+          type: array
+          items:
+            type: string
+            enum:
+              - user
+              - admin
+        currency:
+          type: string
   requestBodies:
     Purchase:
       required: true
@@ -323,6 +352,22 @@ components:
             properties:
               access_token:
                 type: string
+    User:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                format: email
+              password:
+                type: string
+                format: password
+              password_confirmation:
+                type: string
+                format: password
   responses:
     Unauthorized:
       description: Unauthorized
@@ -415,3 +460,28 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Version'
+    User:
+      description: Created User
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/User'
+    InvalidUser:
+      description: Validation errors
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: array
+                items:
+                  type: string
+              password:
+                type: array
+                items:
+                  type: string
+              password_confirmation:
+                type: array
+                items:
+                  type: string

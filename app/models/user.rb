@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  delegate :as_json, to: :decorate
+
   bitmask :roles, as: [:user, :admin]
 
   enum currency: Currency::ALLOWED

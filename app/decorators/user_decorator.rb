@@ -1,6 +1,15 @@
 class UserDecorator < Draper::Decorator
   delegate_all
 
+  def as_json *args
+    {
+      id: id,
+      email: email,
+      roles: roles,
+      currency: currency
+    }
+  end
+
   def blocked?
     model.blocked_at.present?
   end
