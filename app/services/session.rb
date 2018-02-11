@@ -1,81 +1,58 @@
 class Session
   include ActiveModel::Model
 
-  validate :user_must_exist,
-           :user_must_not_be_blocked,
-           :user_must_be_confirmed,
-           :password_must_pass_authentication
-
-  attr_accessor :id, :email, :password
+  attr_accessor :email, :password
 
   validates :email, :password, presence: true
+
+  validate :user_must_exist, :password_must_pass_authentication, :user_must_not_be_blocked, :user_must_be_confirmed
+
+  delegate :as_json, to: :auth_token, allow_nil: true
 
   def initialize params = {}
     @email = params[:email]
 
     @password = params[:password]
-
-    @auth_token = params[:auth_token]
-  end
-
-  def save
-    return false unless valid?
-
-    @persisted = !!create_auth_token&.persisted?
   end
 
   def persisted?
-    !!@persisted
-  end
-
-  def destroy
-    token = AuthToken.find_by value: @auth_token
-
-    @destroyed = token ? token.destroy : true
-  end
-
-  def destroyed?
-    !!@destroyed
+    false
   end
 
   def auth_token
-    @auth_token ||= SecureRandom.uuid
+    @auth_token ||= user&.auth_tokens&.create!
   end
+
+  alias_method :save, :valid?
 
   private
   def user
-    @user ||= User.find_by email: @email if @email.present?
+    @user ||= User.find_by email: email if email.present?
   end
 
   def user_must_exist
-    return if @email.blank?
+    return if email.blank?
 
-    errors.add :email, I18n.t('session.error.email.invalid') if user.blank?
+    errors.add :email, :invalid if user.blank?
+  end
+
+  def password_must_pass_authentication
+    return if password.blank?
+
+    return if user.blank?
+
+    errors.add :password, :invalid unless user.authenticate password
   end
 
   def user_must_not_be_blocked
     return if user.blank?
 
-    errors.add :email, I18n.t('session.error.email.blocked') if user.decorate.blocked?
+    errors.add :email, I18n.t(:blocked, scope: %i(session error)) if user.decorate.blocked?
   end
 
   def user_must_be_confirmed
     return if user.blank?
 
-    errors.add :email, I18n.t('session.error.email.not_confirmed') unless user.confirmed?
-  end
-
-  def password_must_pass_authentication
-    return if user.blank?
-
-    return if @password.blank?
-
-    errors.add :password, I18n.t('session.error.password.invalid') unless user.authenticate @password
-  end
-
-  def create_auth_token
-    return if user.blank?
-
-    user.auth_tokens.create value: auth_token
+    errors.add :email, I18n.t(:not_confirmed, scope: %i(session error)) unless user.confirmed?
   end
 end

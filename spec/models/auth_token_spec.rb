@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AuthToken, type: :model do
+  it { should delegate_method(:as_json).to(:decorate) }
+
   it { should belong_to :user }
-
-  it { should validate_presence_of :value }
-
-  it { should validate_uniqueness_of(:value).case_insensitive }
 end

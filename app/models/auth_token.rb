@@ -1,5 +1,5 @@
 class AuthToken < ApplicationRecord
-  belongs_to :user
+  delegate :as_json, to: :decorate
 
-  validates :value, presence: true, uniqueness: { case_sensitive: false }
+  belongs_to :user
 end
