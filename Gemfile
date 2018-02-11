@@ -22,6 +22,7 @@ gem 'redis'
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
 gem 'rack-cors', require: 'rack/cors'
+gem 'appsignal'
 
 group :development, :test do
   gem 'rspec-rails'

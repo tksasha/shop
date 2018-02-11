@@ -37,6 +37,11 @@ S3_HOST_NAME          = 's3.eu-central-1.amazonaws.com'
 S3_BUCKET             = ''
 S3_ACCESS_KEY_ID      = ''
 S3_SECRET_ACCESS_KEY  = ''
+
+#
+# Appsignal Settings
+#
+APPSIGNAL_PUSH_API_KEY = ''
 ```
 
 # How to deploy
