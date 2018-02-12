@@ -5,7 +5,7 @@ Rails.application.routes.draw do
 
   resources :products, only: %i(index show)
 
-  resources :categories, only: :index do
+  resources :categories, only: %i(index create) do
     resources :products, only: :index
   end
 

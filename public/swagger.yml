@@ -22,6 +22,21 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/CategoryList'
+    post:
+      tags:
+        - Categories
+      summary: Create new Category
+      security:
+        - Token: []
+      requestBody:
+        $ref: '#/components/requestBodies/Category'
+      responses:
+        200:
+          $ref: '#/components/responses/Category'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        422:
+          $ref: '#/components/responses/InvalidCategory'
   /orders:
     post:
       tags:
@@ -368,6 +383,21 @@ components:
               password_confirmation:
                 type: string
                 format: password
+    Category:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              category:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  image:
+                    type: string
+                    format: binary
   responses:
     Unauthorized:
       description: Unauthorized
@@ -455,7 +485,7 @@ components:
                 items:
                   type: string
     Version:
-      description: Validation errors
+      description: Version
       content:
         application/json:
           schema:
@@ -482,6 +512,27 @@ components:
                 items:
                   type: string
               password_confirmation:
+                type: array
+                items:
+                  type: string
+    Category:
+      description: Created Category
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Category'
+    InvalidCategory:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: array
+                items:
+                  type: string
+              image:
                 type: array
                 items:
                   type: string

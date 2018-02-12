@@ -9,9 +9,9 @@ class ProductPolicy < ApplicationPolicy
     user.present? && user.roles?(:admin)
   end
 
-  alias_method :new?, :change?
+  alias_method :create?, :change?
 
-  alias_method :edit?, :change?
+  alias_method :update?, :change?
 
   alias_method :destroy?, :change?
 end
