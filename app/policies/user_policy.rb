@@ -3,11 +3,11 @@ class UserPolicy < ApplicationPolicy
     user.present? && user.roles?(:admin)
   end
 
-  def new?
+  def create?
     !user.present?
   end
 
-  def edit?
+  def update?
     user.present? && (user.roles?(:admin) || user == resource)
   end
 
