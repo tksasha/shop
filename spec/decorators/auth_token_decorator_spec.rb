@@ -5,5 +5,9 @@ RSpec.describe AuthTokenDecorator do
 
   subject { auth_token.decorate }
 
-  its(:as_json) { should eq auth_token: 'c378231b-f7e0-4ec5-95fc-66f007ce283c' }
+  describe '#as_json' do
+    before { expect(auth_token).to receive(:user).and_return(:user) }
+
+    its(:as_json) { should eq auth_token: 'c378231b-f7e0-4ec5-95fc-66f007ce283c', user: :user }
+  end
 end
