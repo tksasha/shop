@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SimilaritySearcher do
-  let(:product) { stub_model Product, id: 49 }
-
-  subject { described_class.new product }
+  subject { described_class.new 49 }
 
   its(:product_id) { should eq 49 }
 
@@ -36,14 +34,14 @@ RSpec.describe SimilaritySearcher do
   describe '.search' do
     before do
       #
-      # described_class.new(product).search -> :collection
+      # described_class.new(49).search -> :collection
       #
-      expect(described_class).to receive(:new).with(product) do
+      expect(described_class).to receive(:new).with(49) do
         double.tap { |a| expect(a).to receive(:search).and_return(:collection) }
       end
     end
 
-    subject { described_class.search product }
+    subject { described_class.search 49 }
 
     it { should eq :collection }
   end

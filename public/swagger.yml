@@ -49,6 +49,20 @@ paths:
           $ref: '#/components/responses/Order'
         401:
           $ref: '#/components/responses/Unauthorized'
+  /products/{product_id}/similarities:
+    get:
+      tags:
+        - Products
+      summary: Get list of similar Products for a Product
+      parameters:
+        - name: product_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          $ref: '#/components/responses/ProductList'
   /products:
     get:
       tags:
