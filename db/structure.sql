@@ -176,7 +176,7 @@ CREATE TABLE products (
     price numeric,
     description text,
     description_tsvector tsvector,
-    similarities jsonb,
+    similarities jsonb DEFAULT '[]'::jsonb NOT NULL,
     currency integer DEFAULT 0,
     amount integer DEFAULT 0 NOT NULL,
     discount_price numeric
@@ -581,6 +581,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20171018121520'),
 ('20171018131351'),
 ('20180118153838'),
-('20180118154010');
+('20180118154010'),
+('20180223180844'),
+('20180223181026');
 
 
