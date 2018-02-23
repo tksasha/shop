@@ -13,7 +13,9 @@ class ProductDecorator < Draper::Decorator
       description: description,
       amount: amount,
       price: price,
-      discount_price: discount_price
+      discount_price: discount_price,
+      currency: currency,
+      category_ids: category_ids
     }
   end
 
