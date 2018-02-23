@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :confirmations, only: :show
+  resource :confirmation, only: :create
 
   resource :version, only: :show
 

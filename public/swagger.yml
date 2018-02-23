@@ -8,6 +8,18 @@ servers:
   - url: https://dry-hollows-65202.herokuapp.com
     description: Production Server
 paths:
+  /confirmation:
+    post:
+      tags:
+        - Confirmation
+      summary: Confirm email
+      requestBody:
+        $ref: '#/components/requestBodies/Confirmation'
+      responses:
+        204:
+          $ref: '#/components/responses/NoContent'
+        422:
+          $ref: '#/components/responses/InvalidConfirmation'
   /categories:
     get:
       tags:
@@ -151,7 +163,7 @@ paths:
             type: integer
       responses:
         204:
-          $ref: '#/components/responses/Deleted'
+          $ref: '#/components/responses/NoContent'
         401:
           $ref: '#/components/responses/Unauthorized'
         404:
@@ -176,7 +188,7 @@ paths:
         - Token: []
       responses:
         204:
-          $ref: '#/components/responses/Deleted'
+          $ref: '#/components/responses/NoContent'
         401:
           $ref: '#/components/responses/Unauthorized'
   /facebook/session:
@@ -334,6 +346,19 @@ components:
         currency:
           type: string
   requestBodies:
+    Confirmation:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              confirmation:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    format: uuid
     Purchase:
       required: true
       content:
@@ -403,8 +428,19 @@ components:
       description: Unauthorized
     NotFound:
       description: NotFound
-    Deleted:
-      description: Deleted
+    NoContent:
+      description: No Content
+    InvalidConfirmation:
+      description: Validation errors
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: array
+                items:
+                  type: string
     CategoryList:
       description: Category List
       content:

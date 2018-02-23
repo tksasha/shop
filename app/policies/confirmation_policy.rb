@@ -1,7 +1,5 @@
 class ConfirmationPolicy < ApplicationPolicy
-  def show?
+  def create?
     !user.present?
   end
-
-  alias_method :index?, :show?
 end

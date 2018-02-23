@@ -2,6 +2,6 @@
   <strong>Hi!</strong>
   <p>
     Thanks for registering! To confirm your registration
-    <%= link_to 'click here', @confirmation %>.
+    <%= link_to 'click here', [:confirmation, token: @token] %>.
   </p>
 </div>

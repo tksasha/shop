@@ -1,27 +1,30 @@
 class Confirmation
-  include ActiveModel::Model
+  include ActiveModel::Validations
 
-  attr_reader :user
+  attr_accessor :token
 
-  delegate :persisted?, to: :user
+  validates :token, presence: true
 
-  def initialize user
-    @user = user
+  validate :user_must_exist
+
+  def initialize params={}
+    @token = params[:token]
   end
 
-  def confirm
-    user.update(confirmed: true)
+  def save
+    return false unless valid?
+
+    user.update confirmed: true
   end
 
-  def to_param
-    user.confirmation_token
+  private
+  def user
+    @user ||= User.find_by confirmation_token: token if token.present?
   end
 
-  class << self
-    def find token
-      user = User.find_by! confirmation_token: token
+  def user_must_exist
+    return if token.blank?
 
-      Confirmation.new user
-    end
+    errors.add :token, :invalid if user.blank?
   end
 end
