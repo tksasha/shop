@@ -341,10 +341,13 @@ components:
           schema:
             type: object
             properties:
-              amount:
-                type: integer
-              product_id:
-                type: integer
+              purchase:
+                type: object
+                properties:
+                  amount:
+                    type: integer
+                  product_id:
+                    type: integer
     Session:
       required: true
       content:
@@ -352,12 +355,15 @@ components:
           schema:
             type: object
             properties:
-              email:
-                type: string
-                format: email
-              password:
-                type: string
-                format: password
+              session:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                  password:
+                    type: string
+                    format: password
     FacebookSession:
       required: true
       content:
@@ -365,8 +371,11 @@ components:
           schema:
             type: object
             properties:
-              access_token:
-                type: string
+              session:
+                type: object
+                properties:
+                  access_token:
+                    type: string
     User:
       required: true
       content:
@@ -374,15 +383,18 @@ components:
           schema:
             type: object
             properties:
-              email:
-                type: string
-                format: email
-              password:
-                type: string
-                format: password
-              password_confirmation:
-                type: string
-                format: password
+              user:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    format: email
+                  password:
+                    type: string
+                    format: password
+                  password_confirmation:
+                    type: string
+                    format: password
     Category:
       required: true
       content:
