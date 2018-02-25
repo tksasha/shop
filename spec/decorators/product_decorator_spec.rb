@@ -37,7 +37,7 @@ RSpec.describe ProductDecorator do
   end
 
   describe '#image_url' do
-    before { expect(subject).to receive_message_chain(:image, :url).and_return('/images/1.png') }
+    before { expect(subject).to receive_message_chain(:image, :url).with(:'500x500').and_return('/images/1.png') }
 
     its(:image_url) { should eq 'http://test.host/images/1.png' }
   end
