@@ -11,7 +11,7 @@ RSpec.describe SimilaritiesController, type: :controller do
     end
 
     context do
-      before { expect(subject).to receive(:params).and_return({ product_id: 28}) }
+      before { expect(subject).to receive(:params).and_return({ product_id: 28 }) }
 
       before { expect(SimilaritySearcher).to receive(:search).with(28).and_return(:collection) }
 
