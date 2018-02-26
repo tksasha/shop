@@ -3,7 +3,7 @@ require 'rails_helper'
 describe ConfirmationPolicy do
   subject { described_class }
 
-  permissions :show?, :index? do
+  permissions :new?, :create? do
     let(:resource) { double }
 
     context do
