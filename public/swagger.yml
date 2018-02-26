@@ -568,6 +568,8 @@ components:
               auth_token:
                 type: string
                 format: uuid
+              user:
+                $ref: '#/components/schemas/User'
     InvalidSession:
       description: Validation errors
       content:
