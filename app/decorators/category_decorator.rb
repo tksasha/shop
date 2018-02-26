@@ -6,6 +6,6 @@ class CategoryDecorator < Draper::Decorator
   end
 
   def image_url
-    h.image_url image.url
+    h.image_url image.url :'500x500'
   end
 end
