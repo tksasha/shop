@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resource :version, only: :show
 
-  resources :products, only: %i(index show) do
+  resources :products, only: %i(index show create)
     resources :similarities, only: :index
   end
 

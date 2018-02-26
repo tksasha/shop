@@ -44,6 +44,29 @@ RSpec.describe ProductsController, type: :controller do
     end
   end
 
+  describe '#resource_params' do
+    let(:params) do
+      acp product: {
+        name: 'Fantastic Cotton Clock', image: '', price: 24.42, description: 'Description', amount: 11,
+        discount_price: nil, currency: :usd, category_ids: [1, 3, 12]
+      }
+    end
+
+    before { expect(subject).to receive(:params).and_return(params) }
+
+    its(:resource_params) { should eq params[:product].permit! }
+  end
+
+  describe '#build_resource' do
+    before { expect(subject).to receive(:resource_params).and_return(:params) }
+
+    before { expect(Product).to receive(:new).with(:params).and_return(:resource) }
+
+    before { subject.send :build_resource }
+
+    its(:resource) { should eq :resource }
+  end
+
   it_behaves_like :index, anonymous: true
 
   it_behaves_like :index, anonymous: true, params: { category_id: 1 }
@@ -52,5 +75,13 @@ RSpec.describe ProductsController, type: :controller do
     let(:options) { WickedPdf.config.merge basic_auth: nil }
 
     before { expect(subject).to receive(:make_and_send_pdf).with('show', options) }
+  end
+
+  it_behaves_like :create do
+    let(:resource) { double }
+
+    let(:success) { -> { should render_template(:create).with_status(201) } }
+
+    let(:failure) { -> { should render_template(:errors).with_status(422) } }
   end
 end

@@ -87,6 +87,21 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/ProductList'
+    post:
+      tags:
+        - Products
+      summary: Create new Product
+      security:
+        - Token: []
+      requestBody:
+        $ref: '#/components/requestBodies/Product'
+      responses:
+        200:
+          $ref: '#/components/responses/Product'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        422:
+          $ref: '#/components/responses/InvalidProduct'
   /categories/{category_id}/products:
     get:
       tags:
@@ -305,6 +320,16 @@ components:
         discount_price:
           type: number
           nullable: true
+        currency:
+          type: string
+          enum:
+            - usd
+            - eur
+            - uah
+        category_ids:
+          type: array
+          items:
+            type: integer
     Version:
       type: object
       properties:
@@ -412,6 +437,41 @@ components:
                   image:
                     type: string
                     format: binary
+    Product:
+      required: true
+      content:
+        multipart/form-data:
+          schema:
+            type: object
+            properties:
+              product:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  image:
+                    type: string
+                    format: url
+                  description:
+                    type: string
+                    nullable: true
+                  amount:
+                    type: integer
+                  price:
+                    type: number
+                  discount_price:
+                    type: number
+                    nullable: true
+                  currency:
+                    type: string
+                    enum:
+                      - usd
+                      - eur
+                      - uah
+                  category_ids:
+                    type: array
+                    items:
+                      type: integer
   responses:
     Unauthorized:
       description: Unauthorized
@@ -536,7 +596,7 @@ components:
           schema:
             $ref: '#/components/schemas/Category'
     InvalidCategory:
-      description: Validation error
+      description: Validation errors
       content:
         application/json:
           schema:
@@ -547,6 +607,51 @@ components:
                 items:
                   type: string
               image:
+                type: array
+                items:
+                  type: string
+    Product:
+      description: Created Product
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Product'
+    InvalidProduct:
+      description: Validation errors
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              name:
+                type: array
+                items:
+                  type: string
+              image:
+                type: array
+                items:
+                  type: string
+              description:
+                type: array
+                items:
+                  type: string
+              amount:
+                type: array
+                items:
+                  type: string
+              price:
+                type: array
+                items:
+                  type: string
+              discount_price:
+                type: array
+                items:
+                  type: string
+              currency:
+                type: array
+                items:
+                  type: string
+              category_ids:
                 type: array
                 items:
                   type: string

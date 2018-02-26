@@ -25,6 +25,8 @@ RSpec.describe ProductDecorator do
 
     before { expect(subject).to receive(:discount_price).and_return(12.99) }
 
+    before { expect(subject).to receive(:category_ids).and_return(:category_ids) }
+
     its(:as_json) do
       should eq id: 22,
         name: 'Food',
@@ -32,7 +34,9 @@ RSpec.describe ProductDecorator do
         image: :url,
         amount: 5,
         price: 24.99,
-        discount_price: 12.99
+        discount_price: 12.99,
+        currency: 'usd',
+        category_ids: :category_ids
     end
   end
 
