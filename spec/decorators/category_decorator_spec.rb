@@ -8,7 +8,7 @@ RSpec.describe CategoryDecorator do
   describe '#as_json' do
     before { expect(subject).to receive(:image_url).and_return(:url) }
 
-    its(:as_json) { should eq id: 'food-and-drinks', name: 'Food and Drinks', image: :url }
+    its(:as_json) { should eq id: 28, slug: 'food-and-drinks', name: 'Food and Drinks', image: :url }
   end
 
   describe '#image_url' do
