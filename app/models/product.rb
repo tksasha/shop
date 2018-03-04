@@ -33,6 +33,8 @@ class Product < ApplicationRecord
 
   pg_search_scope :search_by_name, against: :name, using: :trigram
 
+  paginates_per 24
+
   scope :present, -> { where 'amount > 0' }
 
   enum currency: Currency::ALLOWED
