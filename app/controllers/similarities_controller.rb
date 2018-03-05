@@ -3,6 +3,6 @@ class SimilaritiesController < ApplicationController
 
   private
   def collection
-    @collection ||= SimilaritySearcher.search params[:product_id]
+    @collection ||= SimilaritySearcher.search params
   end
 end

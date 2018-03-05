@@ -1,8 +1,8 @@
 class SimilaritySearcher
   attr_reader :product_id
 
-  def initialize product_id
-    @product_id = product_id
+  def initialize params
+    @product_id = params[:product_id]
   end
 
   def search
