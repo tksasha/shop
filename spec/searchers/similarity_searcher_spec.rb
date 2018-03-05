@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe SimilaritySearcher do
-  subject { described_class.new 49 }
+  subject { described_class.new product_id: 49 }
 
   its(:product_id) { should eq 49 }
 
