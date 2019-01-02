@@ -9,7 +9,7 @@ RSpec.describe Order, type: :model do
 
   it { should have_state :created }
 
-  it { should callback(:perform_update_similarities_job).after(:commit).on(:create) }
+  pending { should callback(:perform_update_similarities_job).after(:commit).on(:create) }
 
   describe '#perform_update_similarities_job' do
     before { expect(UpdateSimilaritiesJob).to receive(:perform_later).with(subject) }

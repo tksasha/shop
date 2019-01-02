@@ -5,7 +5,7 @@ RSpec.describe Purchase, type: :model do
 
   it { should belong_to :product }
 
-  it { should belong_to(:order).counter_cache(true) }
+  it { should belong_to(:order).counter_cache.optional }
 
   it { should validate_presence_of :amount }
 

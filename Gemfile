@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '~> 2.5.0'
-
 gem 'rails'
 gem 'puma'
 gem 'bcrypt'
@@ -13,9 +11,9 @@ gem 'bitmask_attributes'
 gem 'dotenv-rails'
 gem 'paranoia'
 gem 'paperclip'
-gem 'aws-sdk', '~> 2.3.0'
+gem 'aws-sdk-s3'
 gem 'sidekiq'
-gem 'pg', '~> 0.21.0'
+gem 'pg'
 gem 'aasm'
 gem 'pg_search'
 gem 'redis'
@@ -34,7 +32,7 @@ group :development do
 end
 
 group :test do
-  gem 'shoulda-matchers'
+  gem 'shoulda-matchers', '4.0.0.rc1'
   gem 'shoulda-callback-matchers'
   gem 'rspec-its'
   gem 'rspec-activemodel-mocks'

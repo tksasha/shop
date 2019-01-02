@@ -13,7 +13,7 @@ RSpec.describe User, type: :model do
 
   it { should validate_presence_of :email }
 
-  it { should define_enum_for(:currency).with(Currency::ALLOWED) }
+  it { should define_enum_for(:currency).with_values(Currency::ALLOWED) }
 
   context do
     before { allow(subject).to receive(:send_confirmation_email) }
@@ -29,7 +29,7 @@ RSpec.describe User, type: :model do
 
   it { should validate_presence_of :roles }
 
-  it { should callback(:send_confirmation_email).after(:commit).on(:create) }
+  pending { should callback(:send_confirmation_email).after(:commit).on(:create) }
 
   describe '#send_confirmation_email' do
     subject { UserFactory.build email: 'to@example.com', password_digest: 'password_digest' }

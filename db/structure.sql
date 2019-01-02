@@ -3,23 +3,10 @@ SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 SET row_security = off;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 --
 -- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
@@ -49,8 +36,6 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 
-SET search_path = public, pg_catalog;
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -59,7 +44,7 @@ SET default_with_oids = false;
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE ar_internal_metadata (
+CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
     created_at timestamp without time zone NOT NULL,
@@ -71,8 +56,8 @@ CREATE TABLE ar_internal_metadata (
 -- Name: auth_tokens; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE auth_tokens (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+CREATE TABLE public.auth_tokens (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     user_id bigint,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -83,14 +68,14 @@ CREATE TABLE auth_tokens (
 -- Name: categories; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE categories (
+CREATE TABLE public.categories (
     id bigint NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     image_file_name character varying,
     image_content_type character varying,
-    image_file_size integer,
+    image_file_size bigint,
     image_updated_at timestamp without time zone,
     slug character varying NOT NULL
 );
@@ -100,7 +85,7 @@ CREATE TABLE categories (
 -- Name: categories_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE categories_id_seq
+CREATE SEQUENCE public.categories_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -112,14 +97,14 @@ CREATE SEQUENCE categories_id_seq
 -- Name: categories_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE categories_id_seq OWNED BY categories.id;
+ALTER SEQUENCE public.categories_id_seq OWNED BY public.categories.id;
 
 
 --
 -- Name: categories_products; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE categories_products (
+CREATE TABLE public.categories_products (
     category_id bigint,
     product_id bigint
 );
@@ -129,7 +114,7 @@ CREATE TABLE categories_products (
 -- Name: orders; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE orders (
+CREATE TABLE public.orders (
     id bigint NOT NULL,
     aasm_state character varying,
     created_at timestamp without time zone NOT NULL,
@@ -144,7 +129,7 @@ CREATE TABLE orders (
 -- Name: orders_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE orders_id_seq
+CREATE SEQUENCE public.orders_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -156,14 +141,14 @@ CREATE SEQUENCE orders_id_seq
 -- Name: orders_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE orders_id_seq OWNED BY orders.id;
+ALTER SEQUENCE public.orders_id_seq OWNED BY public.orders.id;
 
 
 --
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE products (
+CREATE TABLE public.products (
     id bigint NOT NULL,
     name character varying,
     created_at timestamp without time zone NOT NULL,
@@ -171,7 +156,7 @@ CREATE TABLE products (
     deleted_at timestamp without time zone,
     image_file_name character varying,
     image_content_type character varying,
-    image_file_size integer,
+    image_file_size bigint,
     image_updated_at timestamp without time zone,
     price numeric,
     description text,
@@ -187,7 +172,7 @@ CREATE TABLE products (
 -- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE products_id_seq
+CREATE SEQUENCE public.products_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -199,14 +184,14 @@ CREATE SEQUENCE products_id_seq
 -- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE products_id_seq OWNED BY products.id;
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
 
 
 --
 -- Name: purchases; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE purchases (
+CREATE TABLE public.purchases (
     id bigint NOT NULL,
     user_id bigint,
     product_id bigint,
@@ -222,7 +207,7 @@ CREATE TABLE purchases (
 -- Name: purchases_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE purchases_id_seq
+CREATE SEQUENCE public.purchases_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -234,14 +219,14 @@ CREATE SEQUENCE purchases_id_seq
 -- Name: purchases_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE purchases_id_seq OWNED BY purchases.id;
+ALTER SEQUENCE public.purchases_id_seq OWNED BY public.purchases.id;
 
 
 --
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE schema_migrations (
+CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
 
@@ -250,7 +235,7 @@ CREATE TABLE schema_migrations (
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE users (
+CREATE TABLE public.users (
     id bigint NOT NULL,
     email character varying,
     password_digest character varying,
@@ -269,7 +254,7 @@ CREATE TABLE users (
 -- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE users_id_seq
+CREATE SEQUENCE public.users_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -281,14 +266,14 @@ CREATE SEQUENCE users_id_seq
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE users_id_seq OWNED BY users.id;
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
 -- Name: versions; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE versions (
+CREATE TABLE public.versions (
     ios_minimal_recomended character varying DEFAULT '0.0.0'::character varying,
     ios_minimal_compatible character varying DEFAULT '0.0.0'::character varying,
     ios_blocked character varying[] DEFAULT '{}'::character varying[],
@@ -304,42 +289,42 @@ CREATE TABLE versions (
 -- Name: categories id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY categories ALTER COLUMN id SET DEFAULT nextval('categories_id_seq'::regclass);
+ALTER TABLE ONLY public.categories ALTER COLUMN id SET DEFAULT nextval('public.categories_id_seq'::regclass);
 
 
 --
 -- Name: orders id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY orders ALTER COLUMN id SET DEFAULT nextval('orders_id_seq'::regclass);
+ALTER TABLE ONLY public.orders ALTER COLUMN id SET DEFAULT nextval('public.orders_id_seq'::regclass);
 
 
 --
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY products ALTER COLUMN id SET DEFAULT nextval('products_id_seq'::regclass);
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
 
 
 --
 -- Name: purchases id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY purchases ALTER COLUMN id SET DEFAULT nextval('purchases_id_seq'::regclass);
+ALTER TABLE ONLY public.purchases ALTER COLUMN id SET DEFAULT nextval('public.purchases_id_seq'::regclass);
 
 
 --
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users ALTER COLUMN id SET DEFAULT nextval('users_id_seq'::regclass);
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ar_internal_metadata
+ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
 
 
@@ -347,7 +332,7 @@ ALTER TABLE ONLY ar_internal_metadata
 -- Name: auth_tokens auth_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY auth_tokens
+ALTER TABLE ONLY public.auth_tokens
     ADD CONSTRAINT auth_tokens_pkey PRIMARY KEY (id);
 
 
@@ -355,7 +340,7 @@ ALTER TABLE ONLY auth_tokens
 -- Name: categories categories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY categories
+ALTER TABLE ONLY public.categories
     ADD CONSTRAINT categories_pkey PRIMARY KEY (id);
 
 
@@ -363,7 +348,7 @@ ALTER TABLE ONLY categories
 -- Name: orders orders_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY orders
+ALTER TABLE ONLY public.orders
     ADD CONSTRAINT orders_pkey PRIMARY KEY (id);
 
 
@@ -371,7 +356,7 @@ ALTER TABLE ONLY orders
 -- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY products
+ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
 
@@ -379,7 +364,7 @@ ALTER TABLE ONLY products
 -- Name: purchases purchases_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY purchases
+ALTER TABLE ONLY public.purchases
     ADD CONSTRAINT purchases_pkey PRIMARY KEY (id);
 
 
@@ -387,7 +372,7 @@ ALTER TABLE ONLY purchases
 -- Name: schema_migrations schema_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY schema_migrations
+ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
 
 
@@ -395,7 +380,7 @@ ALTER TABLE ONLY schema_migrations
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY users
+ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
 
 
@@ -403,140 +388,140 @@ ALTER TABLE ONLY users
 -- Name: description_tsvector_index; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX description_tsvector_index ON products USING gin (description_tsvector);
+CREATE INDEX description_tsvector_index ON public.products USING gin (description_tsvector);
 
 
 --
 -- Name: index_auth_tokens_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_auth_tokens_on_user_id ON auth_tokens USING btree (user_id);
+CREATE INDEX index_auth_tokens_on_user_id ON public.auth_tokens USING btree (user_id);
 
 
 --
 -- Name: index_categories_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_categories_on_name ON categories USING gist (name gist_trgm_ops);
+CREATE INDEX index_categories_on_name ON public.categories USING gist (name public.gist_trgm_ops);
 
 
 --
 -- Name: index_categories_products_on_category_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_categories_products_on_category_id ON categories_products USING btree (category_id);
+CREATE INDEX index_categories_products_on_category_id ON public.categories_products USING btree (category_id);
 
 
 --
 -- Name: index_categories_products_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_categories_products_on_product_id ON categories_products USING btree (product_id);
+CREATE INDEX index_categories_products_on_product_id ON public.categories_products USING btree (product_id);
 
 
 --
 -- Name: index_orders_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_orders_on_user_id ON orders USING btree (user_id);
+CREATE INDEX index_orders_on_user_id ON public.orders USING btree (user_id);
 
 
 --
 -- Name: index_products_on_deleted_at; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_deleted_at ON products USING btree (deleted_at);
+CREATE INDEX index_products_on_deleted_at ON public.products USING btree (deleted_at);
 
 
 --
 -- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_products_on_name ON products USING gist (name gist_trgm_ops);
+CREATE INDEX index_products_on_name ON public.products USING gist (name public.gist_trgm_ops);
 
 
 --
 -- Name: index_purchases_on_order_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_order_id ON purchases USING btree (order_id);
+CREATE INDEX index_purchases_on_order_id ON public.purchases USING btree (order_id);
 
 
 --
 -- Name: index_purchases_on_product_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_product_id ON purchases USING btree (product_id);
+CREATE INDEX index_purchases_on_product_id ON public.purchases USING btree (product_id);
 
 
 --
 -- Name: index_purchases_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_purchases_on_user_id ON purchases USING btree (user_id);
+CREATE INDEX index_purchases_on_user_id ON public.purchases USING btree (user_id);
 
 
 --
 -- Name: products description_tsvector_update; Type: TRIGGER; Schema: public; Owner: -
 --
 
-CREATE TRIGGER description_tsvector_update BEFORE INSERT OR UPDATE ON products FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('description_tsvector', 'pg_catalog.english', 'description');
+CREATE TRIGGER description_tsvector_update BEFORE INSERT OR UPDATE ON public.products FOR EACH ROW EXECUTE PROCEDURE tsvector_update_trigger('description_tsvector', 'pg_catalog.english', 'description');
 
 
 --
 -- Name: purchases fk_rails_0d630f0bc7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_0d630f0bc7 FOREIGN KEY (product_id) REFERENCES products(id);
+ALTER TABLE ONLY public.purchases
+    ADD CONSTRAINT fk_rails_0d630f0bc7 FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
 -- Name: auth_tokens fk_rails_0d66c22f4c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY auth_tokens
-    ADD CONSTRAINT fk_rails_0d66c22f4c FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY public.auth_tokens
+    ADD CONSTRAINT fk_rails_0d66c22f4c FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
 -- Name: purchases fk_rails_2888c5cba9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_2888c5cba9 FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY public.purchases
+    ADD CONSTRAINT fk_rails_2888c5cba9 FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
 -- Name: categories_products fk_rails_a1088dab8c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY categories_products
-    ADD CONSTRAINT fk_rails_a1088dab8c FOREIGN KEY (category_id) REFERENCES categories(id);
+ALTER TABLE ONLY public.categories_products
+    ADD CONSTRAINT fk_rails_a1088dab8c FOREIGN KEY (category_id) REFERENCES public.categories(id);
 
 
 --
 -- Name: purchases fk_rails_a9d81871ca; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY purchases
-    ADD CONSTRAINT fk_rails_a9d81871ca FOREIGN KEY (order_id) REFERENCES orders(id);
+ALTER TABLE ONLY public.purchases
+    ADD CONSTRAINT fk_rails_a9d81871ca FOREIGN KEY (order_id) REFERENCES public.orders(id);
 
 
 --
 -- Name: categories_products fk_rails_ef34d93ed9; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY categories_products
-    ADD CONSTRAINT fk_rails_ef34d93ed9 FOREIGN KEY (product_id) REFERENCES products(id);
+ALTER TABLE ONLY public.categories_products
+    ADD CONSTRAINT fk_rails_ef34d93ed9 FOREIGN KEY (product_id) REFERENCES public.products(id);
 
 
 --
 -- Name: orders fk_rails_f868b47f6a; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY orders
-    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES users(id);
+ALTER TABLE ONLY public.orders
+    ADD CONSTRAINT fk_rails_f868b47f6a FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
