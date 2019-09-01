@@ -27,7 +27,7 @@ class User < ApplicationRecord
     end
   end
 
-  validates :email, uniqueness: { case_sensitive: false }, email: true, allow_nil: true
+  validates :email, uniqueness: { case_sensitive: false }, format: { with: EMAIL_REGEXP }, allow_nil: true
 
   validates :roles, presence: true
 

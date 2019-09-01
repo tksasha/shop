@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  include PgSearch
+  include PgSearch::Model
 
   delegate :as_json, to: :decorate
 

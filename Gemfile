@@ -4,7 +4,6 @@ gem 'rails'
 gem 'puma'
 gem 'bcrypt'
 gem 'draper'
-gem 'email_validator'
 gem 'pundit'
 gem 'kaminari'
 gem 'bitmask_attributes'
@@ -23,7 +22,7 @@ gem 'rack-cors', require: 'rack/cors'
 gem 'appsignal'
 
 group :development, :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 4.0.0.beta2'
 end
 
 group :development do
@@ -32,7 +31,7 @@ group :development do
 end
 
 group :test do
-  gem 'shoulda-matchers', '4.0.0.rc1'
+  gem 'shoulda-matchers'
   gem 'shoulda-callback-matchers'
   gem 'rspec-its'
   gem 'rspec-activemodel-mocks'
